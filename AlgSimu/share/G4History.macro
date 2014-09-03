@@ -1,0 +1,71 @@
+/run/verbose 1
+/tracking/storeTrajectory 2
+/run/initialize
+/control/execute Ex_pion.mac
+/gps/source/clear
+/gps/source/add 1
+/gps/particle pi-
+/gps/pos/type Plane
+/gps/pos/shape Circle
+/gps/pos/centre 13.75 13.75 -10000.0 mm
+/gps/pos/radius 0.5 cm
+/gps/pos/sigma_r 0.25 cm
+/gps/direction 0 0 1
+/gps/ene/type Mono
+/gps/ene/mono 2000. MeV
+/run/beamOn 2
+/vis/scene/notifyHandlers scene-0
+/run/particle/addProcManager C6[0.0]
+/run/particle/addProcManager C7[0.0]
+/run/particle/addProcManager Al27[0.0]
+/run/particle/addProcManager C12[0.0]
+/run/particle/addProcManager C13[0.0]
+/run/particle/addProcManager O16[0.0]
+/run/particle/addProcManager O17[0.0]
+/run/particle/addProcManager O18[0.0]
+/run/particle/addProcManager Br79[0.0]
+/run/particle/addProcManager Br81[0.0]
+/run/particle/addProcManager Si28[0.0]
+/run/particle/addProcManager Si29[0.0]
+/run/particle/addProcManager Si30[0.0]
+/run/particle/addProcManager Fe54[0.0]
+/run/particle/addProcManager Fe56[0.0]
+/run/particle/addProcManager Fe57[0.0]
+/run/particle/addProcManager Fe58[0.0]
+/run/particle/addProcManager Ca40[0.0]
+/run/particle/addProcManager Ca42[0.0]
+/run/particle/addProcManager Ca43[0.0]
+/run/particle/addProcManager Ca44[0.0]
+/run/particle/addProcManager Ca46[0.0]
+/run/particle/addProcManager Ca48[0.0]
+/run/particle/addProcManager Mg24[0.0]
+/run/particle/addProcManager Mg25[0.0]
+/run/particle/addProcManager Mg26[0.0]
+/run/particle/addProcManager Na23[0.0]
+/run/particle/addProcManager Ti46[0.0]
+/run/particle/addProcManager Ti47[0.0]
+/run/particle/addProcManager Ti48[0.0]
+/run/particle/addProcManager Ti49[0.0]
+/run/particle/addProcManager Ti50[0.0]
+/run/particle/addProcManager W180[0.0]
+/run/particle/addProcManager W182[0.0]
+/run/particle/addProcManager W183[0.0]
+/run/particle/addProcManager W184[0.0]
+/run/particle/addProcManager W186[0.0]
+/run/particle/addProcManager Bi209[0.0]
+/run/particle/addProcManager Ge70[0.0]
+/run/particle/addProcManager Ge72[0.0]
+/run/particle/addProcManager Ge73[0.0]
+/run/particle/addProcManager Ge74[0.0]
+/run/particle/addProcManager Ge76[0.0]
+/run/particle/addProcManager Ta184[0.0]
+/run/particle/addProcManager Ta172[0.0]
+/run/particle/addProcManager Hf170[0.0]
+/run/particle/addProcManager Zn72[0.0]
+/run/particle/addProcManager Zn70[0.0]
+/run/particle/addProcManager As73[0.0]
+/run/particle/addProcManager Ge71[0.0]
+/run/particle/addProcManager Bi202[0.0]
+/run/particle/addProcManager Bi207[0.0]
+/run/particle/addProcManager B5[0.0]
+/run/particle/addProcManager B6[0.0]
