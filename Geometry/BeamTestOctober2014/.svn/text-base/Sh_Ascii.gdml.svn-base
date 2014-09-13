@@ -1,0 +1,245 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no" ?>
+<gdml xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="../GDMLSchema/gdml.xsd">
+
+  <define>
+    <position name="Sh_Ascii.stl_v0" unit="cm" x="-300.278151214123" y="-1.21865999698639" z="-669"/>
+    <position name="Sh_Ascii.stl_v1" unit="cm" x="-300.278151214123" y="-1.21865999698639" z="-668"/>
+    <position name="Sh_Ascii.stl_v2" unit="cm" x="-300" y="-1.25" z="-669"/>
+    <position name="Sh_Ascii.stl_v3" unit="cm" x="-300.54235470295" y="-1.12621104717255" z="-668"/>
+    <position name="Sh_Ascii.stl_v4" unit="cm" x="-300.54235470295" y="-1.12621104717255" z="-669"/>
+    <position name="Sh_Ascii.stl_v5" unit="cm" x="-300.7793623209" y="-0.977289378643036" z="-668"/>
+    <position name="Sh_Ascii.stl_v6" unit="cm" x="-300.7793623209" y="-0.977289378643036" z="-669"/>
+    <position name="Sh_Ascii.stl_v7" unit="cm" x="-300.977289378643" y="-0.779362320899963" z="-668"/>
+    <position name="Sh_Ascii.stl_v8" unit="cm" x="-300.977289378643" y="-0.779362320899963" z="-669"/>
+    <position name="Sh_Ascii.stl_v9" unit="cm" x="-301.126211047173" y="-0.542354702949524" z="-668"/>
+    <position name="Sh_Ascii.stl_v10" unit="cm" x="-301.126211047173" y="-0.542354702949524" z="-669"/>
+    <position name="Sh_Ascii.stl_v11" unit="cm" x="-301.218659996986" y="-0.278151214122772" z="-668"/>
+    <position name="Sh_Ascii.stl_v12" unit="cm" x="-301.218659996986" y="-0.278151214122772" z="-669"/>
+    <position name="Sh_Ascii.stl_v13" unit="cm" x="-301.25" y="-2.13238596295491e-14" z="-668"/>
+    <position name="Sh_Ascii.stl_v14" unit="cm" x="-301.25" y="-2.10176995707641e-14" z="-669"/>
+    <position name="Sh_Ascii.stl_v15" unit="cm" x="-301.218659996986" y="0.278151214122772" z="-668"/>
+    <position name="Sh_Ascii.stl_v16" unit="cm" x="-301.218659996986" y="0.278151214122772" z="-669"/>
+    <position name="Sh_Ascii.stl_v17" unit="cm" x="-301.126211047173" y="0.542354702949524" z="-668"/>
+    <position name="Sh_Ascii.stl_v18" unit="cm" x="-301.126211047173" y="0.542354702949524" z="-669"/>
+    <position name="Sh_Ascii.stl_v19" unit="cm" x="-300.977289378643" y="0.779362320899963" z="-668"/>
+    <position name="Sh_Ascii.stl_v20" unit="cm" x="-300.977289378643" y="0.779362320899963" z="-669"/>
+    <position name="Sh_Ascii.stl_v21" unit="cm" x="-300.7793623209" y="0.977289378643036" z="-668"/>
+    <position name="Sh_Ascii.stl_v22" unit="cm" x="-300.7793623209" y="0.977289378643036" z="-669"/>
+    <position name="Sh_Ascii.stl_v23" unit="cm" x="-300.54235470295" y="1.12621104717255" z="-668"/>
+    <position name="Sh_Ascii.stl_v24" unit="cm" x="-300.54235470295" y="1.12621104717255" z="-669"/>
+    <position name="Sh_Ascii.stl_v25" unit="cm" x="-300.278151214123" y="1.21865999698639" z="-668"/>
+    <position name="Sh_Ascii.stl_v26" unit="cm" x="-300.278151214123" y="1.21865999698639" z="-669"/>
+    <position name="Sh_Ascii.stl_v27" unit="cm" x="-300" y="1.25" z="-668"/>
+    <position name="Sh_Ascii.stl_v28" unit="cm" x="-300" y="1.25" z="-669"/>
+    <position name="Sh_Ascii.stl_v29" unit="cm" x="-299.721848785877" y="1.21865999698639" z="-668"/>
+    <position name="Sh_Ascii.stl_v30" unit="cm" x="-299.721848785877" y="1.21865999698639" z="-669"/>
+    <position name="Sh_Ascii.stl_v31" unit="cm" x="-299.45764529705" y="1.12621104717255" z="-668"/>
+    <position name="Sh_Ascii.stl_v32" unit="cm" x="-299.45764529705" y="1.12621104717255" z="-669"/>
+    <position name="Sh_Ascii.stl_v33" unit="cm" x="-299.2206376791" y="0.977289378643036" z="-668"/>
+    <position name="Sh_Ascii.stl_v34" unit="cm" x="-299.2206376791" y="0.977289378643036" z="-669"/>
+    <position name="Sh_Ascii.stl_v35" unit="cm" x="-299.022710621357" y="0.779362320899963" z="-668"/>
+    <position name="Sh_Ascii.stl_v36" unit="cm" x="-299.022710621357" y="0.779362320899963" z="-669"/>
+    <position name="Sh_Ascii.stl_v37" unit="cm" x="-298.873788952827" y="0.542354702949524" z="-668"/>
+    <position name="Sh_Ascii.stl_v38" unit="cm" x="-298.873788952827" y="0.542354702949524" z="-669"/>
+    <position name="Sh_Ascii.stl_v39" unit="cm" x="-298.781340003014" y="0.278151214122772" z="-668"/>
+    <position name="Sh_Ascii.stl_v40" unit="cm" x="-298.781340003014" y="0.278151214122772" z="-669"/>
+    <position name="Sh_Ascii.stl_v41" unit="cm" x="-298.75" y="-2.32381388437508e-14" z="-668"/>
+    <position name="Sh_Ascii.stl_v42" unit="cm" x="-298.75" y="-2.32381388437508e-14" z="-669"/>
+    <position name="Sh_Ascii.stl_v43" unit="cm" x="-298.781340003014" y="-0.278151214122772" z="-668"/>
+    <position name="Sh_Ascii.stl_v44" unit="cm" x="-298.781340003014" y="-0.278151214122772" z="-669"/>
+    <position name="Sh_Ascii.stl_v45" unit="cm" x="-298.873788952827" y="-0.542354702949524" z="-668"/>
+    <position name="Sh_Ascii.stl_v46" unit="cm" x="-298.873788952827" y="-0.542354702949524" z="-669"/>
+    <position name="Sh_Ascii.stl_v47" unit="cm" x="-299.022710621357" y="-0.779362320899963" z="-668"/>
+    <position name="Sh_Ascii.stl_v48" unit="cm" x="-299.022710621357" y="-0.779362320899963" z="-669"/>
+    <position name="Sh_Ascii.stl_v49" unit="cm" x="-299.2206376791" y="-0.977289378643036" z="-668"/>
+    <position name="Sh_Ascii.stl_v50" unit="cm" x="-299.2206376791" y="-0.977289378643036" z="-669"/>
+    <position name="Sh_Ascii.stl_v51" unit="cm" x="-299.45764529705" y="-1.12621104717255" z="-668"/>
+    <position name="Sh_Ascii.stl_v52" unit="cm" x="-299.45764529705" y="-1.12621104717255" z="-669"/>
+    <position name="Sh_Ascii.stl_v53" unit="cm" x="-299.721848785877" y="-1.21865999698639" z="-668"/>
+    <position name="Sh_Ascii.stl_v54" unit="cm" x="-299.721848785877" y="-1.21865999698639" z="-669"/>
+    <position name="Sh_Ascii.stl_v55" unit="cm" x="-300" y="-1.25" z="-668"/>
+    <position name="Sh_Ascii.stl_v56" unit="cm" x="-275" y="7.5" z="-668"/>
+    <position name="Sh_Ascii.stl_v57" unit="cm" x="-275" y="-7.5" z="-668"/>
+    <position name="Sh_Ascii.stl_v58" unit="cm" x="-325" y="-7.5" z="-668"/>
+    <position name="Sh_Ascii.stl_v59" unit="cm" x="-325" y="7.5" z="-668"/>
+    <position name="Sh_Ascii.stl_v60" unit="cm" x="-275" y="-7.5" z="-669"/>
+    <position name="Sh_Ascii.stl_v61" unit="cm" x="-325" y="-7.5" z="-669"/>
+    <position name="Sh_Ascii.stl_v62" unit="cm" x="-275" y="7.5" z="-669"/>
+    <position name="Sh_Ascii.stl_v63" unit="cm" x="-325" y="7.5" z="-669"/>
+  </define>
+
+  <materials>
+    <!-- Plastic Scintillator -->
+    <isotope N="1" Z="1" name="H1">
+      <atom unit="g/mole" value="1.00782503081372"/>
+    </isotope>
+    <isotope N="2" Z="1" name="H2">
+      <atom unit="g/mole" value="2.01410199966617"/>
+    </isotope>
+    <element name="Hydrogen_material_beamtest">
+      <fraction n="0.999885" ref="H1"/>
+      <fraction n="0.000115" ref="H2"/>
+    </element>
+    <isotope N="12" Z="6" name="C12">
+      <atom unit="g/mole" value="12"/>
+    </isotope>
+    <isotope N="13" Z="6" name="C13">
+      <atom unit="g/mole" value="13.0034"/>
+    </isotope>
+    <element name="Carbon_material_beam_test">
+      <fraction n="0.9893" ref="C12"/>
+      <fraction n="0.0107" ref="C13"/>
+    </element>
+    <material name="PLasticScintillatorMaterialBeamTest" state="solid">
+      <MEE unit="eV" value="64.7"/>
+      <D unit="g/cm3" value="1.032"/>
+      <fraction n="0.085" ref="Hydrogen_material_beamtest"/>
+      <fraction n="0.915" ref="Carbon_material_beam_test"/>
+    </material>
+  </materials>
+
+  <solids>
+    <tessellated aunit="deg" lunit="cm" name="Sh_Ascii.stl0x1a60f20">
+      <triangular vertex1="Sh_Ascii.stl_v0" vertex2="Sh_Ascii.stl_v1" vertex3="Sh_Ascii.stl_v2"/>
+      <triangular vertex1="Sh_Ascii.stl_v0" vertex2="Sh_Ascii.stl_v3" vertex3="Sh_Ascii.stl_v1"/>
+      <triangular vertex1="Sh_Ascii.stl_v0" vertex2="Sh_Ascii.stl_v4" vertex3="Sh_Ascii.stl_v3"/>
+      <triangular vertex1="Sh_Ascii.stl_v3" vertex2="Sh_Ascii.stl_v4" vertex3="Sh_Ascii.stl_v5"/>
+      <triangular vertex1="Sh_Ascii.stl_v5" vertex2="Sh_Ascii.stl_v4" vertex3="Sh_Ascii.stl_v6"/>
+      <triangular vertex1="Sh_Ascii.stl_v7" vertex2="Sh_Ascii.stl_v6" vertex3="Sh_Ascii.stl_v8"/>
+      <triangular vertex1="Sh_Ascii.stl_v9" vertex2="Sh_Ascii.stl_v8" vertex3="Sh_Ascii.stl_v10"/>
+      <triangular vertex1="Sh_Ascii.stl_v11" vertex2="Sh_Ascii.stl_v10" vertex3="Sh_Ascii.stl_v12"/>
+      <triangular vertex1="Sh_Ascii.stl_v13" vertex2="Sh_Ascii.stl_v12" vertex3="Sh_Ascii.stl_v14"/>
+      <triangular vertex1="Sh_Ascii.stl_v15" vertex2="Sh_Ascii.stl_v14" vertex3="Sh_Ascii.stl_v16"/>
+      <triangular vertex1="Sh_Ascii.stl_v17" vertex2="Sh_Ascii.stl_v16" vertex3="Sh_Ascii.stl_v18"/>
+      <triangular vertex1="Sh_Ascii.stl_v19" vertex2="Sh_Ascii.stl_v18" vertex3="Sh_Ascii.stl_v20"/>
+      <triangular vertex1="Sh_Ascii.stl_v21" vertex2="Sh_Ascii.stl_v20" vertex3="Sh_Ascii.stl_v22"/>
+      <triangular vertex1="Sh_Ascii.stl_v23" vertex2="Sh_Ascii.stl_v22" vertex3="Sh_Ascii.stl_v24"/>
+      <triangular vertex1="Sh_Ascii.stl_v25" vertex2="Sh_Ascii.stl_v24" vertex3="Sh_Ascii.stl_v26"/>
+      <triangular vertex1="Sh_Ascii.stl_v27" vertex2="Sh_Ascii.stl_v26" vertex3="Sh_Ascii.stl_v28"/>
+      <triangular vertex1="Sh_Ascii.stl_v29" vertex2="Sh_Ascii.stl_v28" vertex3="Sh_Ascii.stl_v30"/>
+      <triangular vertex1="Sh_Ascii.stl_v31" vertex2="Sh_Ascii.stl_v30" vertex3="Sh_Ascii.stl_v32"/>
+      <triangular vertex1="Sh_Ascii.stl_v33" vertex2="Sh_Ascii.stl_v32" vertex3="Sh_Ascii.stl_v34"/>
+      <triangular vertex1="Sh_Ascii.stl_v35" vertex2="Sh_Ascii.stl_v34" vertex3="Sh_Ascii.stl_v36"/>
+      <triangular vertex1="Sh_Ascii.stl_v37" vertex2="Sh_Ascii.stl_v36" vertex3="Sh_Ascii.stl_v38"/>
+      <triangular vertex1="Sh_Ascii.stl_v39" vertex2="Sh_Ascii.stl_v38" vertex3="Sh_Ascii.stl_v40"/>
+      <triangular vertex1="Sh_Ascii.stl_v41" vertex2="Sh_Ascii.stl_v40" vertex3="Sh_Ascii.stl_v42"/>
+      <triangular vertex1="Sh_Ascii.stl_v43" vertex2="Sh_Ascii.stl_v42" vertex3="Sh_Ascii.stl_v44"/>
+      <triangular vertex1="Sh_Ascii.stl_v45" vertex2="Sh_Ascii.stl_v44" vertex3="Sh_Ascii.stl_v46"/>
+      <triangular vertex1="Sh_Ascii.stl_v47" vertex2="Sh_Ascii.stl_v46" vertex3="Sh_Ascii.stl_v48"/>
+      <triangular vertex1="Sh_Ascii.stl_v49" vertex2="Sh_Ascii.stl_v48" vertex3="Sh_Ascii.stl_v50"/>
+      <triangular vertex1="Sh_Ascii.stl_v51" vertex2="Sh_Ascii.stl_v50" vertex3="Sh_Ascii.stl_v52"/>
+      <triangular vertex1="Sh_Ascii.stl_v53" vertex2="Sh_Ascii.stl_v52" vertex3="Sh_Ascii.stl_v54"/>
+      <triangular vertex1="Sh_Ascii.stl_v55" vertex2="Sh_Ascii.stl_v54" vertex3="Sh_Ascii.stl_v2"/>
+      <triangular vertex1="Sh_Ascii.stl_v1" vertex2="Sh_Ascii.stl_v55" vertex3="Sh_Ascii.stl_v2"/>
+      <triangular vertex1="Sh_Ascii.stl_v5" vertex2="Sh_Ascii.stl_v6" vertex3="Sh_Ascii.stl_v7"/>
+      <triangular vertex1="Sh_Ascii.stl_v7" vertex2="Sh_Ascii.stl_v8" vertex3="Sh_Ascii.stl_v9"/>
+      <triangular vertex1="Sh_Ascii.stl_v9" vertex2="Sh_Ascii.stl_v10" vertex3="Sh_Ascii.stl_v11"/>
+      <triangular vertex1="Sh_Ascii.stl_v11" vertex2="Sh_Ascii.stl_v12" vertex3="Sh_Ascii.stl_v13"/>
+      <triangular vertex1="Sh_Ascii.stl_v13" vertex2="Sh_Ascii.stl_v14" vertex3="Sh_Ascii.stl_v15"/>
+      <triangular vertex1="Sh_Ascii.stl_v15" vertex2="Sh_Ascii.stl_v16" vertex3="Sh_Ascii.stl_v17"/>
+      <triangular vertex1="Sh_Ascii.stl_v17" vertex2="Sh_Ascii.stl_v18" vertex3="Sh_Ascii.stl_v19"/>
+      <triangular vertex1="Sh_Ascii.stl_v19" vertex2="Sh_Ascii.stl_v20" vertex3="Sh_Ascii.stl_v21"/>
+      <triangular vertex1="Sh_Ascii.stl_v21" vertex2="Sh_Ascii.stl_v22" vertex3="Sh_Ascii.stl_v23"/>
+      <triangular vertex1="Sh_Ascii.stl_v23" vertex2="Sh_Ascii.stl_v24" vertex3="Sh_Ascii.stl_v25"/>
+      <triangular vertex1="Sh_Ascii.stl_v25" vertex2="Sh_Ascii.stl_v26" vertex3="Sh_Ascii.stl_v27"/>
+      <triangular vertex1="Sh_Ascii.stl_v27" vertex2="Sh_Ascii.stl_v28" vertex3="Sh_Ascii.stl_v29"/>
+      <triangular vertex1="Sh_Ascii.stl_v29" vertex2="Sh_Ascii.stl_v30" vertex3="Sh_Ascii.stl_v31"/>
+      <triangular vertex1="Sh_Ascii.stl_v31" vertex2="Sh_Ascii.stl_v32" vertex3="Sh_Ascii.stl_v33"/>
+      <triangular vertex1="Sh_Ascii.stl_v33" vertex2="Sh_Ascii.stl_v34" vertex3="Sh_Ascii.stl_v35"/>
+      <triangular vertex1="Sh_Ascii.stl_v35" vertex2="Sh_Ascii.stl_v36" vertex3="Sh_Ascii.stl_v37"/>
+      <triangular vertex1="Sh_Ascii.stl_v37" vertex2="Sh_Ascii.stl_v38" vertex3="Sh_Ascii.stl_v39"/>
+      <triangular vertex1="Sh_Ascii.stl_v39" vertex2="Sh_Ascii.stl_v40" vertex3="Sh_Ascii.stl_v41"/>
+      <triangular vertex1="Sh_Ascii.stl_v41" vertex2="Sh_Ascii.stl_v42" vertex3="Sh_Ascii.stl_v43"/>
+      <triangular vertex1="Sh_Ascii.stl_v43" vertex2="Sh_Ascii.stl_v44" vertex3="Sh_Ascii.stl_v45"/>
+      <triangular vertex1="Sh_Ascii.stl_v45" vertex2="Sh_Ascii.stl_v46" vertex3="Sh_Ascii.stl_v47"/>
+      <triangular vertex1="Sh_Ascii.stl_v47" vertex2="Sh_Ascii.stl_v48" vertex3="Sh_Ascii.stl_v49"/>
+      <triangular vertex1="Sh_Ascii.stl_v49" vertex2="Sh_Ascii.stl_v50" vertex3="Sh_Ascii.stl_v51"/>
+      <triangular vertex1="Sh_Ascii.stl_v51" vertex2="Sh_Ascii.stl_v52" vertex3="Sh_Ascii.stl_v53"/>
+      <triangular vertex1="Sh_Ascii.stl_v53" vertex2="Sh_Ascii.stl_v54" vertex3="Sh_Ascii.stl_v55"/>
+      <triangular vertex1="Sh_Ascii.stl_v29" vertex2="Sh_Ascii.stl_v56" vertex3="Sh_Ascii.stl_v27"/>
+      <triangular vertex1="Sh_Ascii.stl_v29" vertex2="Sh_Ascii.stl_v31" vertex3="Sh_Ascii.stl_v56"/>
+      <triangular vertex1="Sh_Ascii.stl_v56" vertex2="Sh_Ascii.stl_v31" vertex3="Sh_Ascii.stl_v33"/>
+      <triangular vertex1="Sh_Ascii.stl_v35" vertex2="Sh_Ascii.stl_v56" vertex3="Sh_Ascii.stl_v33"/>
+      <triangular vertex1="Sh_Ascii.stl_v35" vertex2="Sh_Ascii.stl_v37" vertex3="Sh_Ascii.stl_v56"/>
+      <triangular vertex1="Sh_Ascii.stl_v56" vertex2="Sh_Ascii.stl_v37" vertex3="Sh_Ascii.stl_v39"/>
+      <triangular vertex1="Sh_Ascii.stl_v41" vertex2="Sh_Ascii.stl_v56" vertex3="Sh_Ascii.stl_v39"/>
+      <triangular vertex1="Sh_Ascii.stl_v41" vertex2="Sh_Ascii.stl_v57" vertex3="Sh_Ascii.stl_v56"/>
+      <triangular vertex1="Sh_Ascii.stl_v41" vertex2="Sh_Ascii.stl_v43" vertex3="Sh_Ascii.stl_v57"/>
+      <triangular vertex1="Sh_Ascii.stl_v57" vertex2="Sh_Ascii.stl_v43" vertex3="Sh_Ascii.stl_v45"/>
+      <triangular vertex1="Sh_Ascii.stl_v47" vertex2="Sh_Ascii.stl_v57" vertex3="Sh_Ascii.stl_v45"/>
+      <triangular vertex1="Sh_Ascii.stl_v47" vertex2="Sh_Ascii.stl_v49" vertex3="Sh_Ascii.stl_v57"/>
+      <triangular vertex1="Sh_Ascii.stl_v57" vertex2="Sh_Ascii.stl_v49" vertex3="Sh_Ascii.stl_v51"/>
+      <triangular vertex1="Sh_Ascii.stl_v53" vertex2="Sh_Ascii.stl_v57" vertex3="Sh_Ascii.stl_v51"/>
+      <triangular vertex1="Sh_Ascii.stl_v53" vertex2="Sh_Ascii.stl_v55" vertex3="Sh_Ascii.stl_v57"/>
+      <triangular vertex1="Sh_Ascii.stl_v57" vertex2="Sh_Ascii.stl_v55" vertex3="Sh_Ascii.stl_v58"/>
+      <triangular vertex1="Sh_Ascii.stl_v58" vertex2="Sh_Ascii.stl_v55" vertex3="Sh_Ascii.stl_v1"/>
+      <triangular vertex1="Sh_Ascii.stl_v3" vertex2="Sh_Ascii.stl_v58" vertex3="Sh_Ascii.stl_v1"/>
+      <triangular vertex1="Sh_Ascii.stl_v3" vertex2="Sh_Ascii.stl_v5" vertex3="Sh_Ascii.stl_v58"/>
+      <triangular vertex1="Sh_Ascii.stl_v58" vertex2="Sh_Ascii.stl_v5" vertex3="Sh_Ascii.stl_v7"/>
+      <triangular vertex1="Sh_Ascii.stl_v9" vertex2="Sh_Ascii.stl_v58" vertex3="Sh_Ascii.stl_v7"/>
+      <triangular vertex1="Sh_Ascii.stl_v9" vertex2="Sh_Ascii.stl_v11" vertex3="Sh_Ascii.stl_v58"/>
+      <triangular vertex1="Sh_Ascii.stl_v58" vertex2="Sh_Ascii.stl_v11" vertex3="Sh_Ascii.stl_v13"/>
+      <triangular vertex1="Sh_Ascii.stl_v59" vertex2="Sh_Ascii.stl_v13" vertex3="Sh_Ascii.stl_v15"/>
+      <triangular vertex1="Sh_Ascii.stl_v17" vertex2="Sh_Ascii.stl_v59" vertex3="Sh_Ascii.stl_v15"/>
+      <triangular vertex1="Sh_Ascii.stl_v17" vertex2="Sh_Ascii.stl_v19" vertex3="Sh_Ascii.stl_v59"/>
+      <triangular vertex1="Sh_Ascii.stl_v59" vertex2="Sh_Ascii.stl_v19" vertex3="Sh_Ascii.stl_v21"/>
+      <triangular vertex1="Sh_Ascii.stl_v23" vertex2="Sh_Ascii.stl_v59" vertex3="Sh_Ascii.stl_v21"/>
+      <triangular vertex1="Sh_Ascii.stl_v23" vertex2="Sh_Ascii.stl_v25" vertex3="Sh_Ascii.stl_v59"/>
+      <triangular vertex1="Sh_Ascii.stl_v59" vertex2="Sh_Ascii.stl_v25" vertex3="Sh_Ascii.stl_v27"/>
+      <triangular vertex1="Sh_Ascii.stl_v56" vertex2="Sh_Ascii.stl_v59" vertex3="Sh_Ascii.stl_v27"/>
+      <triangular vertex1="Sh_Ascii.stl_v58" vertex2="Sh_Ascii.stl_v13" vertex3="Sh_Ascii.stl_v59"/>
+      <triangular vertex1="Sh_Ascii.stl_v57" vertex2="Sh_Ascii.stl_v58" vertex3="Sh_Ascii.stl_v60"/>
+      <triangular vertex1="Sh_Ascii.stl_v60" vertex2="Sh_Ascii.stl_v58" vertex3="Sh_Ascii.stl_v61"/>
+      <triangular vertex1="Sh_Ascii.stl_v54" vertex2="Sh_Ascii.stl_v60" vertex3="Sh_Ascii.stl_v2"/>
+      <triangular vertex1="Sh_Ascii.stl_v54" vertex2="Sh_Ascii.stl_v52" vertex3="Sh_Ascii.stl_v60"/>
+      <triangular vertex1="Sh_Ascii.stl_v60" vertex2="Sh_Ascii.stl_v52" vertex3="Sh_Ascii.stl_v50"/>
+      <triangular vertex1="Sh_Ascii.stl_v48" vertex2="Sh_Ascii.stl_v60" vertex3="Sh_Ascii.stl_v50"/>
+      <triangular vertex1="Sh_Ascii.stl_v48" vertex2="Sh_Ascii.stl_v46" vertex3="Sh_Ascii.stl_v60"/>
+      <triangular vertex1="Sh_Ascii.stl_v60" vertex2="Sh_Ascii.stl_v46" vertex3="Sh_Ascii.stl_v44"/>
+      <triangular vertex1="Sh_Ascii.stl_v42" vertex2="Sh_Ascii.stl_v60" vertex3="Sh_Ascii.stl_v44"/>
+      <triangular vertex1="Sh_Ascii.stl_v42" vertex2="Sh_Ascii.stl_v62" vertex3="Sh_Ascii.stl_v60"/>
+      <triangular vertex1="Sh_Ascii.stl_v42" vertex2="Sh_Ascii.stl_v40" vertex3="Sh_Ascii.stl_v62"/>
+      <triangular vertex1="Sh_Ascii.stl_v62" vertex2="Sh_Ascii.stl_v40" vertex3="Sh_Ascii.stl_v38"/>
+      <triangular vertex1="Sh_Ascii.stl_v36" vertex2="Sh_Ascii.stl_v62" vertex3="Sh_Ascii.stl_v38"/>
+      <triangular vertex1="Sh_Ascii.stl_v36" vertex2="Sh_Ascii.stl_v34" vertex3="Sh_Ascii.stl_v62"/>
+      <triangular vertex1="Sh_Ascii.stl_v62" vertex2="Sh_Ascii.stl_v34" vertex3="Sh_Ascii.stl_v32"/>
+      <triangular vertex1="Sh_Ascii.stl_v30" vertex2="Sh_Ascii.stl_v62" vertex3="Sh_Ascii.stl_v32"/>
+      <triangular vertex1="Sh_Ascii.stl_v30" vertex2="Sh_Ascii.stl_v28" vertex3="Sh_Ascii.stl_v62"/>
+      <triangular vertex1="Sh_Ascii.stl_v62" vertex2="Sh_Ascii.stl_v28" vertex3="Sh_Ascii.stl_v63"/>
+      <triangular vertex1="Sh_Ascii.stl_v63" vertex2="Sh_Ascii.stl_v28" vertex3="Sh_Ascii.stl_v26"/>
+      <triangular vertex1="Sh_Ascii.stl_v24" vertex2="Sh_Ascii.stl_v63" vertex3="Sh_Ascii.stl_v26"/>
+      <triangular vertex1="Sh_Ascii.stl_v24" vertex2="Sh_Ascii.stl_v22" vertex3="Sh_Ascii.stl_v63"/>
+      <triangular vertex1="Sh_Ascii.stl_v63" vertex2="Sh_Ascii.stl_v22" vertex3="Sh_Ascii.stl_v20"/>
+      <triangular vertex1="Sh_Ascii.stl_v18" vertex2="Sh_Ascii.stl_v63" vertex3="Sh_Ascii.stl_v20"/>
+      <triangular vertex1="Sh_Ascii.stl_v18" vertex2="Sh_Ascii.stl_v16" vertex3="Sh_Ascii.stl_v63"/>
+      <triangular vertex1="Sh_Ascii.stl_v63" vertex2="Sh_Ascii.stl_v16" vertex3="Sh_Ascii.stl_v14"/>
+      <triangular vertex1="Sh_Ascii.stl_v61" vertex2="Sh_Ascii.stl_v14" vertex3="Sh_Ascii.stl_v12"/>
+      <triangular vertex1="Sh_Ascii.stl_v10" vertex2="Sh_Ascii.stl_v61" vertex3="Sh_Ascii.stl_v12"/>
+      <triangular vertex1="Sh_Ascii.stl_v10" vertex2="Sh_Ascii.stl_v8" vertex3="Sh_Ascii.stl_v61"/>
+      <triangular vertex1="Sh_Ascii.stl_v61" vertex2="Sh_Ascii.stl_v8" vertex3="Sh_Ascii.stl_v6"/>
+      <triangular vertex1="Sh_Ascii.stl_v4" vertex2="Sh_Ascii.stl_v61" vertex3="Sh_Ascii.stl_v6"/>
+      <triangular vertex1="Sh_Ascii.stl_v4" vertex2="Sh_Ascii.stl_v0" vertex3="Sh_Ascii.stl_v61"/>
+      <triangular vertex1="Sh_Ascii.stl_v61" vertex2="Sh_Ascii.stl_v0" vertex3="Sh_Ascii.stl_v2"/>
+      <triangular vertex1="Sh_Ascii.stl_v60" vertex2="Sh_Ascii.stl_v61" vertex3="Sh_Ascii.stl_v2"/>
+      <triangular vertex1="Sh_Ascii.stl_v63" vertex2="Sh_Ascii.stl_v14" vertex3="Sh_Ascii.stl_v61"/>
+      <triangular vertex1="Sh_Ascii.stl_v62" vertex2="Sh_Ascii.stl_v63" vertex3="Sh_Ascii.stl_v56"/>
+      <triangular vertex1="Sh_Ascii.stl_v56" vertex2="Sh_Ascii.stl_v63" vertex3="Sh_Ascii.stl_v59"/>
+      <triangular vertex1="Sh_Ascii.stl_v56" vertex2="Sh_Ascii.stl_v57" vertex3="Sh_Ascii.stl_v62"/>
+      <triangular vertex1="Sh_Ascii.stl_v62" vertex2="Sh_Ascii.stl_v57" vertex3="Sh_Ascii.stl_v60"/>
+      <triangular vertex1="Sh_Ascii.stl_v63" vertex2="Sh_Ascii.stl_v61" vertex3="Sh_Ascii.stl_v59"/>
+      <triangular vertex1="Sh_Ascii.stl_v59" vertex2="Sh_Ascii.stl_v61" vertex3="Sh_Ascii.stl_v58"/>
+    </tessellated>   
+  </solids>
+
+  <structure>
+    <volume name="Sh">
+      <materialref ref="PLasticScintillatorMaterialBeamTest"/>
+      <solidref ref="Sh_Ascii.stl0x1a60f20"/>
+    </volume>    
+  </structure>
+
+  <setup name="Default" version="1.0">
+    <world ref="Sh"/>
+  </setup>
+
+</gdml>

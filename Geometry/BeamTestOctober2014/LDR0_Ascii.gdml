@@ -1,0 +1,133 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no" ?>
+<gdml xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="../Schema/gdml.xsd">
+
+  <define>
+    <position name="LDR0_Ascii.stl_v0" unit="cm" x="-295.525000095367" y="25.9500007629395" z="-313.890014648438"/>
+    <position name="LDR0_Ascii.stl_v1" unit="cm" x="-295.525000095367" y="34.9000015258789" z="-313.890014648438"/>
+    <position name="LDR0_Ascii.stl_v2" unit="cm" x="-295.525000095367" y="25.9500007629395" z="-313.850006103516"/>
+    <position name="LDR0_Ascii.stl_v3" unit="cm" x="-295.525000095367" y="34.9000015258789" z="-313.850006103516"/>
+    <position name="LDR0_Ascii.stl_v4" unit="cm" x="-304.474999904633" y="34.9000015258789" z="-313.890014648438"/>
+    <position name="LDR0_Ascii.stl_v5" unit="cm" x="-304.474999904633" y="34.9000015258789" z="-313.850006103516"/>
+    <position name="LDR0_Ascii.stl_v6" unit="cm" x="-304.474999904633" y="25.9500007629395" z="-313.890014648438"/>
+    <position name="LDR0_Ascii.stl_v7" unit="cm" x="-304.474999904633" y="25.9500007629395" z="-313.850006103516"/>
+    <position name="LDR0_Ascii.stl_v8" unit="cm" x="-295.525000095367" y="25.9500007629395" z="-315.410003662109"/>
+    <position name="LDR0_Ascii.stl_v9" unit="cm" x="-295.525000095367" y="17" z="-315.410003662109"/>
+    <position name="LDR0_Ascii.stl_v10" unit="cm" x="-295.525000095367" y="25.9500007629395" z="-315.450012207031"/>
+    <position name="LDR0_Ascii.stl_v11" unit="cm" x="-295.525000095367" y="17" z="-315.450012207031"/>
+    <position name="LDR0_Ascii.stl_v12" unit="cm" x="-304.474999904633" y="17" z="-315.410003662109"/>
+    <position name="LDR0_Ascii.stl_v13" unit="cm" x="-304.474999904633" y="17" z="-315.450012207031"/>
+    <position name="LDR0_Ascii.stl_v14" unit="cm" x="-304.474999904633" y="25.9500007629395" z="-315.410003662109"/>
+    <position name="LDR0_Ascii.stl_v15" unit="cm" x="-304.474999904633" y="25.9500007629395" z="-315.450012207031"/>
+    <position name="LDR0_Ascii.stl_v16" unit="cm" x="-295.525000095367" y="8.05000019073486" z="-313.890014648438"/>
+    <position name="LDR0_Ascii.stl_v17" unit="cm" x="-295.525000095367" y="17" z="-313.890014648438"/>
+    <position name="LDR0_Ascii.stl_v18" unit="cm" x="-295.525000095367" y="8.05000019073486" z="-313.850006103516"/>
+    <position name="LDR0_Ascii.stl_v19" unit="cm" x="-295.525000095367" y="17" z="-313.850006103516"/>
+    <position name="LDR0_Ascii.stl_v20" unit="cm" x="-304.474999904633" y="17" z="-313.890014648438"/>
+    <position name="LDR0_Ascii.stl_v21" unit="cm" x="-304.474999904633" y="17" z="-313.850006103516"/>
+    <position name="LDR0_Ascii.stl_v22" unit="cm" x="-304.474999904633" y="8.05000019073486" z="-313.890014648438"/>
+    <position name="LDR0_Ascii.stl_v23" unit="cm" x="-304.474999904633" y="8.05000019073486" z="-313.850006103516"/>
+    <position name="LDR0_Ascii.stl_v24" unit="cm" x="-295.525000095367" y="8.05000019073486" z="-315.410003662109"/>
+    <position name="LDR0_Ascii.stl_v25" unit="cm" x="-295.525000095367" y="-0.899999976158142" z="-315.410003662109"/>
+    <position name="LDR0_Ascii.stl_v26" unit="cm" x="-295.525000095367" y="8.05000019073486" z="-315.450012207031"/>
+    <position name="LDR0_Ascii.stl_v27" unit="cm" x="-295.525000095367" y="-0.899999976158142" z="-315.450012207031"/>
+    <position name="LDR0_Ascii.stl_v28" unit="cm" x="-304.474999904633" y="-0.899999976158142" z="-315.410003662109"/>
+    <position name="LDR0_Ascii.stl_v29" unit="cm" x="-304.474999904633" y="-0.899999976158142" z="-315.450012207031"/>
+    <position name="LDR0_Ascii.stl_v30" unit="cm" x="-304.474999904633" y="8.05000019073486" z="-315.410003662109"/>
+    <position name="LDR0_Ascii.stl_v31" unit="cm" x="-304.474999904633" y="8.05000019073486" z="-315.450012207031"/>
+    <position name="LDR0_Ascii.stl_v32" unit="cm" x="-295.525000095367" y="34.9000015258789" z="-312.589996337891"/>
+    <position name="LDR0_Ascii.stl_v33" unit="cm" x="-304.474999904633" y="34.9000015258789" z="-312.589996337891"/>
+    <position name="LDR0_Ascii.stl_v34" unit="cm" x="-295.525000095367" y="34.9000015258789" z="-312.549987792969"/>
+    <position name="LDR0_Ascii.stl_v35" unit="cm" x="-304.474999904633" y="34.9000015258789" z="-312.549987792969"/>
+    <position name="LDR0_Ascii.stl_v36" unit="cm" x="-304.474999904633" y="-0.899999976158142" z="-312.589996337891"/>
+    <position name="LDR0_Ascii.stl_v37" unit="cm" x="-304.474999904633" y="-0.899999976158142" z="-312.549987792969"/>
+    <position name="LDR0_Ascii.stl_v38" unit="cm" x="-295.525000095367" y="-0.899999976158142" z="-312.589996337891"/>
+    <position name="LDR0_Ascii.stl_v39" unit="cm" x="-295.525000095367" y="-0.899999976158142" z="-312.549987792969"/>
+  </define>
+
+  <materials>
+    <element name="Si" formula="Si" Z="14"> 
+       <atom value="28.09"/>   
+    </element>
+    <material name="Silicon" state="solid">
+       <D value="2.333" unit="g/cm3"/>
+       <fraction n="1." ref="Si"/>
+    </material>
+  </materials>
+
+  <solids>
+    <tessellated aunit="deg" lunit="cm" name="LDR0_Ascii.stl0x1297f20">
+      <triangular vertex1="LDR0_Ascii.stl_v0" vertex2="LDR0_Ascii.stl_v1" vertex3="LDR0_Ascii.stl_v2"/>
+      <triangular vertex1="LDR0_Ascii.stl_v2" vertex2="LDR0_Ascii.stl_v1" vertex3="LDR0_Ascii.stl_v3"/>
+      <triangular vertex1="LDR0_Ascii.stl_v1" vertex2="LDR0_Ascii.stl_v4" vertex3="LDR0_Ascii.stl_v3"/>
+      <triangular vertex1="LDR0_Ascii.stl_v3" vertex2="LDR0_Ascii.stl_v4" vertex3="LDR0_Ascii.stl_v5"/>
+      <triangular vertex1="LDR0_Ascii.stl_v4" vertex2="LDR0_Ascii.stl_v6" vertex3="LDR0_Ascii.stl_v5"/>
+      <triangular vertex1="LDR0_Ascii.stl_v5" vertex2="LDR0_Ascii.stl_v6" vertex3="LDR0_Ascii.stl_v7"/>
+      <triangular vertex1="LDR0_Ascii.stl_v6" vertex2="LDR0_Ascii.stl_v0" vertex3="LDR0_Ascii.stl_v7"/>
+      <triangular vertex1="LDR0_Ascii.stl_v7" vertex2="LDR0_Ascii.stl_v0" vertex3="LDR0_Ascii.stl_v2"/>
+      <triangular vertex1="LDR0_Ascii.stl_v7" vertex2="LDR0_Ascii.stl_v2" vertex3="LDR0_Ascii.stl_v5"/>
+      <triangular vertex1="LDR0_Ascii.stl_v5" vertex2="LDR0_Ascii.stl_v2" vertex3="LDR0_Ascii.stl_v3"/>
+      <triangular vertex1="LDR0_Ascii.stl_v0" vertex2="LDR0_Ascii.stl_v6" vertex3="LDR0_Ascii.stl_v1"/>
+      <triangular vertex1="LDR0_Ascii.stl_v1" vertex2="LDR0_Ascii.stl_v6" vertex3="LDR0_Ascii.stl_v4"/>
+      <triangular vertex1="LDR0_Ascii.stl_v8" vertex2="LDR0_Ascii.stl_v9" vertex3="LDR0_Ascii.stl_v10"/>
+      <triangular vertex1="LDR0_Ascii.stl_v10" vertex2="LDR0_Ascii.stl_v9" vertex3="LDR0_Ascii.stl_v11"/>
+      <triangular vertex1="LDR0_Ascii.stl_v9" vertex2="LDR0_Ascii.stl_v12" vertex3="LDR0_Ascii.stl_v11"/>
+      <triangular vertex1="LDR0_Ascii.stl_v11" vertex2="LDR0_Ascii.stl_v12" vertex3="LDR0_Ascii.stl_v13"/>
+      <triangular vertex1="LDR0_Ascii.stl_v12" vertex2="LDR0_Ascii.stl_v14" vertex3="LDR0_Ascii.stl_v13"/>
+      <triangular vertex1="LDR0_Ascii.stl_v13" vertex2="LDR0_Ascii.stl_v14" vertex3="LDR0_Ascii.stl_v15"/>
+      <triangular vertex1="LDR0_Ascii.stl_v14" vertex2="LDR0_Ascii.stl_v8" vertex3="LDR0_Ascii.stl_v15"/>
+      <triangular vertex1="LDR0_Ascii.stl_v15" vertex2="LDR0_Ascii.stl_v8" vertex3="LDR0_Ascii.stl_v10"/>
+      <triangular vertex1="LDR0_Ascii.stl_v15" vertex2="LDR0_Ascii.stl_v10" vertex3="LDR0_Ascii.stl_v13"/>
+      <triangular vertex1="LDR0_Ascii.stl_v13" vertex2="LDR0_Ascii.stl_v10" vertex3="LDR0_Ascii.stl_v11"/>
+      <triangular vertex1="LDR0_Ascii.stl_v8" vertex2="LDR0_Ascii.stl_v14" vertex3="LDR0_Ascii.stl_v9"/>
+      <triangular vertex1="LDR0_Ascii.stl_v9" vertex2="LDR0_Ascii.stl_v14" vertex3="LDR0_Ascii.stl_v12"/>
+      <triangular vertex1="LDR0_Ascii.stl_v16" vertex2="LDR0_Ascii.stl_v17" vertex3="LDR0_Ascii.stl_v18"/>
+      <triangular vertex1="LDR0_Ascii.stl_v18" vertex2="LDR0_Ascii.stl_v17" vertex3="LDR0_Ascii.stl_v19"/>
+      <triangular vertex1="LDR0_Ascii.stl_v17" vertex2="LDR0_Ascii.stl_v20" vertex3="LDR0_Ascii.stl_v19"/>
+      <triangular vertex1="LDR0_Ascii.stl_v19" vertex2="LDR0_Ascii.stl_v20" vertex3="LDR0_Ascii.stl_v21"/>
+      <triangular vertex1="LDR0_Ascii.stl_v20" vertex2="LDR0_Ascii.stl_v22" vertex3="LDR0_Ascii.stl_v21"/>
+      <triangular vertex1="LDR0_Ascii.stl_v21" vertex2="LDR0_Ascii.stl_v22" vertex3="LDR0_Ascii.stl_v23"/>
+      <triangular vertex1="LDR0_Ascii.stl_v22" vertex2="LDR0_Ascii.stl_v16" vertex3="LDR0_Ascii.stl_v23"/>
+      <triangular vertex1="LDR0_Ascii.stl_v23" vertex2="LDR0_Ascii.stl_v16" vertex3="LDR0_Ascii.stl_v18"/>
+      <triangular vertex1="LDR0_Ascii.stl_v23" vertex2="LDR0_Ascii.stl_v18" vertex3="LDR0_Ascii.stl_v21"/>
+      <triangular vertex1="LDR0_Ascii.stl_v21" vertex2="LDR0_Ascii.stl_v18" vertex3="LDR0_Ascii.stl_v19"/>
+      <triangular vertex1="LDR0_Ascii.stl_v16" vertex2="LDR0_Ascii.stl_v22" vertex3="LDR0_Ascii.stl_v17"/>
+      <triangular vertex1="LDR0_Ascii.stl_v17" vertex2="LDR0_Ascii.stl_v22" vertex3="LDR0_Ascii.stl_v20"/>
+      <triangular vertex1="LDR0_Ascii.stl_v24" vertex2="LDR0_Ascii.stl_v25" vertex3="LDR0_Ascii.stl_v26"/>
+      <triangular vertex1="LDR0_Ascii.stl_v26" vertex2="LDR0_Ascii.stl_v25" vertex3="LDR0_Ascii.stl_v27"/>
+      <triangular vertex1="LDR0_Ascii.stl_v25" vertex2="LDR0_Ascii.stl_v28" vertex3="LDR0_Ascii.stl_v27"/>
+      <triangular vertex1="LDR0_Ascii.stl_v27" vertex2="LDR0_Ascii.stl_v28" vertex3="LDR0_Ascii.stl_v29"/>
+      <triangular vertex1="LDR0_Ascii.stl_v28" vertex2="LDR0_Ascii.stl_v30" vertex3="LDR0_Ascii.stl_v29"/>
+      <triangular vertex1="LDR0_Ascii.stl_v29" vertex2="LDR0_Ascii.stl_v30" vertex3="LDR0_Ascii.stl_v31"/>
+      <triangular vertex1="LDR0_Ascii.stl_v30" vertex2="LDR0_Ascii.stl_v24" vertex3="LDR0_Ascii.stl_v31"/>
+      <triangular vertex1="LDR0_Ascii.stl_v31" vertex2="LDR0_Ascii.stl_v24" vertex3="LDR0_Ascii.stl_v26"/>
+      <triangular vertex1="LDR0_Ascii.stl_v31" vertex2="LDR0_Ascii.stl_v26" vertex3="LDR0_Ascii.stl_v29"/>
+      <triangular vertex1="LDR0_Ascii.stl_v29" vertex2="LDR0_Ascii.stl_v26" vertex3="LDR0_Ascii.stl_v27"/>
+      <triangular vertex1="LDR0_Ascii.stl_v24" vertex2="LDR0_Ascii.stl_v30" vertex3="LDR0_Ascii.stl_v25"/>
+      <triangular vertex1="LDR0_Ascii.stl_v25" vertex2="LDR0_Ascii.stl_v30" vertex3="LDR0_Ascii.stl_v28"/>
+      <triangular vertex1="LDR0_Ascii.stl_v32" vertex2="LDR0_Ascii.stl_v33" vertex3="LDR0_Ascii.stl_v34"/>
+      <triangular vertex1="LDR0_Ascii.stl_v34" vertex2="LDR0_Ascii.stl_v33" vertex3="LDR0_Ascii.stl_v35"/>
+      <triangular vertex1="LDR0_Ascii.stl_v33" vertex2="LDR0_Ascii.stl_v36" vertex3="LDR0_Ascii.stl_v35"/>
+      <triangular vertex1="LDR0_Ascii.stl_v35" vertex2="LDR0_Ascii.stl_v36" vertex3="LDR0_Ascii.stl_v37"/>
+      <triangular vertex1="LDR0_Ascii.stl_v36" vertex2="LDR0_Ascii.stl_v38" vertex3="LDR0_Ascii.stl_v37"/>
+      <triangular vertex1="LDR0_Ascii.stl_v37" vertex2="LDR0_Ascii.stl_v38" vertex3="LDR0_Ascii.stl_v39"/>
+      <triangular vertex1="LDR0_Ascii.stl_v38" vertex2="LDR0_Ascii.stl_v32" vertex3="LDR0_Ascii.stl_v39"/>
+      <triangular vertex1="LDR0_Ascii.stl_v39" vertex2="LDR0_Ascii.stl_v32" vertex3="LDR0_Ascii.stl_v34"/>
+      <triangular vertex1="LDR0_Ascii.stl_v39" vertex2="LDR0_Ascii.stl_v34" vertex3="LDR0_Ascii.stl_v37"/>
+      <triangular vertex1="LDR0_Ascii.stl_v37" vertex2="LDR0_Ascii.stl_v34" vertex3="LDR0_Ascii.stl_v35"/>
+      <triangular vertex1="LDR0_Ascii.stl_v32" vertex2="LDR0_Ascii.stl_v38" vertex3="LDR0_Ascii.stl_v33"/>
+      <triangular vertex1="LDR0_Ascii.stl_v33" vertex2="LDR0_Ascii.stl_v38" vertex3="LDR0_Ascii.stl_v36"/>
+    </tessellated>    
+  </solids>
+
+  <structure>
+    <volume name="LDR0">
+      <materialref ref="Silicon"/>
+      <solidref ref="LDR0_Ascii.stl0x1297f20"/>
+    </volume>    
+  </structure>
+
+  <setup name="Default" version="1.0">
+    <world ref="LDR0"/>
+  </setup>
+
+</gdml>
