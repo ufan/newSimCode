@@ -40,22 +40,21 @@ G4bool DmpSimBgoSD::ProcessHits(G4Step *aStep,G4TouchableHistory*){
 
   G4ThreeVector position = aStep->GetPreStepPoint()->GetPosition();
   fEvtMCBgo->AddG4Hit(barID,aStep->GetTotalEnergyDeposit()/MeV,position.x()/mm,position.y()/mm,position.z()/mm);
-  /*
-  DmpEvtMCBgoBar *aBar = 0;
-  for(int i=0;i<fBarSet->GetEntriesFast();++i){
-    if(((DmpEvtMCBgoBar*)fBarSet->At(i))->GetGlobalBarID() == barID){
-      aBar = (DmpEvtMCBgoBar*)fBarSet->At(i);
+/*  
+  bool NewBarFlag = true;
+
+  for(int i=0;i<(fEvtMCBgo->GetGlobalBarIDCollection()).size();++i){
+    if((fEvtMCBgo->GetGlobalBarIDCollection()).at(i)==barID){
+      fEvtMCBgo->AddG4Hit(i,aStep->GetTotalEnergyDeposit()/MeV,position.x()/mm,position.y()/mm,position.z()/mm);
+      NewBarFlag = false;
       break;
     }
   }
-  if(aBar == 0){
-    DmpLogDebug<<"\thit a new bar: "<<barID<<DmpLogEndl;
-    aBar = (DmpEvtMCBgoBar*)fBarSet->New(fBarSet->GetEntriesFast());
-    aBar->SetGlobalBarID(barID);
+  if(NewBarFlag==true){
+    DmpLogDebug<<"\this is a new bar: "<<barID<<DmpLogEndl;
   }
-  G4ThreeVector position = aStep->GetPreStepPoint()->GetPosition();
   aBar->AddG4Hit(aStep->GetTotalEnergyDeposit()/MeV,position.x()/mm,position.y()/mm,position.z()/mm);
-  */
+*/  
   return true;
 }
 
@@ -64,6 +63,7 @@ void DmpSimBgoSD::Initialize(G4HCofThisEvent*){
 // *
 // *  TODO:  after DmpRootIOSvc filled this event?
 // *
+  fEvtMCBgo->Clear();
 }
 
 //-------------------------------------------------------------------

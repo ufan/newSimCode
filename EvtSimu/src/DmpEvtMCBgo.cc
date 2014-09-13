@@ -63,4 +63,13 @@ const double DmpEvtMCBgo::GetPosition(short entry,const std::string &direction){
         return -10000;
     }
 }
+//-------------------------------------------------------------------
+void DmpEvtMCBgo::Clear(){
 
+    fGlobalBarID.clear();
+    fEnergy.clear();
+    fPosX.clear();
+    fPosY.clear();
+    fPosZ.clear();
+
+}

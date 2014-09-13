@@ -19,7 +19,7 @@
 #/gps/ang/maxtheta 0.0010 deg
 
 /gps/ene/type Mono
-/gps/ene/mono 2000. MeV
+/gps/ene/mono 10000. MeV
 
 #/gps/ene/min 50. MeV 
 #/gps/ene/max 50.0 meV 

@@ -25,7 +25,10 @@ public:
   const short GetGlobalBarID(short entry) const {return fGlobalBarID.at(entry);} // in whole layer
   const double GetEnergy(short entry) const  {return fEnergy.at(entry);}
   const double GetPosition(short entry,const std::string &direction);
-  //std::vector <short>  GetGlobalBarIDCollection() {return fGlobalBarID;}
+  std::vector <short>  GetGlobalBarIDCollection() {return fGlobalBarID;}
+
+public:
+  void Clear();
 
 private:
   std::vector <short>     fGlobalBarID;   // unique sensitive detector(minimum detector unit) ID. Bgo bar ID. fGlobalBarID =  layerID*100 + barID

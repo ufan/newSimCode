@@ -5,10 +5,19 @@
  *    Chi WANG (chiwang@mail.ustc.edu.cn) 26/02/2014
 */
 
-#include "G4LogicalVolume.hh"
 #include "G4PVPlacement.hh"
 #include "G4GDMLParser.hh"
 #include "G4SDManager.hh"
+#include "G4VSolid.hh"
+#include "G4Box.hh"
+
+#include "G4Material.hh"
+#include "G4NistManager.hh"
+
+#include "G4FieldManager.hh"
+#include "G4TransportationManager.hh"
+
+#include "DmpSimMagneticField.h"
 
 #include "DmpSimDetector.h"
 //#include "DmpSimPsdSD.h"
@@ -25,8 +34,9 @@ DmpSimDetector::DmpSimDetector()
   fPhyVolume(0),
 //  fPsdSD(0),
 //  fStkSD(0),
-  fBgoSD(0)
-//  fNudSD(0)
+  fBgoSD(0),
+//  fNudSD(0),
+  fMagneticLogical(0)
 {
   fParser = new G4GDMLParser();
 //  fPsdSD = new DmpSimPsdSD();
@@ -56,6 +66,27 @@ G4VPhysicalVolume* DmpSimDetector::Construct(){
     fPhyVolume = fParser->GetWorldVolume();
   }
   chdir(dirTmp);
+
+  //Magnetic field volume construction
+  G4Material* defaultMaterial = G4Material::GetMaterial("Galactic");
+  G4VSolid* magneticSolid = new G4Box("magneticBox",0.6*m,0.6*m,0.3*m);
+  fMagneticLogical = new G4LogicalVolume(magneticSolid,defaultMaterial,"magneticLogical");
+  new G4PVPlacement(0,G4ThreeVector(0,0,-5000),fMagneticLogical,"magneticPhysical",fPhyVolume->GetLogicalVolume(),false,0);
+
+  //Set magnetic field
+/*  
+  static G4bool fieldIsInitialized = false;
+  if (!fieldIsInitialized){
+    DmpSimMagneticField* fMagneticField = new DmpSimMagneticField();
+    //fMagneticField->SetField(1);
+    G4FieldManager* fFieldMgr = new G4FieldManager();
+            //G4TransportationManager::GetTransportationManager()->GetFieldManager();
+    fFieldMgr->SetDetectorField(fMagneticField);
+    fFieldMgr->CreateChordFinder(fMagneticField);
+    fMagneticLogical->SetFieldManager(fFieldMgr,true);
+    fieldIsInitialized = true;
+  }
+*/  
 // *
 // *  TODO:  set structure invisable
 // *
@@ -92,6 +123,17 @@ G4VPhysicalVolume* DmpSimDetector::Construct(){
   }
 
   return fPhyVolume;
+}
+
+void DmpSimDetector::ConstructMaterials(){
+  //G4NistManager* nistManager = G4NistManager::Instance(); 
+  G4double a;  // mass of a mole;
+  G4double z;  // z=mean number of protons;  
+  G4double density; 
+   // Vacuum
+  new G4Material("Galactic", z=1., a=1.01*g/mole,density= universe_mean_density,kStateGas, 2.73*kelvin, 3.e-18*pascal);
+
+
 }
 
 

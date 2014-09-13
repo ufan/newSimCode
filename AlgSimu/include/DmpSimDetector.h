@@ -10,6 +10,8 @@
 #include "G4VUserDetectorConstruction.hh"
 #include "DmpEDetectorID.h"
 
+#include "G4LogicalVolume.hh"
+
 class G4GDMLParser;
 //class DmpSimPsdSD;
 //class DmpSimStkSD;
@@ -26,6 +28,7 @@ public:
   ~DmpSimDetector();
   G4VPhysicalVolume* Construct();
   static void SetGdml(const std::string &argv) {fGdmlPath = argv;}
+  void ConstructMaterials();
 
 private:
   static std::string       fGdmlPath;          // must set it in JobOpt file
@@ -37,6 +40,9 @@ private:
 //  DmpSimStkSD       *fStkSD;
   DmpSimBgoSD       *fBgoSD;
 //  DmpSimNudSD       *fNudSD;
+
+//Magnetic Field
+  G4LogicalVolume* fMagneticLogical;
 
 };
 
