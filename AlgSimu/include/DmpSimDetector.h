@@ -29,20 +29,28 @@ public:
   G4VPhysicalVolume* Construct();
   static void SetGdml(const std::string &argv) {fGdmlPath = argv;}
   void ConstructMaterials();
+  void SetBeamTestOption(bool opt){fBTOption = opt;}
+  void SetMagneticField(double v,double p){fMagneticFieldValue = v; fMagneticFieldPosZ = p;}
+  void SetAuxDetOffset(double x,double y){fAuxOffsetX = x; fAuxOffsetY = y;}
 
 private:
   static std::string       fGdmlPath;          // must set it in JobOpt file
+  bool fBTOption;  //beam test simulation option
+  double fAuxOffsetX;
+  double fAuxOffsetY;
+  double fMagneticFieldValue;
+  double fMagneticFieldPosZ;
   G4GDMLParser      *fParser;
+  G4GDMLParser      *fBTAuxParser[15];
   G4VPhysicalVolume *fPhyVolume;
+  G4VPhysicalVolume *fBTAuxPhyVolume[15];
+  G4VPhysicalVolume *fWorldPhyVolume;
 
 private:
 //  DmpSimPsdSD       *fPsdSD;
 //  DmpSimStkSD       *fStkSD;
   DmpSimBgoSD       *fBgoSD;
 //  DmpSimNudSD       *fNudSD;
-
-//Magnetic Field
-  G4LogicalVolume* fMagneticLogical;
 
 };
 

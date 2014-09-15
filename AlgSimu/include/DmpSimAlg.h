@@ -33,7 +33,12 @@ private:
   std::string           fMacFile;
   std::string           fPhyListName;   // default is QGSP_BIC
   //long                  fEventID;
-
+  //option setting for beam test
+  std::string           fBeamTestOption;
+  double                fAuxOffsetX;
+  double                fAuxOffsetY;
+  double                fMagneticFieldValue;
+  double                fMagneticFieldPosZ;
 };
 
 #endif

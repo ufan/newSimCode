@@ -25,7 +25,12 @@ DmpSimAlg::DmpSimAlg()
   fSimRunMgr(0),
   fPhyFactory(0),
   fMacFile("VIS"),
-  fPhyListName("QGSP_BIC")
+  fPhyListName("QGSP_BIC"),
+  fBeamTestOption("OFF"),
+  fAuxOffsetX(0),
+  fAuxOffsetY(0),
+  fMagneticFieldValue(0),
+  fMagneticFieldPosZ(-5000)
   //fEventID(0)
 {
   fPhyFactory = new G4PhysListFactory();
@@ -33,6 +38,12 @@ DmpSimAlg::DmpSimAlg()
   OptMap.insert(std::make_pair("Gdml",1));
   OptMap.insert(std::make_pair("Nud/DeltaTime",2));
   OptMap.insert(std::make_pair("MacFile",3));
+  //These option below is for beam test
+  OptMap.insert(std::make_pair("BeamTestOption",4));
+  OptMap.insert(std::make_pair("AuxOffsetX",5));
+  OptMap.insert(std::make_pair("AuxOffsetY",6));
+  OptMap.insert(std::make_pair("MagneticFieldValue",7));
+  OptMap.insert(std::make_pair("MagneticFieldPosZ",8));
 }
 
 //-------------------------------------------------------------------
@@ -69,6 +80,32 @@ void DmpSimAlg::Set(const std::string &type,const std::string &argv){
       fMacFile = argv;
       break;
     }
+    case 4:
+    {//beam test option, if it is set "OFF", case 5~8 will not be used in simulation
+      fBeamTestOption = argv;
+      break;
+    }
+    case 5:
+    {//Auxiliary detector offset X
+      fAuxOffsetX = atof(argv.c_str());
+      break;
+    }
+    case 6:
+    {//Auxiliary detector offset Y
+      fAuxOffsetY = atof(argv.c_str());
+      break;
+    }
+    case 7:
+    {//Magnetic field value
+      fMagneticFieldValue = atof(argv.c_str());
+      break;
+    }
+    case 8:
+    {//Magnetic field position z
+      fMagneticFieldPosZ = atof(argv.c_str());
+      break;
+    }
+ 
   }
 }
 
@@ -85,7 +122,19 @@ bool DmpSimAlg::Initialize(){
   fSimRunMgr = new DmpSimRunManager();
   fSimRunMgr->SetUserInitialization(fPhyFactory->GetReferencePhysList(fPhyListName));
   fSimRunMgr->SetUserAction(new DmpSimPrimaryGeneratorAction());      // only Primary Generator is mandatory
-  fSimRunMgr->SetUserInitialization(new DmpSimDetector());
+  DmpSimDetector *DmpDetectorConstruction = new DmpSimDetector();
+  if (fBeamTestOption == "ON"){
+    DmpDetectorConstruction->SetBeamTestOption(true);
+    DmpDetectorConstruction->SetMagneticField(fMagneticFieldValue,fMagneticFieldPosZ);
+    DmpDetectorConstruction->SetAuxDetOffset(fAuxOffsetX,fAuxOffsetY);
+  }
+  else if (fBeamTestOption == "OFF"){
+    DmpDetectorConstruction->SetBeamTestOption(false);
+  }
+  else {
+    DmpLogError << "DmpSimDetector::Wrong beam test option type!" << DmpLogEndl;
+  }
+  fSimRunMgr->SetUserInitialization(DmpDetectorConstruction);
   fSimRunMgr->SetUserAction(new DmpSimTrackingAction());
   fSimRunMgr->Initialize();
 // boot simulation
