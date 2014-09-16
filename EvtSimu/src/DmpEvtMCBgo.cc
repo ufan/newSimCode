@@ -6,6 +6,7 @@
 
 #include "DmpEvtMCBgo.h"
 #include "DmpLog.h"
+#include "DmpBgoBase.h"
 
 ClassImp(DmpEvtMCBgo)
 
@@ -62,6 +63,16 @@ const double DmpEvtMCBgo::GetPosition(short entry,const std::string &direction){
         DmpLogError << "Wrong direction type! Please choose 'X','Y',or 'Z' in GetPosition()." << DmpLogEndl;
         return -10000;
     }
+}
+//-------------------------------------------------------------------
+const short DmpEvtMCBgo::GetLayerID(short entry){
+    short layerID = DmpBgoBase::GetLayerID(fGlobalBarID.at(entry));
+    return layerID;
+}
+//-------------------------------------------------------------------
+const short DmpEvtMCBgo::GetBarID(short entry){
+    short barID = DmpBgoBase::GetBarID(fGlobalBarID.at(entry));
+    return barID;
 }
 //-------------------------------------------------------------------
 void DmpEvtMCBgo::Clear(){

@@ -12,8 +12,6 @@
 /gps/pos/sigma_r 0.25 cm
 /gps/direction 0 0 1
 /gps/ene/type Mono
-/gps/ene/mono 2000. MeV
+/gps/ene/mono 10000. MeV
 /run/beamOn 1
 /vis/scene/notifyHandlers scene-0
-/run/particle/addProcManager Bi209[0.0]
-/run/particle/addProcManager Bi208[0.0]
