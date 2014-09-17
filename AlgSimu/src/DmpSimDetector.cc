@@ -18,6 +18,8 @@
 #include "G4TransportationManager.hh"
 #include "G4VisAttributes.hh"
 
+#include "unistd.h"
+
 #include "DmpSimMagneticField.h"
 
 #include "DmpSimDetector.h"
@@ -25,6 +27,8 @@
 //#include "DmpSimStkSD.h"
 #include "DmpSimBgoSD.h"
 //#include "DmpSimNudSD.h"
+
+using namespace CLHEP;
 
 //-------------------------------------------------------------------
 std::string DmpSimDetector::fGdmlPath = "NO";

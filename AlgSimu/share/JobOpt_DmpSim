@@ -43,7 +43,7 @@ simAlg.Set("Physics","QGSP_BERT")  # If NOT set, will use QGSP_BIC. argv = {QGSP
 simAlg.Set("Gdml","../../Geometry/BeamTestOctober2014")     # must set the path
 #simAlg.Set("MacFile",DMPSW.SysPath+"/share/TestRelease/Ex_electron.mac") # if NOT set, will invoke vis. mode
 #simAlg.Set("MacFile","./Ex_proton.mac") # if NOT set, will invoke vis. mode
-simAlg.Set("MacFile","./Ex_pion.mac") # if NOT set, will invoke vis. mode
+#simAlg.Set("MacFile","./Ex_pion.mac") # if NOT set, will invoke vis. mode
 #simAlg.Set("MacFile","./test2_pion.mac") # if NOT set, will invoke vis. mode
 
 #-------------------------------------------------------------------

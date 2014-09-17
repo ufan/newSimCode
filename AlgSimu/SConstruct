@@ -23,10 +23,19 @@ env.ParseConfig("geant4-config --cflags --libs")
 
 #-------------------------------------------------------------------
 # include dir. and external libs
+XercesPath=os.environ['XERCESCROOT']
 env.Prepend(CPPPATH=['./include'])
 env.Append(LIBS=['DmpEvtSim'])   # link your event module, only for algorithm
+env.Prepend(LIBPATH=[XercesPath+'/lib'])
+env.Append(LIBS=['xerces-c'])
+env.Append(LIBS=['boost_system','boost_python','boost_filesystem'])
 
 #-------------------------------------------------------------------
 # main build
 goal=env.SharedLibrary(target,Glob('./src/*.cc'))
-Default(env.InstallAs(os.environ['DMPSWWORK']+'/lib/lib'+target+".so",goal))
+if env['PLATFORM'] == 'darwin':    #MacOS
+	Default(env.InstallAs(os.environ['DMPSWWORK']+'/lib/lib'+target+".so",goal))
+	Default(env.InstallAs(os.environ['DMPSWWORK']+'/lib/lib'+target+".dylib",goal))
+else:
+	Default(env.InstallAs(os.environ['DMPSWWORK']+'/lib/lib'+target+".so",goal))
+

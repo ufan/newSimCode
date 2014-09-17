@@ -13,13 +13,15 @@ print "---> compiling: %s\n" % target
 #--------------------------------------------------------------------
 # environment
 env = Environment(ENV = os.environ)
-#env.ParseConfig("dmpsw-config --include")
+env.ParseConfig("dmpsw-config --include --libs")
 env.ParseConfig("root-config --cflags --libs")
 
 #-------------------------------------------------------------------
 # include dir. and external libs
 env.Prepend(CPPPATH=['./include'])
 env.Prepend(CPPPATH=(os.environ['DMPSWSYS']+'/include'))
+#env.Prepend(LIBPATH=['/Users/weiyf/work/DMPSW/Lib'])
+#env.Append(LIBS=['DmpBase'])
 
 # installation
 #--------------------------------------------------------------------
@@ -30,4 +32,9 @@ for tmp in os.listdir('./include'):
 #-------------------------------------------------------------------
 # main build
 goal=env.SharedLibrary(target,Glob('./src/*.cc'))
-Default(env.InstallAs(os.environ['DMPSWWORK']+'/lib/lib'+target+".so",goal))
+if env['PLATFORM'] == 'darwin':    #MacOS
+	Default(env.InstallAs(os.environ['DMPSWWORK']+'/lib/lib'+target+".so",goal))
+	Default(env.InstallAs(os.environ['DMPSWWORK']+'/lib/lib'+target+".dylib",goal))
+else:
+	Default(env.InstallAs(os.environ['DMPSWWORK']+'/lib/lib'+target+".so",goal))
+

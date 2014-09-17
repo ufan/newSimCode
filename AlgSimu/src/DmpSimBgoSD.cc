@@ -14,6 +14,8 @@
 #include "DmpDataBuffer.h"
 #include "DmpBgoBase.h"
 
+using namespace CLHEP;
+
 //-------------------------------------------------------------------
 DmpSimBgoSD::DmpSimBgoSD()
  :G4VSensitiveDetector("BgoSD"),

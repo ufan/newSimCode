@@ -1,17 +1,3 @@
 /run/verbose 1
 /tracking/storeTrajectory 2
 /run/initialize
-/control/execute Ex_electron.mac
-/gps/source/clear
-/gps/source/add 1
-/gps/particle e-
-/gps/pos/type Plane
-/gps/pos/shape Circle
-/gps/pos/centre 13.75 13.75 -10000.0 mm
-/gps/pos/radius 0.5 cm
-/gps/pos/sigma_r 0.25 cm
-/gps/direction 0 0 1
-/gps/ene/type Mono
-/gps/ene/mono 10000. MeV
-/run/beamOn 1
-/vis/scene/notifyHandlers scene-0
