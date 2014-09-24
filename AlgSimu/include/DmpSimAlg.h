@@ -1,5 +1,5 @@
 /*
- *  $Id: DmpSimAlg.h, 2014-06-10 14:57:40 DAMPE $
+ *  $Id: DmpSimAlg.h, 2014-09-24 23:16:08 DAMPE $
  *  Author(s):
  *    Chi WANG (chiwang@mail.ustc.edu.cn) 10/06/2014
 */
@@ -33,12 +33,14 @@ private:
   std::string           fMacFile;
   std::string           fPhyListName;   // default is QGSP_BIC
   //long                  fEventID;
+  /*
   //option setting for beam test
   std::string           fBeamTestOption;
   double                fAuxOffsetX;
   double                fAuxOffsetY;
   double                fMagneticFieldValue;
   double                fMagneticFieldPosZ;
+  */
 };
 
 #endif

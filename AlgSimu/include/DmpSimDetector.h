@@ -10,8 +10,6 @@
 #include "G4VUserDetectorConstruction.hh"
 #include "DmpEDetectorID.h"
 
-#include "G4LogicalVolume.hh"
-
 class G4GDMLParser;
 //class DmpSimPsdSD;
 //class DmpSimStkSD;
@@ -28,23 +26,18 @@ public:
   ~DmpSimDetector();
   G4VPhysicalVolume* Construct();
   static void SetGdml(const std::string &argv) {fGdmlPath = argv;}
-  void ConstructMaterials();
-  void SetBeamTestOption(bool opt){fBTOption = opt;}
-  void SetMagneticField(double v,double p){fMagneticFieldValue = v; fMagneticFieldPosZ = p;}
-  void SetAuxDetOffset(double x,double y){fAuxOffsetX = x; fAuxOffsetY = y;}
+
+public:
+  void ConstructMaterials();    // TODO: where called me??
+  static void SetMagneticFieldValue(const double &v){fSimBT2014_On = true;fMagneticFieldValue = v;}
+  static void SetMagneticFieldPosition(const double &p){fSimBT2014_On = true; fMagneticFieldPosZ = p;}
+  static void SetAuxDetOffsetX(const double &x){fSimBT2014_On =true;fAuxOffsetX = x;}
+  static void SetAuxDetOffsetY(const double &y){fSimBT2014_On =true;fAuxOffsetY = y;}
 
 private:
   static std::string       fGdmlPath;          // must set it in JobOpt file
-  bool fBTOption;  //beam test simulation option
-  double fAuxOffsetX;
-  double fAuxOffsetY;
-  double fMagneticFieldValue;
-  double fMagneticFieldPosZ;
   G4GDMLParser      *fParser;
-  G4GDMLParser      *fBTAuxParser[15];
   G4VPhysicalVolume *fPhyVolume;
-  G4VPhysicalVolume *fBTAuxPhyVolume[15];
-  G4VPhysicalVolume *fWorldPhyVolume;
 
 private:
 //  DmpSimPsdSD       *fPsdSD;
@@ -52,6 +45,15 @@ private:
   DmpSimBgoSD       *fBgoSD;
 //  DmpSimNudSD       *fNudSD;
 
+private:    //beam test simulation option
+  static bool       fSimBT2014_On;
+  static double     fAuxOffsetX;
+  static double     fAuxOffsetY;
+  static double     fMagneticFieldValue;
+  static double     fMagneticFieldPosZ;
+  G4GDMLParser      *fBTAuxParser[15];
+  G4VPhysicalVolume *fBTAuxPhyVolume[15];
+  G4VPhysicalVolume *fWorldPhyVolume;
 };
 
 #endif
