@@ -1,5 +1,5 @@
 /*
- *  $Id: DmpSimAlg.cc, 2014-06-10 16:04:34 DAMPE $
+ *  $Id: DmpSimAlg.cc, 2014-09-25 22:22:08 DAMPE $
  *  Author(s):
  *    Chi WANG (chiwang@mail.ustc.edu.cn) 10/06/2014
 */
@@ -26,24 +26,16 @@ DmpSimAlg::DmpSimAlg()
   fPhyFactory(0),
   fMacFile("VIS"),
   fPhyListName("QGSP_BIC")
-  //fBeamTestOption("OFF"),
-  //fAuxOffsetX(0),
-  //fAuxOffsetY(0),
-  //fMagneticFieldValue(0),
-  //fMagneticFieldPosZ(-5000)
-  //fEventID(0)
 {
   fPhyFactory = new G4PhysListFactory();
   OptMap.insert(std::make_pair("Physics",0));
   OptMap.insert(std::make_pair("Gdml",1));
   OptMap.insert(std::make_pair("Nud/DeltaTime",2));
   OptMap.insert(std::make_pair("MacFile",3));
-  //These option below is for beam test
-  //OptMap.insert(std::make_pair("BeamTestOption",4));
-  OptMap.insert(std::make_pair("BT/AuxOffsetX",5));
-  OptMap.insert(std::make_pair("BT/AuxOffsetY",6));
-  OptMap.insert(std::make_pair("BT/MagneticFieldValue",7));
-  OptMap.insert(std::make_pair("BT/MagneticFieldPosZ",8));
+  OptMap.insert(std::make_pair("BT/AuxOffsetX",4));
+  OptMap.insert(std::make_pair("BT/AuxOffsetY",5));
+  OptMap.insert(std::make_pair("BT/MagneticFieldValue",6));
+  OptMap.insert(std::make_pair("BT/MagneticFieldPosZ",7));
 }
 
 //-------------------------------------------------------------------
@@ -85,38 +77,26 @@ void DmpSimAlg::Set(const std::string &type,const std::string &argv){
       fMacFile = argv;
       break;
     }
-    /*
     case 4:
-    {//beam test option, if it is set "OFF", case 5~8 will not be used in simulation
-      fBeamTestOption = argv;
+    {//Auxiliary detector offset X
+      DmpSimDetector::SetAuxDetOffsetX(boost::lexical_cast<double>(argv));
       break;
     }
-    */
     case 5:
-    {//Auxiliary detector offset X
-      //fAuxOffsetX = atof(argv.c_str());
-      DmpSimDetector::SetAuxDetOffsetX(boost::lexical_cast<short>(argv));
+    {//Auxiliary detector offset Y
+      DmpSimDetector::SetAuxDetOffsetY(boost::lexical_cast<double>(argv));
       break;
     }
     case 6:
-    {//Auxiliary detector offset Y
-      //fAuxOffsetY = atof(argv.c_str());
-      DmpSimDetector::SetAuxDetOffsetY(boost::lexical_cast<short>(argv));
+    {//Magnetic field value
+      DmpSimDetector::SetMagneticFieldValue(boost::lexical_cast<double>(argv));
       break;
     }
     case 7:
-    {//Magnetic field value
-      //fMagneticFieldValue = atof(argv.c_str());
-      DmpSimDetector::SetMagneticFieldValue(boost::lexical_cast<short>(argv));
-      break;
-    }
-    case 8:
     {//Magnetic field position z
-      //fMagneticFieldPosZ = atof(argv.c_str());
-      DmpSimDetector::SetMagneticFieldPosition(boost::lexical_cast<short>(argv));
+      DmpSimDetector::SetMagneticFieldPosition(boost::lexical_cast<double>(argv));
       break;
     }
- 
   }
 }
 
@@ -189,7 +169,6 @@ bool DmpSimAlg::ProcessThisEvent(){
     return true;
   }
   if(fSimRunMgr->SimOneEvent(gCore->GetCurrentEventID())){
-    //++fEventID;
     return true;
   }
   return false;
