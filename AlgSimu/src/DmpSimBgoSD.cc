@@ -1,5 +1,5 @@
 /*
- *  $Id: DmpSimBgoSD.cc, 2014-09-16 14:49:48 DAMPE/USTC $
+ *  $Id: DmpSimBgoSD.cc, 2014-09-26 00:25:47 DAMPE $
  *  Author(s):
  *    Chi WANG (chiwang@mail.ustc.edu.cn) 03/03/2014
 */
@@ -14,22 +14,22 @@
 #include "DmpDataBuffer.h"
 #include "DmpBgoBase.h"
 
-using namespace CLHEP;
-
 //-------------------------------------------------------------------
 DmpSimBgoSD::DmpSimBgoSD()
  :G4VSensitiveDetector("BgoSD"),
   fEvtMCBgo(0)
 {
   fEvtMCBgo = new DmpEvtMCBgo();
-// *
-// *  TODO:  check Register status
-// *
-  gDataBuffer->RegisterObject("Event/MCTruth/Bgo",fEvtMCBgo,"DmpEvtMCBgo");
+  if(not gDataBuffer->RegisterObject("Event/MCTruth/Bgo",fEvtMCBgo,"DmpEvtMCBgo")){
+   DmpLogError<<"xxxxx how to terminate this run"<<DmpLogEndl;
+  }
 }
 
 //-------------------------------------------------------------------
 DmpSimBgoSD::~DmpSimBgoSD(){
+// *
+// *  TODO:  impossible!! how could it succed while deleting event class at here?
+// *
   delete fEvtMCBgo;
 }
 
@@ -53,7 +53,7 @@ void DmpSimBgoSD::Initialize(G4HCofThisEvent*){
 // *
 // *  TODO:  after DmpRootIOSvc filled this event?
 // *
-  fEvtMCBgo->Clear();
+  fEvtMCBgo->Reset();
 }
 
 //-------------------------------------------------------------------
