@@ -1,10 +1,10 @@
 /*
- *  $Id: DmpSimAlg.cc, 2014-09-25 22:22:08 DAMPE $
+ *  $Id: DmpSimAlg.cc, 2014-09-25 22:53:04 DAMPE $
  *  Author(s):
  *    Chi WANG (chiwang@mail.ustc.edu.cn) 10/06/2014
 */
 
-#include <time.h>
+#include <time.h>   // time_t
 
 #include "DmpSimAlg.h"
 #include "DmpSimRunManager.h"
@@ -111,7 +111,6 @@ void DmpSimAlg::Set(const std::string &type,const std::string &argv){
 
 //-------------------------------------------------------------------
 #include <stdlib.h>     // getenv()
-#include "CLHEP/Random/Random.h"
 bool DmpSimAlg::Initialize(){
 // set seed
   std::cout<<"\tSimulation seed: "<<fSeed<<DmpLogEndl;      // keep this information in any case
