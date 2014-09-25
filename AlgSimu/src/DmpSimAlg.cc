@@ -4,6 +4,8 @@
  *    Chi WANG (chiwang@mail.ustc.edu.cn) 10/06/2014
 */
 
+#include <time.h>
+
 #include "DmpSimAlg.h"
 #include "DmpSimRunManager.h"
 #include "G4PhysListFactory.hh"
@@ -25,17 +27,19 @@ DmpSimAlg::DmpSimAlg()
   fSimRunMgr(0),
   fPhyFactory(0),
   fMacFile("VIS"),
-  fPhyListName("QGSP_BIC")
+  fPhyListName("QGSP_BIC"),
+  fSeed(time((time_t*)NULL))
 {
   fPhyFactory = new G4PhysListFactory();
   OptMap.insert(std::make_pair("Physics",0));
   OptMap.insert(std::make_pair("Gdml",1));
   OptMap.insert(std::make_pair("Nud/DeltaTime",2));
   OptMap.insert(std::make_pair("MacFile",3));
-  OptMap.insert(std::make_pair("BT/AuxOffsetX",4));
-  OptMap.insert(std::make_pair("BT/AuxOffsetY",5));
-  OptMap.insert(std::make_pair("BT/MagneticFieldValue",6));
-  OptMap.insert(std::make_pair("BT/MagneticFieldPosZ",7));
+  OptMap.insert(std::make_pair("Seed",4));
+  OptMap.insert(std::make_pair("BT/AuxOffsetX",5));
+  OptMap.insert(std::make_pair("BT/AuxOffsetY",6));
+  OptMap.insert(std::make_pair("BT/MagneticFieldValue",7));
+  OptMap.insert(std::make_pair("BT/MagneticFieldPosZ",8));
 }
 
 //-------------------------------------------------------------------
@@ -57,43 +61,48 @@ void DmpSimAlg::Set(const std::string &type,const std::string &argv){
     throw;
   }
   switch (OptMap[type]){
-    case 0:
-    {// Physics
+    case 0: // Physics
+    {
       fPhyListName = argv;
       break;
     }
-    case 1:
-    {// Gdml
+    case 1: // Gdml
+    {
       DmpSimDetector::SetGdml(argv);
       break;
     }
-    case 2:
-    {// Nud/DeltaTime
+    case 2: // Nud/DeltaTime
+    {
       //DmpEvtMCNudBlock::SetDeltaTime(boost::lexical_cast<short>(argv));
       break;
     }
-    case 3:
-    {// MacFile
+    case 3: // MacFile
+    {
       fMacFile = argv;
       break;
     }
-    case 4:
-    {//Auxiliary detector offset X
+    case 4: // Seed
+    {
+      fSeed = boost::lexical_cast<long>(argv);
+      break;
+    }
+    case 5: // Auxiliary detector offset X
+    {
       DmpSimDetector::SetAuxDetOffsetX(boost::lexical_cast<double>(argv));
       break;
     }
-    case 5:
-    {//Auxiliary detector offset Y
+    case 6: // Auxiliary detector offset Y
+    {
       DmpSimDetector::SetAuxDetOffsetY(boost::lexical_cast<double>(argv));
       break;
     }
-    case 6:
-    {//Magnetic field value
+    case 7: // Magnetic field value
+    {
       DmpSimDetector::SetMagneticFieldValue(boost::lexical_cast<double>(argv));
       break;
     }
-    case 7:
-    {//Magnetic field position z
+    case 8: // Magnetic field position z
+    {
       DmpSimDetector::SetMagneticFieldPosition(boost::lexical_cast<double>(argv));
       break;
     }
@@ -102,28 +111,15 @@ void DmpSimAlg::Set(const std::string &type,const std::string &argv){
 
 //-------------------------------------------------------------------
 #include <stdlib.h>     // getenv()
-#include <time.h>
 #include "CLHEP/Random/Random.h"
 bool DmpSimAlg::Initialize(){
-// set random seed
-  G4long seed = time((time_t*)NULL);
-  CLHEP::HepRandom::setTheSeed(seed);
-  DmpLogInfo<<"[seed] "<<seed<<DmpLogEndl;
+// set seed
+  std::cout<<"\tSimulation seed: "<<fSeed<<DmpLogEndl;      // keep this information in any case
+  CLHEP::HepRandom::setTheSeed(fSeed);
 // set G4 kernel
   fSimRunMgr = new DmpSimRunManager();
   fSimRunMgr->SetUserInitialization(fPhyFactory->GetReferencePhysList(fPhyListName));
   fSimRunMgr->SetUserAction(new DmpSimPrimaryGeneratorAction());      // only Primary Generator is mandatory
-  /*
-  if(fBeamTestOption == "ON"){
-    //DmpDetectorConstruction->SetBeamTestOption(true);
-    DmpDetectorConstruction->SetMagneticField(fMagneticFieldValue,fMagneticFieldPosZ);
-    DmpDetectorConstruction->SetAuxDetOffset(fAuxOffsetX,fAuxOffsetY);
-  }else if(fBeamTestOption == "OFF"){
-    DmpDetectorConstruction->SetBeamTestOption(false);
-  }else {
-    DmpLogError << "DmpSimDetector::Wrong beam test option type!" << DmpLogEndl;
-  }
-  */
   fSimRunMgr->SetUserInitialization(new DmpSimDetector());
   fSimRunMgr->SetUserAction(new DmpSimTrackingAction());
   fSimRunMgr->Initialize();

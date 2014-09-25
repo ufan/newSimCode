@@ -32,6 +32,7 @@ private:
   G4PhysListFactory     *fPhyFactory;
   std::string           fMacFile;
   std::string           fPhyListName;   // default is QGSP_BIC
+  long                  fSeed;          // simulation seed
 };
 
 #endif
