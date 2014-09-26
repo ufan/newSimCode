@@ -5,6 +5,9 @@
  *    Chi WANG (chiwang@mail.ustc.edu.cn) 26/02/2014
 */
 
+#include <unistd.h>
+
+#include "G4LogicalVolume.hh"
 #include "G4PVPlacement.hh"
 #include "G4GDMLParser.hh"
 #include "G4SDManager.hh"
@@ -18,7 +21,6 @@
 #include "G4TransportationManager.hh"
 #include "G4VisAttributes.hh"
 
-#include "unistd.h"
 
 #include "DmpSimMagneticField.h"
 
@@ -32,30 +34,30 @@ using namespace CLHEP;
 
 //-------------------------------------------------------------------
 std::string DmpSimDetector::fGdmlPath = "NO";
+bool DmpSimDetector::fSimBT2014_On = false;
+double DmpSimDetector::fAuxOffsetX = 0;
+double DmpSimDetector::fAuxOffsetY = 0;
+double DmpSimDetector::fMagneticFieldValue = 0;
+double DmpSimDetector::fMagneticFieldPosZ  = -5000;
 
 //-------------------------------------------------------------------
 DmpSimDetector::DmpSimDetector()
  :fParser(0),
-  fBTOption(1),      
   fPhyVolume(0),
-  fWorldPhyVolume(0),
 //  fPsdSD(0),
 //  fStkSD(0),
   fBgoSD(0),
 //  fNudSD(0),
-  fAuxOffsetX(0),
-  fAuxOffsetY(0),
-  fMagneticFieldValue(0),
-  fMagneticFieldPosZ(-5000)
+  fWorldPhyVolume(0)
 {
   fParser = new G4GDMLParser();
-  for (int i=0;i<15;i++){
-    fBTAuxParser[i] = new G4GDMLParser();
-  }
 //  fPsdSD = new DmpSimPsdSD();
 //  fStkSD = new DmpSimStkSD();
   fBgoSD = new DmpSimBgoSD();
 //  fNudSD = new DmpSimNudSD();
+  for (int i=0;i<15;i++){
+    fBTAuxParser[i] = new G4GDMLParser();
+  }
 }
 
 //-------------------------------------------------------------------
@@ -80,7 +82,7 @@ G4VPhysicalVolume* DmpSimDetector::Construct(){
     chdir(fGdmlPath.c_str());
     fParser->Read("DAMPE.gdml");
     fPhyVolume = fParser->GetWorldVolume();
-    if (fBTOption==true){
+    if (fSimBT2014_On==true){
         fBTAuxParser[0]->Read("LDR0_Ascii.gdml");
         fBTAuxParser[1]->Read("NaI_Ascii.gdml");
         fBTAuxParser[2]->Read("S0_Ascii.gdml");
@@ -94,7 +96,7 @@ G4VPhysicalVolume* DmpSimDetector::Construct(){
   }
   chdir(dirTmp);
 
-  if (fBTOption==true){
+  if(fSimBT2014_On==true){
     G4Material* defaultMaterial = G4Material::GetMaterial("Galactic");
     G4VSolid* WorldSolid = new G4Box("WorldBox",20.*m,20.*m,20.*m);
     G4LogicalVolume* WorldLog = new G4LogicalVolume(WorldSolid,defaultMaterial,"WorldLogical");
@@ -109,7 +111,7 @@ G4VPhysicalVolume* DmpSimDetector::Construct(){
     //Set magnetic field
   
     static G4bool fieldIsInitialized = false;
-    if (!fieldIsInitialized){
+    if(!fieldIsInitialized){
         DmpSimMagneticField* fMagneticField = new DmpSimMagneticField();
         fMagneticField->SetField(fMagneticFieldValue*tesla);
         G4FieldManager* fFieldMgr = new G4FieldManager();//G4TransportationManager::GetTransportationManager()->GetFieldManager();
@@ -118,8 +120,6 @@ G4VPhysicalVolume* DmpSimDetector::Construct(){
         fMagneticLogical->SetFieldManager(fFieldMgr,true);
         fieldIsInitialized = true;
     }
-  
-
     fPhyVolume = new G4PVPlacement(0,G4ThreeVector(0,0,0),"DAMPEPhysical",fParser->GetVolume("World"),fWorldPhyVolume,false,0);
     fBTAuxPhyVolume[0] = new G4PVPlacement(0,G4ThreeVector(fAuxOffsetX+3000,fAuxOffsetY,0),"LDR0",fBTAuxParser[0]->GetVolume("LDR0"),fWorldPhyVolume,false,0);
     fBTAuxPhyVolume[1] = new G4PVPlacement(0,G4ThreeVector(fAuxOffsetX+3000,fAuxOffsetY,0),"NaI",fBTAuxParser[1]->GetVolume("NaI"),fWorldPhyVolume,false,0);
@@ -130,8 +130,9 @@ G4VPhysicalVolume* DmpSimDetector::Construct(){
     fBTAuxPhyVolume[6] = new G4PVPlacement(0,G4ThreeVector(fAuxOffsetX+3000,fAuxOffsetY,0),"Sh",fBTAuxParser[6]->GetVolume("Sh"),fWorldPhyVolume,false,0);
     fBTAuxPhyVolume[7] = new G4PVPlacement(0,G4ThreeVector(fAuxOffsetX+3000,fAuxOffsetY,0),"SSD0",fBTAuxParser[7]->GetVolume("SSD0"),fWorldPhyVolume,false,0);
     fBTAuxPhyVolume[8] = new G4PVPlacement(0,G4ThreeVector(fAuxOffsetX+3000,fAuxOffsetY,0),"SSD1",fBTAuxParser[8]->GetVolume("SSD1"),fWorldPhyVolume,false,0);
+  }else{
+    fWorldPhyVolume = fPhyVolume;
   }
-  else {fWorldPhyVolume = fPhyVolume;}
 
 
 // *
@@ -173,14 +174,15 @@ G4VPhysicalVolume* DmpSimDetector::Construct(){
 }
 
 void DmpSimDetector::ConstructMaterials(){
+// *
+// *  TODO: why needed? 
+// *
   //G4NistManager* nistManager = G4NistManager::Instance(); 
   G4double a;  // mass of a mole;
   G4double z;  // z=mean number of protons;  
   G4double density; 
    // Vacuum
   new G4Material("Galactic", z=1., a=1.01*g/mole,density= universe_mean_density,kStateGas, 2.73*kelvin, 3.e-18*pascal);
-
-
 }
 
 
