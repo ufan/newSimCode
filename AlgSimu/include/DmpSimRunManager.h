@@ -1,5 +1,5 @@
 /*
- *  $Id: DmpSimRunManager.h, 2014-06-10 15:59:12 DAMPE $
+ *  $Id: DmpSimRunManager.h, 2014-09-26 11:17:12 DAMPE $
  *  Author(s):
  *    Chi WANG (chiwang@mail.ustc.edu.cn) 12/04/2014
 */
@@ -12,8 +12,6 @@
 class DmpSimRunManager : public G4RunManager{
 /*
  *  DmpSimRunManager
- *
- *      create it in JobOpt file, and boot simulation for DmpSW
  *
  */
 public:

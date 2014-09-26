@@ -23,3 +23,6 @@
 */.scon*
 *test*
 Diction*
+*log*
+*Log*
+*.root*

@@ -27,7 +27,7 @@ DmpSimAlg::DmpSimAlg()
  :DmpVAlg("Sim/Alg/RunManager"),
   fSimRunMgr(0),
   fPhyFactory(0),
-  fVisMod(true),
+  fBatchMode(true),
   fPhyListName("QGSP_BIC"),
   fSeed(time((time_t*)NULL))
 {
@@ -41,14 +41,13 @@ DmpSimAlg::DmpSimAlg()
   OptMap.insert(std::make_pair("BT/MagneticFieldValue",6));
   OptMap.insert(std::make_pair("BT/MagneticFieldPosZ",7));
   // mode check
-  if(".mac" == gRootIOSvc->GetInputExtension()){
-    fVisMod = false; // then will active batch mode
-    gRootIOSvc->Set("Output/Key","sim");
-  }else{
+  if(".mac" != gRootIOSvc->GetInputExtension()){
+    fBatchMode = false; // then will active visualization mode
     if(gRootIOSvc->GetOutputStem() == ""){
       gRootIOSvc->Set("Output/FileName","DmpSimVis.root");
     }
   }
+  gRootIOSvc->Set("Output/Key","sim");
 }
 
 //-------------------------------------------------------------------
@@ -127,11 +126,19 @@ bool DmpSimAlg::Initialize(){
   fSimRunMgr->SetUserAction(new DmpSimTrackingAction());
   fSimRunMgr->Initialize();
 // boot simulation
-  if(fVisMod){    // visualization mode
-// *
-// *  TODO:  if /control/execute particle.mac, when will G4RunMgr::RunInitialization() been invoked?
-// *
-    G4UImanager *uiMgr = G4UImanager::GetUIpointer();
+  G4UImanager *uiMgr = G4UImanager::GetUIpointer();
+  if(fBatchMode){    // batch mode
+    uiMgr->ApplyCommand("/control/execute "+gRootIOSvc->GetInputFileName());
+    if(fSimRunMgr->ConfirmBeamOnCondition()){   // if not vis mode, do some prepare for this run. refer to G4RunManagr::BeamOn()
+      fSimRunMgr->SetNumberOfEventsToBeProcessed(gCore->GetMaxEventNumber());
+      fSimRunMgr->ConstructScoringWorlds();
+      fSimRunMgr->RunInitialization();
+      fSimRunMgr->InitializeEventLoop(gCore->GetMaxEventNumber());
+    }else{
+      DmpLogError<<"G4RunManager::Initialize() failed"<<DmpLogEndl;
+      return false;
+    }
+  }else{    // visualization mode
 #ifdef G4UI_USE_QT
     char *dummyargv[20]={"visual"};
     G4UIExecutive *ui = new G4UIExecutive(1,dummyargv);
@@ -147,31 +154,18 @@ bool DmpSimAlg::Initialize(){
     }
     ui->SessionStart();
     delete ui;
+#ifdef G4VIS_USE_OPENGLQT
+    delete vis;
 #endif
-    std::cout<<"DEBUG: "<<__FILE__<<"("<<__LINE__<<")"<<std::endl;
-  }else{    // batch mode
-    // if not vis mode, do some prepare for this run. refer to G4RunManagr::BeamOn()
-    if(fSimRunMgr->ConfirmBeamOnCondition()){
-      fSimRunMgr->ConstructScoringWorlds();
-      fSimRunMgr->RunInitialization();
-      // *
-      // *  TODO:  check G4RunManager::InitializeEventLoop(the third argument right?)
-      // *
-      fSimRunMgr->InitializeEventLoop(gCore->GetMaxEventNumber(),gRootIOSvc->GetInputFileName().c_str(),gCore->GetMaxEventNumber());
-    }else{
-      DmpLogError<<"G4RunManager::Initialize() failed"<<DmpLogEndl;
-      return false;
-    }
+    gRootIOSvc->FillData("Event");
+    gCore->TerminateRun();  // just for check GDML, or run one event while debuging
+#endif
   }
-    std::cout<<"DEBUG: "<<__FILE__<<"("<<__LINE__<<")"<<std::endl;
   return true;
 }
 
 //-------------------------------------------------------------------
 bool DmpSimAlg::ProcessThisEvent(){
-  if(fVisMod){
-    return true;
-  }
   if(fSimRunMgr->SimOneEvent(gCore->GetCurrentEventID())){
     return true;
   }
@@ -180,7 +174,7 @@ bool DmpSimAlg::ProcessThisEvent(){
 
 //-------------------------------------------------------------------
 bool DmpSimAlg::Finalize(){
-  if(not fVisMod){
+  if(fBatchMode){
     fSimRunMgr->TerminateEventLoop();
     fSimRunMgr->RunTermination();
   }
