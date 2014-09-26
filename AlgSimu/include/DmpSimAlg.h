@@ -1,5 +1,5 @@
 /*
- *  $Id: DmpSimAlg.h, 2014-06-10 14:57:40 DAMPE $
+ *  $Id: DmpSimAlg.h, 2014-09-25 22:49:10 DAMPE $
  *  Author(s):
  *    Chi WANG (chiwang@mail.ustc.edu.cn) 10/06/2014
 */
@@ -30,15 +30,9 @@ public:
 private:
   DmpSimRunManager      *fSimRunMgr;    // run manager of simulation
   G4PhysListFactory     *fPhyFactory;
-  std::string           fMacFile;
+  bool                  fVisMod;        // input is a macro file, *.mac
   std::string           fPhyListName;   // default is QGSP_BIC
-  //long                  fEventID;
-  //option setting for beam test
-  std::string           fBeamTestOption;
-  double                fAuxOffsetX;
-  double                fAuxOffsetY;
-  double                fMagneticFieldValue;
-  double                fMagneticFieldPosZ;
+  long                  fSeed;          // simulation seed
 };
 
 #endif

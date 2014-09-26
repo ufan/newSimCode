@@ -17,8 +17,8 @@ class DmpEvtMCPrimaryParticle : public TObject{
  *
  */
 public:
-  DmpEvtMCPrimaryParticle();
-  ~DmpEvtMCPrimaryParticle();
+  DmpEvtMCPrimaryParticle():fEventID(0),fTime(0),fPosX(0),fPosY(0),fPosZ(0),fDirectionX(0),fDirectionY(0),fDirectionZ(0),fKineticE(0),fPDGCode(0),fMass(0),fCharge(0),fLeptonNo(0),fBaryonNo(0){}
+  ~DmpEvtMCPrimaryParticle(){}
   void SetEventID(const long &i) {fEventID = i;}
   void SetTime(const double &t) {fTime = t;}
   void SetPosition(const double &x, const double &y, const double &z) {fPosX = x; fPosY = y; fPosZ = z;}

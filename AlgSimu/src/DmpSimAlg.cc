@@ -1,8 +1,10 @@
 /*
- *  $Id: DmpSimAlg.cc, 2014-06-10 16:04:34 DAMPE $
+ *  $Id: DmpSimAlg.cc, 2014-09-25 22:53:04 DAMPE $
  *  Author(s):
  *    Chi WANG (chiwang@mail.ustc.edu.cn) 10/06/2014
 */
+
+#include <time.h>   // time_t
 
 #include "DmpSimAlg.h"
 #include "DmpSimRunManager.h"
@@ -11,6 +13,7 @@
 #include "DmpSimPrimaryGeneratorAction.h"
 #include "DmpSimTrackingAction.h"
 #include "DmpCore.h"
+#include "DmpRootIOSvc.h"
 #include "G4UImanager.hh"
 #ifdef G4UI_USE_QT
 #include "G4UIExecutive.hh"
@@ -24,26 +27,28 @@ DmpSimAlg::DmpSimAlg()
  :DmpVAlg("Sim/Alg/RunManager"),
   fSimRunMgr(0),
   fPhyFactory(0),
-  fMacFile("VIS"),
+  fVisMod(true),
   fPhyListName("QGSP_BIC"),
-  fBeamTestOption("OFF"),
-  fAuxOffsetX(0),
-  fAuxOffsetY(0),
-  fMagneticFieldValue(0),
-  fMagneticFieldPosZ(-5000)
-  //fEventID(0)
+  fSeed(time((time_t*)NULL))
 {
   fPhyFactory = new G4PhysListFactory();
   OptMap.insert(std::make_pair("Physics",0));
   OptMap.insert(std::make_pair("Gdml",1));
   OptMap.insert(std::make_pair("Nud/DeltaTime",2));
-  OptMap.insert(std::make_pair("MacFile",3));
-  //These option below is for beam test
-  OptMap.insert(std::make_pair("BeamTestOption",4));
-  OptMap.insert(std::make_pair("AuxOffsetX",5));
-  OptMap.insert(std::make_pair("AuxOffsetY",6));
-  OptMap.insert(std::make_pair("MagneticFieldValue",7));
-  OptMap.insert(std::make_pair("MagneticFieldPosZ",8));
+  OptMap.insert(std::make_pair("Seed",3));
+  OptMap.insert(std::make_pair("BT/AuxOffsetX",4));
+  OptMap.insert(std::make_pair("BT/AuxOffsetY",5));
+  OptMap.insert(std::make_pair("BT/MagneticFieldValue",6));
+  OptMap.insert(std::make_pair("BT/MagneticFieldPosZ",7));
+  // mode check
+  if(".mac" == gRootIOSvc->GetInputExtension()){
+    fVisMod = false; // then will active batch mode
+    gRootIOSvc->Set("Output/Key","sim");
+  }else{
+    if(gRootIOSvc->GetOutputStem() == ""){
+      gRootIOSvc->Set("Output/FileName","DmpSimVis.root");
+    }
+  }
 }
 
 //-------------------------------------------------------------------
@@ -57,88 +62,75 @@ DmpSimAlg::~DmpSimAlg(){
 //#include "DmpEvtMCNudBlock.h"
 void DmpSimAlg::Set(const std::string &type,const std::string &argv){
   if(OptMap.find(type) == OptMap.end()){
-    DmpLogError<<" No argument type "<<type<<DmpLogEndl;
+    DmpLogError<<"[DmpSimAlg::Set] No argument type:\t"<<type<<DmpLogEndl;
+    std::cout<<"\tPossible options are:"<<DmpLogEndl;
+    for(std::map<std::string,short>::iterator anOpt= OptMap.begin();anOpt!=OptMap.end();anOpt++){
+      std::cout<<"\t\t"<<anOpt->first<<DmpLogEndl;
+    }
+    throw;
   }
   switch (OptMap[type]){
-    case 0:
-    {// Physics
+    case 0: // Physics
+    {
       fPhyListName = argv;
       break;
     }
-    case 1:
-    {// Gdml
+    case 1: // Gdml
+    {
       DmpSimDetector::SetGdml(argv);
       break;
     }
-    case 2:
-    {// Nud/DeltaTime
+    case 2: // Nud/DeltaTime
+    {
       //DmpEvtMCNudBlock::SetDeltaTime(boost::lexical_cast<short>(argv));
       break;
     }
-    case 3:
-    {// MacFile
-      fMacFile = argv;
+    case 3: // Seed
+    {
+      fSeed = boost::lexical_cast<long>(argv);
       break;
     }
-    case 4:
-    {//beam test option, if it is set "OFF", case 5~8 will not be used in simulation
-      fBeamTestOption = argv;
+    case 4: // Auxiliary detector offset X
+    {
+      DmpSimDetector::SetAuxDetOffsetX(boost::lexical_cast<double>(argv));
       break;
     }
-    case 5:
-    {//Auxiliary detector offset X
-      fAuxOffsetX = atof(argv.c_str());
+    case 5: // Auxiliary detector offset Y
+    {
+      DmpSimDetector::SetAuxDetOffsetY(boost::lexical_cast<double>(argv));
       break;
     }
-    case 6:
-    {//Auxiliary detector offset Y
-      fAuxOffsetY = atof(argv.c_str());
+    case 6: // Magnetic field value
+    {
+      DmpSimDetector::SetMagneticFieldValue(boost::lexical_cast<double>(argv));
       break;
     }
-    case 7:
-    {//Magnetic field value
-      fMagneticFieldValue = atof(argv.c_str());
+    case 7: // Magnetic field position z
+    {
+      DmpSimDetector::SetMagneticFieldPosition(boost::lexical_cast<double>(argv));
       break;
     }
-    case 8:
-    {//Magnetic field position z
-      fMagneticFieldPosZ = atof(argv.c_str());
-      break;
-    }
- 
   }
 }
 
 //-------------------------------------------------------------------
 #include <stdlib.h>     // getenv()
-#include <time.h>
-#include "CLHEP/Random/Random.h"
 bool DmpSimAlg::Initialize(){
-// set random seed
-  G4long seed = time((time_t*)NULL);
-  CLHEP::HepRandom::setTheSeed(seed);
-  DmpLogInfo<<"[seed] "<<seed<<DmpLogEndl;
+// set seed
+  std::cout<<"\tRandom seed: "<<fSeed<<DmpLogEndl;      // keep this information in any case
+  CLHEP::HepRandom::setTheSeed(fSeed);
 // set G4 kernel
   fSimRunMgr = new DmpSimRunManager();
   fSimRunMgr->SetUserInitialization(fPhyFactory->GetReferencePhysList(fPhyListName));
   fSimRunMgr->SetUserAction(new DmpSimPrimaryGeneratorAction());      // only Primary Generator is mandatory
-  DmpSimDetector *DmpDetectorConstruction = new DmpSimDetector();
-  if (fBeamTestOption == "ON"){
-    DmpDetectorConstruction->SetBeamTestOption(true);
-    DmpDetectorConstruction->SetMagneticField(fMagneticFieldValue,fMagneticFieldPosZ);
-    DmpDetectorConstruction->SetAuxDetOffset(fAuxOffsetX,fAuxOffsetY);
-  }
-  else if (fBeamTestOption == "OFF"){
-    DmpDetectorConstruction->SetBeamTestOption(false);
-  }
-  else {
-    DmpLogError << "DmpSimDetector::Wrong beam test option type!" << DmpLogEndl;
-  }
-  fSimRunMgr->SetUserInitialization(DmpDetectorConstruction);
+  fSimRunMgr->SetUserInitialization(new DmpSimDetector());
   fSimRunMgr->SetUserAction(new DmpSimTrackingAction());
   fSimRunMgr->Initialize();
 // boot simulation
-  if("VIS" == fMacFile){    // vis mode
+  if(fVisMod){    // visualization mode
+// *
+// *  TODO:  if /control/execute particle.mac, when will G4RunMgr::RunInitialization() been invoked?
+// *
     G4UImanager *uiMgr = G4UImanager::GetUIpointer();
 #ifdef G4UI_USE_QT
     char *dummyargv[20]={"visual"};
@@ -156,6 +148,7 @@ bool DmpSimAlg::Initialize(){
     ui->SessionStart();
     delete ui;
 #endif
+    std::cout<<"DEBUG: "<<__FILE__<<"("<<__LINE__<<")"<<std::endl;
   }else{    // batch mode
     // if not vis mode, do some prepare for this run. refer to G4RunManagr::BeamOn()
     if(fSimRunMgr->ConfirmBeamOnCondition()){
@@ -164,35 +157,33 @@ bool DmpSimAlg::Initialize(){
       // *
       // *  TODO:  check G4RunManager::InitializeEventLoop(the third argument right?)
       // *
-      fSimRunMgr->InitializeEventLoop(gCore->GetMaxEventNumber(),fMacFile.c_str(),gCore->GetMaxEventNumber());
+      fSimRunMgr->InitializeEventLoop(gCore->GetMaxEventNumber(),gRootIOSvc->GetInputFileName().c_str(),gCore->GetMaxEventNumber());
     }else{
       DmpLogError<<"G4RunManager::Initialize() failed"<<DmpLogEndl;
       return false;
     }
   }
+    std::cout<<"DEBUG: "<<__FILE__<<"("<<__LINE__<<")"<<std::endl;
   return true;
 }
 
 //-------------------------------------------------------------------
 bool DmpSimAlg::ProcessThisEvent(){
-  if("VIS" == fMacFile){
+  if(fVisMod){
     return true;
   }
-  
   if(fSimRunMgr->SimOneEvent(gCore->GetCurrentEventID())){
-    //++fEventID;
     return true;
   }
-  
   return false;
 }
 
 //-------------------------------------------------------------------
 bool DmpSimAlg::Finalize(){
-
-  if("VIS" != fMacFile){
+  if(not fVisMod){
     fSimRunMgr->TerminateEventLoop();
     fSimRunMgr->RunTermination();
   }
   return true;
 }
+
