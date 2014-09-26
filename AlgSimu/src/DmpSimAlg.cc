@@ -5,6 +5,7 @@
 */
 
 #include <time.h>   // time_t
+#include <boost/lexical_cast.hpp>
 
 #include "DmpSimAlg.h"
 #include "DmpSimRunManager.h"
@@ -47,7 +48,7 @@ DmpSimAlg::DmpSimAlg()
       gRootIOSvc->Set("Output/FileName","DmpSimVis.root");
     }
   }
-  gRootIOSvc->Set("Output/Key","sim");
+  gRootIOSvc->Set("Output/Key",boost::lexical_cast<std::string>(fSeed)+"-sim");
 }
 
 //-------------------------------------------------------------------
@@ -57,7 +58,6 @@ DmpSimAlg::~DmpSimAlg(){
 }
 
 //-------------------------------------------------------------------
-#include <boost/lexical_cast.hpp>
 //#include "DmpEvtMCNudBlock.h"
 void DmpSimAlg::Set(const std::string &type,const std::string &argv){
   if(OptMap.find(type) == OptMap.end()){
@@ -87,6 +87,7 @@ void DmpSimAlg::Set(const std::string &type,const std::string &argv){
     case 3: // Seed
     {
       fSeed = boost::lexical_cast<long>(argv);
+      gRootIOSvc->Set("Output/Key",argv+"-sim");
       break;
     }
     case 4: // Auxiliary detector offset X
