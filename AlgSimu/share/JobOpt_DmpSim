@@ -21,7 +21,7 @@ DMPSW.Core.Set("EventNumber","10")     # MUST event number for simulation!!!
 
 #-------------------------------------------------------------------
 # RootIOSvc options
-DMPSW.RootIOSvc.Set("Input/FileName","./Ex_pion.mac")   # if NOT set, will invoke visualization mode
+#DMPSW.RootIOSvc.Set("Input/FileName","./Ex_pion.mac")   # if NOT set, will invoke visualization mode
 #DMPSW.RootIOSvc.Set("Input/FileName","./Ex_proton.mac")      # if NOT set, will invoke visualization mode
 #DMPSW.RootIOSvc.Set("Input/FileName","./Ex_electron.mac")    # if NOT set, will invoke visualization mode
 #DMPSW.RootIOSvc.Set("Output/FileName","./testxxxmpSimData_test00.root")        # if NOT set, will use the input macro name

@@ -30,7 +30,7 @@ public:
 private:
   DmpSimRunManager      *fSimRunMgr;    // run manager of simulation
   G4PhysListFactory     *fPhyFactory;
-  bool                  fVisMod;        // input is a macro file, *.mac
+  bool                  fBatchMode;     // input is a macro file, *.mac
   std::string           fPhyListName;   // default is QGSP_BIC
   long                  fSeed;          // simulation seed
 };
