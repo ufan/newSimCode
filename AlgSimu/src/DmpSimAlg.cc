@@ -104,8 +104,10 @@ void DmpSimAlg::Set(const std::string &type,const std::string &argv){
     }
     case 6: // Magnetic field value
     {
-      //DmpSimDetector::SetMagneticFieldValue(boost::lexical_cast<double>(argv));
-      DmpSimMagneticField::SetFieldValue(boost::lexical_cast<double>(argv));
+      double x=0.0,y=0.0,z=0.0;
+      std::istringstream iss(argv);
+      iss>>x>>y>>z;
+      DmpSimMagneticField::SetFieldValue(x,y,z);
       break;
     }
     case 7: // Magnetic field position z
