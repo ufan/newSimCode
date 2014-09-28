@@ -34,7 +34,7 @@ G4bool DmpSimBgoSD::ProcessHits(G4Step *aStep,G4TouchableHistory*){
   G4TouchableHistory *theTouchable = (G4TouchableHistory*)(aStep->GetPreStepPoint()->GetTouchable());
   std::string barName = theTouchable->GetVolume(1)->GetName();
   barName.assign(barName.end()-4,barName.end());        // get ID
-  short barID = boost::lexical_cast<int>(barName);
+  short barID = boost::lexical_cast<short>(barName);
   short GlobalID = DmpBgoBase::ConstructGlobalBarID(barID/100,barID%100);
 
   G4ThreeVector position = aStep->GetPreStepPoint()->GetPosition();
