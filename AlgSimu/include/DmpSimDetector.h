@@ -8,7 +8,7 @@
 #define DmpSimDetector_H
 
 #include "G4VUserDetectorConstruction.hh"
-#include "DmpEDetectorID.h"
+//#include "DmpEDetectorID.h"
 
 class G4GDMLParser;
 //class DmpSimPsdSD;

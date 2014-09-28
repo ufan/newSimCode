@@ -10,6 +10,9 @@
 #include "DmpVAlg.h"
 
 class DmpSimRunManager;
+class DmpSimPrimaryGeneratorAction;
+class DmpSimDetector;
+class DmpSimTrackingAction;
 class G4PhysListFactory;
 
 class DmpSimAlg : public DmpVAlg{
@@ -30,6 +33,9 @@ public:
 private:
   DmpSimRunManager      *fSimRunMgr;    // run manager of simulation
   G4PhysListFactory     *fPhyFactory;
+  DmpSimPrimaryGeneratorAction  *fSource;   // particle source
+  DmpSimDetector        *fDetector;     // DAMPE detector
+  DmpSimTrackingAction  *fTracking;     // tracking action
   bool                  fBatchMode;     // input is a macro file, *.mac
   std::string           fPhyListName;   // default is QGSP_BIC
   long                  fSeed;          // simulation seed

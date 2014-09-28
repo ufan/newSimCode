@@ -25,7 +25,6 @@ DmpSimPrimaryGeneratorAction::DmpSimPrimaryGeneratorAction()
 //-------------------------------------------------------------------
 DmpSimPrimaryGeneratorAction::~DmpSimPrimaryGeneratorAction(){
   delete fGPS;
-  delete fPrimaryParticle;
 }
 
 //-------------------------------------------------------------------

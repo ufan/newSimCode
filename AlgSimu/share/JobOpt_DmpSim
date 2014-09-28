@@ -41,7 +41,7 @@ simAlg.Set("Physics","QGSP_BERT")  # If NOT set, will use QGSP_BIC. argv = {QGSP
 #simAlg.Set("Gdml",DMPSW.SysPath+"/share/Geometry/EQM")     # must set the path
 #simAlg.Set("Gdml",DMPSW.SysPath+"/share/Geometry/BeamTestOctober2014")     # must set the path
 simAlg.Set("Gdml","../../Geometry/BeamTestOctober2014")     # must set the path
-simAlg.Set("Seed","1411742744")
+#simAlg.Set("Seed","1411742744")
 #simAlg.Set("Gdml","../../Geometry/EQM")     # must set the path
 
 #-------------------------------------------------------------------
