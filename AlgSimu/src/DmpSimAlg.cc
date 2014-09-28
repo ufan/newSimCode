@@ -11,6 +11,7 @@
 #include "DmpSimRunManager.h"
 #include "G4PhysListFactory.hh"
 #include "DmpSimDetector.h"
+#include "DmpSimMagneticField.h"
 #include "DmpSimPrimaryGeneratorAction.h"
 #include "DmpSimTrackingAction.h"
 #include "DmpCore.h"
@@ -103,7 +104,8 @@ void DmpSimAlg::Set(const std::string &type,const std::string &argv){
     }
     case 6: // Magnetic field value
     {
-      DmpSimDetector::SetMagneticFieldValue(boost::lexical_cast<double>(argv));
+      //DmpSimDetector::SetMagneticFieldValue(boost::lexical_cast<double>(argv));
+      DmpSimMagneticField::SetFieldValue(boost::lexical_cast<double>(argv));
       break;
     }
     case 7: // Magnetic field position z

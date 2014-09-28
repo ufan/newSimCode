@@ -1,7 +1,6 @@
 /*
  *  $Id: DmpSimDetector.cc, 2014-05-08 11:44:50 DAMPE $
  *  Author(s):
- *    Xin WU (Xin.Wu@cern.cn)   11/07/2013
  *    Chi WANG (chiwang@mail.ustc.edu.cn) 26/02/2014
 */
 
@@ -21,7 +20,6 @@
 #include "G4TransportationManager.hh"
 #include "G4VisAttributes.hh"
 
-
 #include "DmpSimMagneticField.h"
 
 #include "DmpSimDetector.h"
@@ -37,7 +35,7 @@ std::string DmpSimDetector::fGdmlPath = "NO";
 bool DmpSimDetector::fSimBT2014_On = false;
 double DmpSimDetector::fAuxOffsetX = 0;
 double DmpSimDetector::fAuxOffsetY = 0;
-double DmpSimDetector::fMagneticFieldValue = 0;
+//double DmpSimDetector::fMagneticFieldValue = 0;
 double DmpSimDetector::fMagneticFieldPosZ  = -5000;
 
 //-------------------------------------------------------------------
@@ -109,17 +107,14 @@ G4VPhysicalVolume* DmpSimDetector::Construct(){
     new G4PVPlacement(0,G4ThreeVector(fAuxOffsetX,fAuxOffsetY,fMagneticFieldPosZ),"magneticPhysical",fMagneticLogical,fWorldPhyVolume,false,0);
 
     //Set magnetic field
-  
-    static G4bool fieldIsInitialized = false;
-    if(!fieldIsInitialized){
-        DmpSimMagneticField* fMagneticField = new DmpSimMagneticField();
-        fMagneticField->SetField(fMagneticFieldValue*tesla);
-        G4FieldManager* fFieldMgr = new G4FieldManager();//G4TransportationManager::GetTransportationManager()->GetFieldManager();
-        fFieldMgr->SetDetectorField(fMagneticField);
-        fFieldMgr->CreateChordFinder(fMagneticField);
-        fMagneticLogical->SetFieldManager(fFieldMgr,true);
-        fieldIsInitialized = true;
-    }
+    DmpSimMagneticField* fMagneticField = new DmpSimMagneticField();
+    //fMagneticField->SetField(fMagneticFieldValue*tesla);
+    G4FieldManager* fFieldMgr = new G4FieldManager();//G4TransportationManager::GetTransportationManager()->GetFieldManager();
+    fFieldMgr->SetDetectorField(fMagneticField);
+    fFieldMgr->CreateChordFinder(fMagneticField);
+    fMagneticLogical->SetFieldManager(fFieldMgr,true);
+
+    // 
     fPhyVolume = new G4PVPlacement(0,G4ThreeVector(0,0,0),"DAMPEPhysical",fParser->GetVolume("World"),fWorldPhyVolume,false,0);
     fBTAuxPhyVolume[0] = new G4PVPlacement(0,G4ThreeVector(fAuxOffsetX+3000,fAuxOffsetY,0),"LDR0",fBTAuxParser[0]->GetVolume("LDR0"),fWorldPhyVolume,false,0);
     fBTAuxPhyVolume[1] = new G4PVPlacement(0,G4ThreeVector(fAuxOffsetX+3000,fAuxOffsetY,0),"NaI",fBTAuxParser[1]->GetVolume("NaI"),fWorldPhyVolume,false,0);
