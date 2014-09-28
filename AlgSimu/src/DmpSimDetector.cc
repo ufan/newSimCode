@@ -152,6 +152,11 @@ G4VPhysicalVolume* DmpSimDetector::Construct(){
     std::cout<<" Setting Sensitive Detector of Bgo"<<std::endl;
     mgrSD->AddNewDetector(fBgoSD);
     fParser->GetVolume("Bgo_BarLV")->SetSensitiveDetector(fBgoSD);
+//-------------------------------------------------------------------
+    //fParser->GetWorldVolume("Bgo_Det")->SetTranslation(G4ThreeVector(0,-400,300));
+    //fParser->GetVolume("World")->GetDaughter(3)->SetTranslation(G4ThreeVector(0,400,300));
+    //std::cout<<"xxxx\n\t"<<fParser->GetVolume("World")->GetDaughter(3)->GetName()<<std::endl;//SetTranslation(G4ThreeVector(0,400,300));
+//-------------------------------------------------------------------
   }
   if(fParser->GetVolume("Nud_DetLV")){
     std::cout<<" Setting Sensitive Detector of Nud"<<std::endl;

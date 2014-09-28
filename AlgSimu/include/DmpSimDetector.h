@@ -33,9 +33,9 @@ public:
   static void SetAuxDetOffsetY(const double &y){fSimBT2014_On =true;fAuxOffsetY = y;}
 
 private:
-  static std::string       fGdmlPath;          // must set it in JobOpt file
-  G4GDMLParser      *fParser;
-  G4VPhysicalVolume *fPhyVolume;
+  static std::string    fGdmlPath;          // must set it in JobOpt file
+  G4GDMLParser          *fParser;
+  G4VPhysicalVolume     *fPhyVolume;
 
 private:
 //  DmpSimPsdSD       *fPsdSD;
