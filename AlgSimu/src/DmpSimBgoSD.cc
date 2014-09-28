@@ -4,8 +4,6 @@
  *    Chi WANG (chiwang@mail.ustc.edu.cn) 03/03/2014
 */
 
-#include "TClonesArray.h"
-
 #include "G4Step.hh"
 #include "G4TouchableHistory.hh"
 
@@ -22,15 +20,12 @@ DmpSimBgoSD::DmpSimBgoSD()
   fEvtMCBgo = new DmpEvtMCBgo();
   if(not gDataBuffer->RegisterObject("Event/MCTruth/Bgo",fEvtMCBgo,"DmpEvtMCBgo")){
    DmpLogError<<"xxxxx how to terminate this run"<<DmpLogEndl;
+   throw;
   }
 }
 
 //-------------------------------------------------------------------
 DmpSimBgoSD::~DmpSimBgoSD(){
-// *
-// *  TODO:  impossible!! how could it succed while deleting event class at here?
-// *
-  delete fEvtMCBgo;
 }
 
 //-------------------------------------------------------------------

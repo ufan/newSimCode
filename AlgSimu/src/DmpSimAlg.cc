@@ -28,11 +28,13 @@ DmpSimAlg::DmpSimAlg()
  :DmpVAlg("Sim/Alg/RunManager"),
   fSimRunMgr(0),
   fPhyFactory(0),
+  fSource(0),
+  fDetector(0),
+  fTracking(0),
   fBatchMode(true),
   fPhyListName("QGSP_BIC"),
   fSeed(time((time_t*)NULL))
 {
-  fPhyFactory = new G4PhysListFactory();
   OptMap.insert(std::make_pair("Physics",0));
   OptMap.insert(std::make_pair("Gdml",1));
   OptMap.insert(std::make_pair("Nud/DeltaTime",2));
@@ -53,7 +55,6 @@ DmpSimAlg::DmpSimAlg()
 
 //-------------------------------------------------------------------
 DmpSimAlg::~DmpSimAlg(){
-  delete fPhyFactory;
   //delete fSimRunMgr;
 }
 
@@ -117,14 +118,14 @@ void DmpSimAlg::Set(const std::string &type,const std::string &argv){
 #include <stdlib.h>     // getenv()
 bool DmpSimAlg::Initialize(){
 // set seed
-  std::cout<<"\tRandom seed: "<<fSeed<<DmpLogEndl;      // keep this information in any case
+  DmpLogCout<<"\tRandom seed: "<<fSeed<<DmpLogEndl;      // keep this information in any case
   CLHEP::HepRandom::setTheSeed(fSeed);
 // set G4 kernel
   fSimRunMgr = new DmpSimRunManager();
-  fSimRunMgr->SetUserInitialization(fPhyFactory->GetReferencePhysList(fPhyListName));
-  fSimRunMgr->SetUserAction(new DmpSimPrimaryGeneratorAction());      // only Primary Generator is mandatory
-  fSimRunMgr->SetUserInitialization(new DmpSimDetector());
-  fSimRunMgr->SetUserAction(new DmpSimTrackingAction());
+  fPhyFactory = new G4PhysListFactory();            fSimRunMgr->SetUserInitialization(fPhyFactory->GetReferencePhysList(fPhyListName));
+  fSource = new DmpSimPrimaryGeneratorAction();     fSimRunMgr->SetUserAction(fSource);      // only Primary Generator is mandatory
+  fDetector = new DmpSimDetector();                 fSimRunMgr->SetUserInitialization(fDetector);
+  fTracking = new DmpSimTrackingAction();           fSimRunMgr->SetUserAction(fTracking);
   fSimRunMgr->Initialize();
 // boot simulation
   G4UImanager *uiMgr = G4UImanager::GetUIpointer();
@@ -178,6 +179,18 @@ bool DmpSimAlg::Finalize(){
   if(fBatchMode){
     fSimRunMgr->TerminateEventLoop();
     fSimRunMgr->RunTermination();
+  }
+  if(fTracking){
+    delete fTracking;
+  }
+  if(fDetector){
+    delete fDetector;
+  }
+  if(fSource){
+    delete fSource;
+  }
+  if(fPhyFactory){
+    delete fPhyFactory;
   }
   return true;
 }
