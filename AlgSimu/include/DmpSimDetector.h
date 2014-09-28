@@ -8,7 +8,6 @@
 #define DmpSimDetector_H
 
 #include "G4VUserDetectorConstruction.hh"
-//#include "DmpEDetectorID.h"
 
 class G4GDMLParser;
 //class DmpSimPsdSD;
@@ -29,7 +28,6 @@ public:
 
 public:
   void ConstructMaterials();    // TODO: where called me??
-  //static void SetMagneticFieldValue(const double &v){fSimBT2014_On = true;fMagneticFieldValue = v;}
   static void SetMagneticFieldPosition(const double &p){fSimBT2014_On = true; fMagneticFieldPosZ = p;}
   static void SetAuxDetOffsetX(const double &x){fSimBT2014_On =true;fAuxOffsetX = x;}
   static void SetAuxDetOffsetY(const double &y){fSimBT2014_On =true;fAuxOffsetY = y;}
@@ -49,7 +47,6 @@ private:    //beam test simulation option
   static bool       fSimBT2014_On;
   static double     fAuxOffsetX;
   static double     fAuxOffsetY;
-  //static double     fMagneticFieldValue;
   static double     fMagneticFieldPosZ;
   G4GDMLParser      *fBTAuxParser[15];
   G4VPhysicalVolume *fBTAuxPhyVolume[15];

@@ -1,5 +1,5 @@
 /*
- *  $Id: DmpSimDetector.cc, 2014-05-08 11:44:50 DAMPE $
+ *  $Id: DmpSimDetector.cc, 2014-09-28 18:22:38 DAMPE $
  *  Author(s):
  *    Chi WANG (chiwang@mail.ustc.edu.cn) 26/02/2014
 */
@@ -10,6 +10,7 @@
 #include "G4PVPlacement.hh"
 #include "G4GDMLParser.hh"
 #include "G4SDManager.hh"
+//-------------------------------------------------------------------
 #include "G4VSolid.hh"
 #include "G4Box.hh"
 
@@ -19,6 +20,7 @@
 #include "G4FieldManager.hh"
 #include "G4TransportationManager.hh"
 #include "G4VisAttributes.hh"
+//-------------------------------------------------------------------
 
 #include "DmpSimMagneticField.h"
 
@@ -28,14 +30,11 @@
 #include "DmpSimBgoSD.h"
 //#include "DmpSimNudSD.h"
 
-using namespace CLHEP;
-
 //-------------------------------------------------------------------
 std::string DmpSimDetector::fGdmlPath = "NO";
 bool DmpSimDetector::fSimBT2014_On = false;
 double DmpSimDetector::fAuxOffsetX = 0;
 double DmpSimDetector::fAuxOffsetY = 0;
-//double DmpSimDetector::fMagneticFieldValue = 0;
 double DmpSimDetector::fMagneticFieldPosZ  = -5000;
 
 //-------------------------------------------------------------------
@@ -108,7 +107,6 @@ G4VPhysicalVolume* DmpSimDetector::Construct(){
 
     //Set magnetic field
     DmpSimMagneticField* fMagneticField = new DmpSimMagneticField();
-    //fMagneticField->SetField(fMagneticFieldValue*tesla);
     G4FieldManager* fFieldMgr = new G4FieldManager();//G4TransportationManager::GetTransportationManager()->GetFieldManager();
     fFieldMgr->SetDetectorField(fMagneticField);
     fFieldMgr->CreateChordFinder(fMagneticField);
@@ -128,7 +126,6 @@ G4VPhysicalVolume* DmpSimDetector::Construct(){
   }else{
     fWorldPhyVolume = fPhyVolume;
   }
-
 
 // *
 // *  TODO:  set structure invisable
