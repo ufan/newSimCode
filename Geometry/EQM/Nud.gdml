@@ -28,35 +28,35 @@
       
       <!-- Sensitive detector  -->
       <physvol name="Nud_BlockPV_0">
-        <file name="./Geometry/EQM/nud_Block0.gdml"/> 
+        <file name="nud_Block0.gdml"/> 
         <position name="Block0_pos" x="nud_adjust_x_position" y="nud_adjust_y_position" z="nud_adjust_z_position" unit="mm"/>
       </physvol>   
       <physvol name="Nud_BlockPV_1">
-        <file name="./Geometry/EQM/nud_Block1.gdml"/>
+        <file name="nud_Block1.gdml"/>
         <position name="Block1_pos" x="nud_adjust_x_position" y="nud_adjust_y_position" z="nud_adjust_z_position" unit="mm"/>  
       </physvol>  
       <physvol name="Nud_BlockPV_2">
-        <file name="./Geometry/EQM/nud_Block2.gdml"/>
+        <file name="nud_Block2.gdml"/>
         <position name="Block2_pos" x="nud_adjust_x_position" y="nud_adjust_y_position" z="nud_adjust_z_position" unit="mm"/>              
       </physvol>        
       <physvol name="Nud_BlockPV_3">
-        <file name="./Geometry/EQM/nud_Block3.gdml"/>
+        <file name="nud_Block3.gdml"/>
         <position name="Block3_pos" x="nud_adjust_x_position" y="nud_adjust_y_position" z="nud_adjust_z_position" unit="mm"/>             
       </physvol> 
 
       <!-- Nud support shell  -->
       <physvol>       
-        <file name="./Geometry/EQM/nud_SHELL0.gdml"/>
+        <file name="nud_SHELL0.gdml"/>
         <position name="NUD_SHELL0_pos" x="nud_adjust_x_position" y="nud_adjust_y_position" z="nud_adjust_z_position" unit="mm"/>              
       </physvol>    
       <physvol>       
-        <file name="./Geometry/EQM/nud_SHELL1.gdml"/>
+        <file name="nud_SHELL1.gdml"/>
         <position name="NUD_SHELL1_pos" x="nud_adjust_x_position" y="nud_adjust_y_position" z="nud_adjust_z_position" unit="mm"/>             
       </physvol>     
       
       <!-- Nud sattelite support skeleton  -->
       <physvol>       
-        <file name="./Geometry/EQM/nud_kx-b2.gdml"/>
+        <file name="nud_kx-b2.gdml"/>
         <position name="NUD_kx-b2_pos" x="nud_satsupport_adjust_x_position" y="nud_satsupport_adjust_y_position" z="nud_satsupport_adjust_z_position" unit="mm"/>             
       </physvol>
     </volume>

@@ -31,8 +31,7 @@ DMPSW.RootIOSvc.Set("Output/WriteList","Event/MCTruth/PrimaryParticle;Event/MCTr
 # Creat user's service or algorithm
 simAlg = DmpSim.DmpSimAlg()
 #-------------------------------------------------------------------
-simAlg.Set("BT/AuxOffsetX","13.75")  #Auxiliary detector position X & Y, AuxOffsetX & Y should be consistent with particle gun position x & y which are set in gps micro file. Default value is 0.
-simAlg.Set("BT/AuxOffsetY","13.75")
+simAlg.Set("BT/AuxOffset","993.75 123.75 0")  #Auxiliary detector position x, y, z, AuxOffsetX & Y should be consistent with particle gun position x & y which are set in gps micro file. Default value is 0.
 simAlg.Set("BT/MagneticFieldValue","1 0 0") #Magnetic field value, default is 0
 #simAlg.Set("BT/MagneticFieldPosZ","0")  #Magnetic field position z, default is 0
 
@@ -40,7 +39,7 @@ simAlg.Set("Physics","QGSP_BERT")  # If NOT set, will use QGSP_BIC. argv = {QGSP
 #simAlg.Set("Nud/DeltaTime","200")   # if NOT set, will use 100 as default
 #simAlg.Set("Gdml",DMPSW.SysPath+"/share/Geometry/EQM")     # must set the path
 #simAlg.Set("Gdml",DMPSW.SysPath+"/share/Geometry/BeamTestOctober2014")     # must set the path
-simAlg.Set("Gdml","Geometry/BTOctober2014/DAMPE_BT_OCTOBER2014.gdml")     # must set the path
+#simAlg.Set("Gdml","../../Geometry/EQM/DAMPE.gdml")     # if NOT set, will use $DMPSWGEOMETRY/DAMPE.gdml
 #simAlg.Set("Seed","1411903197")
 #simAlg.Set("Gdml","../../Geometry/EQM")     # must set the path
 

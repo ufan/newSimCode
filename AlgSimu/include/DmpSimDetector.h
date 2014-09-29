@@ -1,12 +1,14 @@
 /* 
- *  $Id: DmpSimDetector.h, 2014-05-08 11:44:48 DAMPE $
+ *  $Id: DmpSimDetector.h, 2014-09-30 00:15:26 DAMPE $
  *  Author(s):
  *    Chi WANG (chiwang@mail.ustc.edu.cn) 26/02/2014
+ *    Yifeng Wei (weiyf@mail.ustc.edu.cn) 28/09/2014
 */
 
 #ifndef DmpSimDetector_H
 #define DmpSimDetector_H
 
+#include <boost/filesystem.hpp>     // path
 #include "G4VUserDetectorConstruction.hh"
 
 class G4GDMLParser;
@@ -24,16 +26,30 @@ public:
   DmpSimDetector();
   ~DmpSimDetector();
   G4VPhysicalVolume* Construct();
-  static void SetGdml(const std::string &argv) {fGdmlPath = argv;}
+  static void SetGdml(const std::string &argv);
+  /*
+   * 4 types:
+   *    Path/Filename.gdml  // read it
+   *    PathWithSlash/      // read PathWithSlash/DAMPE.gdml
+   *    PathWithoutSlash    // read PathWithoutSlash/DAMPE.gdml
+   *    Filename.gdml       // read DefaultPath/DAMPE.gdml
+   *
+   */
 
 public:
-  void ConstructMaterials();    // TODO: where called me??
-  static void SetMagneticFieldPosition(const double &p){fSimBT2014_On = true; fMagneticFieldPosZ = p;}
-  static void SetAuxDetOffsetX(const double &x){fSimBT2014_On =true;fAuxOffsetX = x;}
-  static void SetAuxDetOffsetY(const double &y){fSimBT2014_On =true;fAuxOffsetY = y;}
+  void ConstructMaterials();    // TODO: could we delete this function?
+  static void SetMagneticFieldPosition(const double &p){fMagneticFieldPosZ = p;}
+  static void SetAuxDetOffset(const double &x,const double &y,const double &z){
+    fAuxOffset[0] = x;
+    fAuxOffset[1] = y;
+    fAuxOffset[2] = z;
+  }
 
 private:
-  static std::string    fGdmlPath;          // must set it in JobOpt file
+  void AdjustAuxiliaryDetectorOfTestBeam();
+
+private:
+  static boost::filesystem::path   fGdmlPath;        // if not set, will use the default gdml files
   G4GDMLParser          *fParser;
   G4VPhysicalVolume     *fPhyVolume;
 
@@ -44,11 +60,12 @@ private:
 //  DmpSimNudSD       *fNudSD;
 
 private:    //beam test simulation option
-  static bool       fSimBT2014_On;
-  static double     fAuxOffsetX;
-  static double     fAuxOffsetY;
-  static double     fMagneticFieldPosZ; 
-  G4LogicalVolume   *fMagneticLogical;
+  static double     fAuxOffset[3];          // unit: mm
+// *
+// *  TODO: delete PosZ?
+// *
+  static double     fMagneticFieldPosZ;     // position of magnetic filed is fixed while BT, why should we set it at run time, just need to set filed value?
+  G4LogicalVolume   *fAuxiliaryDet_LV;      // logical volume of auxiliary detector for test beam
 };
 
 #endif

@@ -33,26 +33,26 @@
       <materialref ref="Vacuum" />
       <solidref ref="World_box" />     
       <physvol>     <!-- SAT -->
-        <file name="./Geometry/EQM/dampe_kx-b1.gdml"/> 
+        <file name="dampe_kx-b1.gdml"/> 
         <position name="sat_adjust_position1" x="300" y="0" z="0" unit="mm"/>
       </physvol>
 
-      <physvol name="./Geometry/EQM/Psd_Det">
+      <physvol name="Psd_Det">
         <file name="Psd.gdml"/>
         <position name="PsdOffset" unit="mm" x="0" y="0" z="-314"/>
       </physvol>
 
       <physvol name="Stk_Det">
-        <file name="./Geometry/EQM/Stk.gdml"/>
+        <file name="Stk.gdml"/>
         <position name="StkOffset" unit="mm" x="0" y="0" z="-115.75"/>
       </physvol>
 
-      <physvol name="./Geometry/EQM/Bgo_Det">
+      <physvol name="Bgo_Det">
         <file name="Bgo.gdml"/>
         <position name="BgoOffset" unit="mm" x="0" y="0" z="254.75"/>
       </physvol>
 
-      <physvol name="./Geometry/EQM/Nud_Det">
+      <physvol name="Nud_Det">
         <file name="Nud.gdml"/>
         <position name="NudOffset" unit="mm" x="0" y="0" z="595.5"/>
       </physvol>

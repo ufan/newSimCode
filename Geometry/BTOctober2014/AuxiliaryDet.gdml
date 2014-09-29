@@ -62,87 +62,87 @@
    <solidref ref="AuxDet_solid" />     
     
     <physvol>
-      <file name="./Geometry/BTOctober2014/MWPC.gdml"/> 
+      <file name="MWPC.gdml"/> 
     </physvol>  
 
     <physvol>
-      <file name="./Geometry/BTOctober2014/C1.gdml"/> 
+      <file name="C1.gdml"/> 
     </physvol>
 
     <physvol>
-      <file name="./Geometry/BTOctober2014/AMS_LDR_4.gdml"/> 
+      <file name="AMS_LDR_4.gdml"/> 
     </physvol>
 
     <physvol>
-      <file name="./Geometry/BTOctober2014/AMS_LDR_1.gdml"/> 
+      <file name="AMS_LDR_1.gdml"/> 
     </physvol>
 
     <physvol>
-      <file name="./Geometry/BTOctober2014/Sh.gdml"/> 
+      <file name="Sh.gdml"/> 
     </physvol>
 
     <physvol>
-      <file name="./Geometry/BTOctober2014/C2.gdml"/> 
+      <file name="C2.gdml"/> 
     </physvol>
 
     <physvol>
-      <file name="./Geometry/BTOctober2014/AMS_LDR_2.gdml"/> 
+      <file name="AMS_LDR_2.gdml"/> 
     </physvol>
 
     <physvol>
-      <file name="./Geometry/BTOctober2014/Pb_glass.gdml"/> 
+      <file name="Pb_glass.gdml"/> 
     </physvol>
 
     <physvol>
-      <file name="./Geometry/BTOctober2014/C1_env.gdml"/> 
+      <file name="C1_env.gdml"/> 
     </physvol>
 
     <physvol>
-      <file name="./Geometry/BTOctober2014/C1_endcap_0.gdml"/> 
+      <file name="C1_endcap_0.gdml"/> 
     </physvol>
 
     <physvol>
-      <file name="./Geometry/BTOctober2014/S0.gdml"/> 
+      <file name="S0.gdml"/> 
     </physvol>
 
     <physvol>
-      <file name="./Geometry/BTOctober2014/C2_endcap_1.gdml"/> 
+      <file name="C2_endcap_1.gdml"/> 
     </physvol>
 
     <physvol>
-      <file name="./Geometry/BTOctober2014/S_beam.gdml"/> 
+      <file name="S_beam.gdml"/> 
     </physvol>
 
     <physvol>
-      <file name="./Geometry/BTOctober2014/B_field.gdml"/> 
+      <file name="B_field.gdml"/> 
     </physvol>
 
     <physvol>
-      <file name="./Geometry/BTOctober2014/S1.gdml"/> 
+      <file name="S1.gdml"/> 
     </physvol>
 
     <physvol>
-      <file name="./Geometry/BTOctober2014/AMS_LDR_3.gdml"/> 
+      <file name="AMS_LDR_3.gdml"/> 
     </physvol>
 
     <physvol>
-      <file name="./Geometry/BTOctober2014/S2.gdml"/> 
+      <file name="S2.gdml"/> 
     </physvol>
 
     <physvol>
-      <file name="./Geometry/BTOctober2014/C2_env.gdml"/> 
+      <file name="C2_env.gdml"/> 
     </physvol>
 
     <physvol>
-      <file name="./Geometry/BTOctober2014/C1_endcap_1.gdml"/> 
+      <file name="C1_endcap_1.gdml"/> 
     </physvol>
 
     <physvol>
-      <file name="./Geometry/BTOctober2014/S3.gdml"/> 
+      <file name="S3.gdml"/> 
     </physvol>
 
     <physvol>
-      <file name="./Geometry/BTOctober2014/C2_endcap_0.gdml"/> 
+      <file name="C2_endcap_0.gdml"/> 
     </physvol>
 
    

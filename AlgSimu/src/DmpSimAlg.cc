@@ -1,5 +1,5 @@
 /*
- *  $Id: DmpSimAlg.cc, 2014-09-25 22:53:04 DAMPE $
+ *  $Id: DmpSimAlg.cc, 2014-09-30 00:15:41 DAMPE $
  *  Author(s):
  *    Chi WANG (chiwang@mail.ustc.edu.cn) 10/06/2014
 */
@@ -40,10 +40,9 @@ DmpSimAlg::DmpSimAlg()
   OptMap.insert(std::make_pair("Gdml",1));
   OptMap.insert(std::make_pair("Nud/DeltaTime",2));
   OptMap.insert(std::make_pair("Seed",3));
-  OptMap.insert(std::make_pair("BT/AuxOffsetX",4));
-  OptMap.insert(std::make_pair("BT/AuxOffsetY",5));
+  OptMap.insert(std::make_pair("BT/AuxOffset",4));
   OptMap.insert(std::make_pair("BT/MagneticFieldValue",6));
-  OptMap.insert(std::make_pair("BT/MagneticFieldPosZ",7));
+  OptMap.insert(std::make_pair("BT/MagneticFieldPosZ",7));  // TODO delete me
   // mode check
   if(".mac" != gRootIOSvc->GetInputExtension()){
     fBatchMode = false; // then will active visualization mode
@@ -92,14 +91,12 @@ void DmpSimAlg::Set(const std::string &type,const std::string &argv){
       gRootIOSvc->Set("Output/Key",argv+"-sim");
       break;
     }
-    case 4: // Auxiliary detector offset X
+    case 4: // BT/AuxOffset
     {
-      DmpSimDetector::SetAuxDetOffsetX(boost::lexical_cast<double>(argv));
-      break;
-    }
-    case 5: // Auxiliary detector offset Y
-    {
-      DmpSimDetector::SetAuxDetOffsetY(boost::lexical_cast<double>(argv));
+      double x=0.0,y=0.0,z=0.0;
+      std::istringstream iss(argv);
+      iss>>x>>y>>z;
+      DmpSimDetector::SetAuxDetOffset(x,y,z);
       break;
     }
     case 6: // Magnetic field value
@@ -151,6 +148,9 @@ bool DmpSimAlg::Initialize(){
 #ifdef G4VIS_USE_OPENGLQT
     G4VisExecutive *vis = new G4VisExecutive();
     vis->Initialize();
+// *
+// *  TODO: publish... check prefix
+// *
     //G4String prefix = (G4String)getenv("DMPSWSYS")+"/share/Simulation/";
     G4String prefix = "./";
     uiMgr->ApplyCommand("/control/execute "+prefix+"DmpSimVis.mac");
