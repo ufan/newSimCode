@@ -35,7 +35,7 @@ std::string DmpSimDetector::fGdmlPath = "NO";
 bool DmpSimDetector::fSimBT2014_On = false;
 double DmpSimDetector::fAuxOffsetX = 0;
 double DmpSimDetector::fAuxOffsetY = 0;
-double DmpSimDetector::fMagneticFieldPosZ  = -5000;
+double DmpSimDetector::fMagneticFieldPosZ  = 0;
 
 //-------------------------------------------------------------------
 DmpSimDetector::DmpSimDetector()
@@ -45,16 +45,13 @@ DmpSimDetector::DmpSimDetector()
 //  fStkSD(0),
   fBgoSD(0),
 //  fNudSD(0),
-  fWorldPhyVolume(0)
+  fMagneticLogical(0)
 {
   fParser = new G4GDMLParser();
 //  fPsdSD = new DmpSimPsdSD();
 //  fStkSD = new DmpSimStkSD();
   fBgoSD = new DmpSimBgoSD();
 //  fNudSD = new DmpSimNudSD();
-  for (int i=0;i<15;i++){
-    fBTAuxParser[i] = new G4GDMLParser();
-  }
 }
 
 //-------------------------------------------------------------------
@@ -64,9 +61,6 @@ DmpSimDetector::~DmpSimDetector(){
 //  delete fStkSD;
   delete fBgoSD;
 //  delete fNudSD;
-  for (int i=0;i<15;i++){
-      delete fBTAuxParser[i];
-  }
 }
 
 //-------------------------------------------------------------------
@@ -76,56 +70,47 @@ G4VPhysicalVolume* DmpSimDetector::Construct(){
      G4cout<<"Error: must setup detector in job option file. SetGdml(GdmlFilePath)"<<G4endl;
      return 0;
   }else{
-    chdir(fGdmlPath.c_str());
-    fParser->Read("DAMPE.gdml");
+    chdir("../../"); //this will be set $DMPSWSYS + "/share" in official version 
+    fParser->Read(fGdmlPath.c_str());
     fPhyVolume = fParser->GetWorldVolume();
-    if (fSimBT2014_On==true){
-        fBTAuxParser[0]->Read("LDR0_Ascii.gdml");
-        fBTAuxParser[1]->Read("NaI_Ascii.gdml");
-        fBTAuxParser[2]->Read("S0_Ascii.gdml");
-        fBTAuxParser[3]->Read("S1_Ascii.gdml");
-        fBTAuxParser[4]->Read("S2_Ascii.gdml");
-        fBTAuxParser[5]->Read("S3_Ascii.gdml");
-        fBTAuxParser[6]->Read("Sh_Ascii.gdml");
-        fBTAuxParser[7]->Read("SSD0_Ascii.gdml");
-        fBTAuxParser[8]->Read("SSD1_Ascii.gdml");
-    }
   }
   chdir(dirTmp);
 
   if(fSimBT2014_On==true){
-    G4Material* defaultMaterial = G4Material::GetMaterial("Galactic");
-    G4VSolid* WorldSolid = new G4Box("WorldBox",20.*m,20.*m,20.*m);
-    G4LogicalVolume* WorldLog = new G4LogicalVolume(WorldSolid,defaultMaterial,"WorldLogical");
-    fWorldPhyVolume = new G4PVPlacement(0,G4ThreeVector(),WorldLog,"World",0,false,0);
-    WorldLog->SetVisAttributes(G4VisAttributes::Invisible);
-
-    //Magnetic field volume construction
-    G4VSolid* magneticSolid = new G4Box("magneticBox",0.6*m,0.6*m,0.3*m);
-    G4LogicalVolume* fMagneticLogical = new G4LogicalVolume(magneticSolid,defaultMaterial,"magneticLogical");
-    new G4PVPlacement(0,G4ThreeVector(fAuxOffsetX,fAuxOffsetY,fMagneticFieldPosZ),"magneticPhysical",fMagneticLogical,fWorldPhyVolume,false,0);
 
     //Set magnetic field
-    DmpSimMagneticField* fMagneticField = new DmpSimMagneticField();
-    G4FieldManager* fFieldMgr = new G4FieldManager();//G4TransportationManager::GetTransportationManager()->GetFieldManager();
-    fFieldMgr->SetDetectorField(fMagneticField);
-    fFieldMgr->CreateChordFinder(fMagneticField);
-    fMagneticLogical->SetFieldManager(fFieldMgr,true);
+    if(fParser->GetVolume("B_field")){
+    /*
+      int daughterNo = fParser->GetVolume("AuxDet_box")->GetNoDaughters();
+      G4cout << "total daughter no = " << daughterNo << G4endl;
+      for (int i=0;i<daughterNo;i++){
+        G4cout << "The " << i << " th daughter is " << fParser->GetVolume("AuxDet_box")->GetDaughter(i)->GetName() << G4endl; 
+      }
+    */
+      fParser->GetVolume("AuxDet_box")->GetDaughter(13)->SetTranslation(G4ThreeVector(0,0,fMagneticFieldPosZ));  //the 13th daughter of auxiliary detector is magnetic field
 
-    // 
-    fPhyVolume = new G4PVPlacement(0,G4ThreeVector(0,0,0),"DAMPEPhysical",fParser->GetVolume("World"),fWorldPhyVolume,false,0);
-    fBTAuxPhyVolume[0] = new G4PVPlacement(0,G4ThreeVector(fAuxOffsetX+3000,fAuxOffsetY,0),"LDR0",fBTAuxParser[0]->GetVolume("LDR0"),fWorldPhyVolume,false,0);
-    fBTAuxPhyVolume[1] = new G4PVPlacement(0,G4ThreeVector(fAuxOffsetX+3000,fAuxOffsetY,0),"NaI",fBTAuxParser[1]->GetVolume("NaI"),fWorldPhyVolume,false,0);
-    fBTAuxPhyVolume[2] = new G4PVPlacement(0,G4ThreeVector(fAuxOffsetX+3000,fAuxOffsetY,0),"S0",fBTAuxParser[2]->GetVolume("S0"),fWorldPhyVolume,false,0);
-    fBTAuxPhyVolume[3] = new G4PVPlacement(0,G4ThreeVector(fAuxOffsetX+3000,fAuxOffsetY,0),"S1",fBTAuxParser[3]->GetVolume("S1"),fWorldPhyVolume,false,0);
-    fBTAuxPhyVolume[4] = new G4PVPlacement(0,G4ThreeVector(fAuxOffsetX+3000,fAuxOffsetY,0),"S2",fBTAuxParser[4]->GetVolume("S2"),fWorldPhyVolume,false,0);
-    fBTAuxPhyVolume[5] = new G4PVPlacement(0,G4ThreeVector(fAuxOffsetX+3000,fAuxOffsetY,0),"S3",fBTAuxParser[5]->GetVolume("S3"),fWorldPhyVolume,false,0);
-    fBTAuxPhyVolume[6] = new G4PVPlacement(0,G4ThreeVector(fAuxOffsetX+3000,fAuxOffsetY,0),"Sh",fBTAuxParser[6]->GetVolume("Sh"),fWorldPhyVolume,false,0);
-    fBTAuxPhyVolume[7] = new G4PVPlacement(0,G4ThreeVector(fAuxOffsetX+3000,fAuxOffsetY,0),"SSD0",fBTAuxParser[7]->GetVolume("SSD0"),fWorldPhyVolume,false,0);
-    fBTAuxPhyVolume[8] = new G4PVPlacement(0,G4ThreeVector(fAuxOffsetX+3000,fAuxOffsetY,0),"SSD1",fBTAuxParser[8]->GetVolume("SSD1"),fWorldPhyVolume,false,0);
-  }else{
-    fWorldPhyVolume = fPhyVolume;
+      fMagneticLogical = fParser->GetVolume("B_field");
+      DmpSimMagneticField* fMagneticField = new DmpSimMagneticField();
+      G4FieldManager* fFieldMgr = new G4FieldManager();//G4TransportationManager::GetTransportationManager()->GetFieldManager();
+      fFieldMgr->SetDetectorField(fMagneticField);
+      fFieldMgr->CreateChordFinder(fMagneticField);
+      fMagneticLogical->SetFieldManager(fFieldMgr,true);
+    }
+    else{G4cout << "Error: Cannot find magnetic filed logical volume!" << G4endl;}
   }
+
+    if(fParser->GetVolume("AuxDet_box")){
+      fParser->GetVolume("AuxDet_box")->SetVisAttributes(G4VisAttributes::Invisible);
+      /*
+      int daughterNo = fParser->GetVolume("World")->GetNoDaughters();
+      G4cout << "total daughter no = " << daughterNo << G4endl;
+      for (int i=0;i<daughterNo;i++){
+        G4cout << "The " << i << " th daughter is " << fParser->GetVolume("World")->GetDaughter(i)->GetName() << G4endl; 
+      }
+      */
+      fParser->GetVolume("World")->GetDaughter(0)->SetTranslation(G4ThreeVector(fAuxOffsetX+300,fAuxOffsetY,0)); //the 0th daughter of World is auxiliary detector, default offset X in GDML file is 300.
+    }
+    else{G4cout << "Error: Cannot find auxiliary detector volume!" << G4endl;}
 
 // *
 // *  TODO:  set structure invisable
@@ -167,7 +152,7 @@ G4VPhysicalVolume* DmpSimDetector::Construct(){
     //fParser->GetVolume("Nud_Block3LV")->SetSensitiveDetector(fNudSD);
   }
 
-  return fWorldPhyVolume;
+  return fPhyVolume;
 }
 
 void DmpSimDetector::ConstructMaterials(){

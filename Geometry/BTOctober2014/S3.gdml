@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no" ?>
+<gdml xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="../Schema/gdml.xsd">
+
+  <define>
+    <position name="S3_v0" unit="mm" x="-375" y="-510" z="-2545"/>
+    <position name="S3_v1" unit="mm" x="-225" y="-510" z="-2545"/>
+    <position name="S3_v2" unit="mm" x="-375" y="-10" z="-2545"/>
+    <position name="S3_v3" unit="mm" x="-225" y="-10" z="-2545"/>
+    <position name="S3_v4" unit="mm" x="-375" y="-510" z="-2555"/>
+    <position name="S3_v5" unit="mm" x="-375" y="-10" z="-2555"/>
+    <position name="S3_v6" unit="mm" x="-225" y="-510" z="-2555"/>
+    <position name="S3_v7" unit="mm" x="-225" y="-10" z="-2555"/>
+  </define>
+
+
+  <solids>
+    <tessellated aunit="deg" lunit="mm" name="S30x20f7a40">
+      <triangular vertex1="S3_v0" vertex2="S3_v1" vertex3="S3_v2"/>
+      <triangular vertex1="S3_v2" vertex2="S3_v1" vertex3="S3_v3"/>
+      <triangular vertex1="S3_v0" vertex2="S3_v2" vertex3="S3_v4"/>
+      <triangular vertex1="S3_v4" vertex2="S3_v2" vertex3="S3_v5"/>
+      <triangular vertex1="S3_v6" vertex2="S3_v4" vertex3="S3_v7"/>
+      <triangular vertex1="S3_v7" vertex2="S3_v4" vertex3="S3_v5"/>
+      <triangular vertex1="S3_v6" vertex2="S3_v7" vertex3="S3_v1"/>
+      <triangular vertex1="S3_v1" vertex2="S3_v7" vertex3="S3_v3"/>
+      <triangular vertex1="S3_v1" vertex2="S3_v0" vertex3="S3_v6"/>
+      <triangular vertex1="S3_v6" vertex2="S3_v0" vertex3="S3_v4"/>
+      <triangular vertex1="S3_v7" vertex2="S3_v5" vertex3="S3_v3"/>
+      <triangular vertex1="S3_v3" vertex2="S3_v5" vertex3="S3_v2"/>
+    </tessellated>
+  </solids>
+  
+  <materials>
+    <!-- Plastic Scintillator -->
+    <isotope N="1" Z="1" name="H1">
+      <atom unit="g/mole" value="1.00782503081372"/>
+    </isotope>
+    <isotope N="2" Z="1" name="H2">
+      <atom unit="g/mole" value="2.01410199966617"/>
+    </isotope>
+    <element name="Hydrogen_material_beamtest">
+      <fraction n="0.999885" ref="H1"/>
+      <fraction n="0.000115" ref="H2"/>
+    </element>
+    <isotope N="12" Z="6" name="C12">
+      <atom unit="g/mole" value="12"/>
+    </isotope>
+    <isotope N="13" Z="6" name="C13">
+      <atom unit="g/mole" value="13.0034"/>
+    </isotope>
+    <element name="Carbon_material_beam_test">
+      <fraction n="0.9893" ref="C12"/>
+      <fraction n="0.0107" ref="C13"/>
+    </element>
+    <material name="PLasticScintillatorMaterialBeamTest" state="solid">
+      <MEE unit="eV" value="64.7"/>
+      <D unit="g/cm3" value="1.032"/>
+      <fraction n="0.085" ref="Hydrogen_material_beamtest"/>
+      <fraction n="0.915" ref="Carbon_material_beam_test"/>
+    </material>
+  </materials>
+
+  
+  <structure>
+    <volume name="S3">
+      <materialref ref="PLasticScintillatorMaterialBeamTest"/>
+      <solidref ref="S30x20f7a40"/>
+    </volume>
+  </structure>
+
+  <setup name="Default" version="1.0">
+    <world ref="S3"/>
+  </setup>
+
+</gdml>

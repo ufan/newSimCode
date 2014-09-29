@@ -8,7 +8,7 @@
 #include "DmpSimMagneticField.h"
 
 //-------------------------------------------------------------------
-G4double DmpSimMagneticField::fMField[3] = {-1.0*tesla,0*tesla,0*tesla};
+G4double DmpSimMagneticField::fMField[3] = {0*tesla,0*tesla,0*tesla};
 
 //-------------------------------------------------------------------
 DmpSimMagneticField::DmpSimMagneticField()

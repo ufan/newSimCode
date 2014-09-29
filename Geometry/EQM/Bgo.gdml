@@ -1768,42 +1768,42 @@
     
     <!--support structure-->
     <physvol name="embeded" >
-     <file name="bgo_embeded.gdml" />
+     <file name="./Geometry/EQM/bgo_embeded.gdml" />
      <rotationref ref="BGOss_Rot" />
     </physvol>
 
     <physvol name="bottom-x" >
-     <file name="bgo_bottom-x.gdml" />
+     <file name="./Geometry/EQM/bgo_bottom-x.gdml" />
      <rotationref ref="BGOss_Rot" />
     </physvol>
 
     <physvol name="cfrp" >
-     <file name="bgo_cfrp.gdml" />
+     <file name="./Geometry/EQM/bgo_cfrp.gdml" />
      <rotationref ref="BGOss_Rot" />
     </physvol>
 
     <physvol name="cfrp-top" >
-     <file name="bgo_cfrp-top.gdml" />
+     <file name="./Geometry/EQM/bgo_cfrp-top.gdml" />
      <rotationref ref="BGOss_Rot" />
     </physvol>
 
     <physvol name="faraday-panal-pcb" >
-     <file name="bgo_faraday-panal-pcb.gdml" />
+     <file name="./Geometry/EQM/bgo_faraday-panal-pcb.gdml" />
      <rotationref ref="BGOss_Rot" />
     </physvol>
 
     <physvol name="faraday-panal" >
-     <file name="bgo_faraday-panal.gdml" />
+     <file name="./Geometry/EQM/bgo_faraday-panal.gdml" />
      <rotationref ref="BGOss_Rot" />
     </physvol>
 
     <physvol name="honeycomb" >
-     <file name="bgo_honeycomb.gdml" />
+     <file name="./Geometry/EQM/bgo_honeycomb.gdml" />
      <rotationref ref="BGOss_Rot" />
     </physvol>
 
     <physvol name="pmt-array" >
-     <file name="bgo_pmt-array.gdml" />
+     <file name="./Geometry/EQM/bgo_pmt-array.gdml" />
      <rotationref ref="BGOss_Rot" />
     </physvol>
     <!--support structure end-->

@@ -47,10 +47,8 @@ private:    //beam test simulation option
   static bool       fSimBT2014_On;
   static double     fAuxOffsetX;
   static double     fAuxOffsetY;
-  static double     fMagneticFieldPosZ;
-  G4GDMLParser      *fBTAuxParser[15];
-  G4VPhysicalVolume *fBTAuxPhyVolume[15];
-  G4VPhysicalVolume *fWorldPhyVolume;
+  static double     fMagneticFieldPosZ; 
+  G4LogicalVolume   *fMagneticLogical;
 };
 
 #endif
