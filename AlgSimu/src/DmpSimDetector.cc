@@ -24,7 +24,7 @@
 //#include "DmpSimNudSD.h"
 
 //-------------------------------------------------------------------
-boost::filesystem::path DmpSimDetector::fGdmlPath = (std::string)getenv("DMPSWGEOMETRY")+"/DAMPE.gdml";
+boost::filesystem::path DmpSimDetector::fGdmlPath = "NO";
 double DmpSimDetector::fAuxOffset[3] = {0.0,0.0,0.0};
 
 //-------------------------------------------------------------------
@@ -55,27 +55,25 @@ DmpSimDetector::~DmpSimDetector(){
 
 //-------------------------------------------------------------------
 void DmpSimDetector::SetGdml(const std::string &argv){
-  std::string path=fGdmlPath.parent_path().string();
-  std::string name=fGdmlPath.filename().string();
-  boost::filesystem::path temp(argv);
-  if(temp.extension().string() != ""){  // must before updating path
-    name = temp.filename().string();
-  }else{
-    temp = temp.string()+"/";   // user may forgot the last slash of the path. (could has 2 //)
+  if(argv.find(".gdml") != std::string::npos){  // argv = path/filename.gdml
+    fGdmlPath = argv;
+  }else{        // argv = sub-directory
+    fGdmlPath = (std::string)getenv("DMPSWSYS")+"/share/Geometry/"+argv+"/DAMPE.gdml";
   }
-  if((temp.parent_path().string() != "")){  // must after updating name
-    path = temp.parent_path().string()+"/";
-  }
-  fGdmlPath = path+name;
 }
 
 //-------------------------------------------------------------------
 G4VPhysicalVolume* DmpSimDetector::Construct(){
   char *dirTmp = getcwd(NULL,NULL);
-  DmpLogInfo<<"Reading GDML:\t"<<fGdmlPath.string()<<DmpLogEndl;
-  chdir(fGdmlPath.parent_path().string().c_str());
-  fParser->Read(fGdmlPath.filename().string().c_str());
-  fPhyVolume = fParser->GetWorldVolume();
+  if(fGdmlPath == "NO"){
+    DmpLogError<<"Must setup GDML file."<<DmpLogEndl;
+    throw;
+  }else{
+    DmpLogInfo<<"Reading GDML:\t"<<fGdmlPath.string()<<DmpLogEndl;
+    chdir(fGdmlPath.parent_path().string().c_str());
+    fParser->Read(fGdmlPath.filename().string().c_str());
+    fPhyVolume = fParser->GetWorldVolume();
+  }
   chdir(dirTmp);
 
   fAuxiliaryDet_LV = G4LogicalVolumeStore::GetInstance()->GetVolume("AuxDet_box",false);    // must use G4LogicalVolumeStore::GetVolume(), fParser->GetVolume() will throw exception and quit all

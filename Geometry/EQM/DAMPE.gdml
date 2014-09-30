@@ -33,7 +33,7 @@
       <materialref ref="Vacuum" />
       <solidref ref="World_box" />     
       <physvol>     <!-- SAT -->
-        <file name="dampe_kx-b1.gdml"/> 
+        <file name="./Others/dampe_kx-b1.gdml"/> 
         <position name="sat_adjust_position1" x="300" y="0" z="0" unit="mm"/>
       </physvol>
 

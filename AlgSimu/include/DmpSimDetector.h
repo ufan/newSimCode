@@ -31,9 +31,7 @@ public:
   /*
    * 4 types:
    *    Path/Filename.gdml  // read it
-   *    PathWithSlash/      // read PathWithSlash/DAMPE.gdml
-   *    PathWithoutSlash    // read PathWithoutSlash/DAMPE.gdml
-   *    Filename.gdml       // read DefaultPath/DAMPE.gdml
+   *    sud-directory       // read $DMPSWSYS/share/Geometry/sub-directory/DAMPE.gdml
    *
    */
 

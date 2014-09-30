@@ -37,39 +37,39 @@
  
     <!--*******************************    Beam test auxiliary  ******************************-->
     <physvol>
-      <file name="AuxiliaryDet.gdml"/> 
+      <file name="./Others/AuxiliaryDet.gdml"/> 
       <position name="beam_test_aux_pos" unit="mm" x="300" y="0" z="0"/>
     </physvol>
    
     <!--*******************************    DAMPE ******************************************-->   
     <!-- SAT -->
     <physvol>
-      <file name="./EQM/dampe_kx-b1.gdml"/> 
+      <file name="./Others/dampe_kx-b1.gdml"/>
       <position name="sat_adjust_position1" x="300" y="0" z="0" unit="mm"/>
     </physvol>
     
     <!-- PSD -->
     <physvol>
-     <file name="./EQM/Psd.gdml" />
+     <file name="Psd.gdml" />
      <position name="psd_pos" unit="mm" x="0" y="0" z="-314" />     
     </physvol> 
 
     <!-- STK -->    
     <physvol>
-     <file name="./EQM/Stk.gdml" />
+     <file name="Stk.gdml" />
      <position name="stk_pos" unit="mm" x="0" y="0" z="-115.75" />     
     </physvol>
     
     <!-- BGO --> 
     <physvol>
-     <file name="./EQM/Bgo.gdml" />
+     <file name="Bgo.gdml" />
      <position name="bgo_pos" unit="mm" x="0" y="0" z="254.75" />     
     </physvol>    
 
       
     <!-- NUD -->
     <physvol>
-     <file name="./EQM/Nud.gdml" />
+     <file name="Nud.gdml" />
      <position name="nud_pos" unit="mm" x="0" y="0" z="595.5" />     
     </physvol>      
     

@@ -1,0 +1,159 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!-- Declare the GDML Schema -->
+<gdml xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="../../Schema/gdml.xsd">
+
+
+<!--
+     File name: AuxiliaryDet.gdml
+     version:0.1
+     Author:weiyf(weiyf@mail.ustc.edu.cn)
+     Time:2014.09.29
+     Description:This GDML file is DAMPE detector geometry description 
+-->
+
+ <define>
+    <position name="AuxDetBOX_v0" unit="cm" x="-80" y="-50" z="-80"/>
+    <position name="AuxDetBOX_v1" unit="cm" x="-80" y="50" z="-80"/>
+    <position name="AuxDetBOX_v2" unit="cm" x="-80" y="-50" z="-1800"/>
+    <position name="AuxDetBOX_v3" unit="cm" x="-80" y="50" z="-1800"/>
+    <position name="AuxDetBOX_v4" unit="cm" x="20" y="-50" z="-80"/>
+    <position name="AuxDetBOX_v5" unit="cm" x="20" y="-50" z="-1800"/>
+    <position name="AuxDetBOX_v6" unit="cm" x="20" y="50" z="-80"/>
+    <position name="AuxDetBOX_v7" unit="cm" x="20" y="50" z="-1800"/>
+  </define>
+
+ <materials>
+
+  <!--Vacuum-->
+  <element name="videRef" formula="VACUUM" Z="1">
+   <atom value="1."/>
+  </element>
+  <material formula=" " name="Vacuum">
+   <D value="1.e-25" unit="g/cm3" />
+   <fraction n="1.0" ref="videRef" />
+  </material>
+
+ </materials>
+
+
+ <solids>
+    <tessellated aunit="deg" lunit="mm" name="AuxDet_solid">
+      <triangular vertex1="AuxDetBOX_v0" vertex2="AuxDetBOX_v1" vertex3="AuxDetBOX_v2"/>
+      <triangular vertex1="AuxDetBOX_v2" vertex2="AuxDetBOX_v1" vertex3="AuxDetBOX_v3"/>
+      <triangular vertex1="AuxDetBOX_v4" vertex2="AuxDetBOX_v0" vertex3="AuxDetBOX_v5"/>
+      <triangular vertex1="AuxDetBOX_v5" vertex2="AuxDetBOX_v0" vertex3="AuxDetBOX_v2"/>
+      <triangular vertex1="AuxDetBOX_v6" vertex2="AuxDetBOX_v4" vertex3="AuxDetBOX_v7"/>
+      <triangular vertex1="AuxDetBOX_v7" vertex2="AuxDetBOX_v4" vertex3="AuxDetBOX_v5"/>
+      <triangular vertex1="AuxDetBOX_v1" vertex2="AuxDetBOX_v6" vertex3="AuxDetBOX_v3"/>
+      <triangular vertex1="AuxDetBOX_v3" vertex2="AuxDetBOX_v6" vertex3="AuxDetBOX_v7"/>
+      <triangular vertex1="AuxDetBOX_v7" vertex2="AuxDetBOX_v5" vertex3="AuxDetBOX_v3"/>
+      <triangular vertex1="AuxDetBOX_v3" vertex2="AuxDetBOX_v5" vertex3="AuxDetBOX_v2"/>
+      <triangular vertex1="AuxDetBOX_v1" vertex2="AuxDetBOX_v0" vertex3="AuxDetBOX_v6"/>
+      <triangular vertex1="AuxDetBOX_v6" vertex2="AuxDetBOX_v0" vertex3="AuxDetBOX_v4"/>
+    </tessellated>
+  </solids>
+
+
+
+ <structure>
+  
+  <volume name="AuxDet_box" >
+   <materialref ref="Vacuum" />
+   <solidref ref="AuxDet_solid" />     
+    
+    <physvol>
+      <file name="./Others/MWPC.gdml"/> 
+    </physvol>  
+
+    <physvol>
+      <file name="./Others/C1.gdml"/> 
+    </physvol>
+
+    <physvol>
+      <file name="./Others/AMS_LDR_4.gdml"/> 
+    </physvol>
+
+    <physvol>
+      <file name="./Others/AMS_LDR_1.gdml"/> 
+    </physvol>
+
+    <physvol>
+      <file name="./Others/Sh.gdml"/> 
+    </physvol>
+
+    <physvol>
+      <file name="./Others/C2.gdml"/> 
+    </physvol>
+
+    <physvol>
+      <file name="./Others/AMS_LDR_2.gdml"/> 
+    </physvol>
+
+    <physvol>
+      <file name="./Others/Pb_glass.gdml"/> 
+    </physvol>
+
+    <physvol>
+      <file name="./Others/C1_env.gdml"/> 
+    </physvol>
+
+    <physvol>
+      <file name="./Others/C1_endcap_0.gdml"/> 
+    </physvol>
+
+    <physvol>
+      <file name="./Others/S0.gdml"/> 
+    </physvol>
+
+    <physvol>
+      <file name="./Others/C2_endcap_1.gdml"/> 
+    </physvol>
+
+    <physvol>
+      <file name="./Others/S_beam.gdml"/> 
+    </physvol>
+
+    <physvol>
+      <file name="./Others/B_field.gdml"/> 
+    </physvol>
+
+    <physvol>
+      <file name="./Others/S1.gdml"/> 
+    </physvol>
+
+    <physvol>
+      <file name="./Others/AMS_LDR_3.gdml"/> 
+    </physvol>
+
+    <physvol>
+      <file name="./Others/S2.gdml"/> 
+    </physvol>
+
+    <physvol>
+      <file name="./Others/C2_env.gdml"/> 
+    </physvol>
+
+    <physvol>
+      <file name="./Others/C1_endcap_1.gdml"/> 
+    </physvol>
+
+    <physvol>
+      <file name="./Others/S3.gdml"/> 
+    </physvol>
+
+    <physvol>
+      <file name="./Others/C2_endcap_0.gdml"/> 
+    </physvol>
+
+   
+        
+  </volume>
+ </structure>
+
+
+ <setup name="Default" version="1.0" >
+  <world ref="AuxDet_box" />
+ </setup>
+
+
+</gdml>

@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
 
 <!DOCTYPE gdml[
-<!ENTITY define SYSTEM "stk_parameter.xml">
+<!ENTITY define SYSTEM "./Stk/stk_parameter.xml">
 ]>
 
 <gdml xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="../Schema/gdml.xsd">
@@ -44,32 +44,32 @@
       
       <!-- Supporting structures -->
       <physvol>
-        <file name="stk_corners.gdml"/> 
+        <file name="./Stk/stk_corners.gdml"/> 
         <position name="stk_corners_pos" x="stk_adjust_x_position" y="stk_adjust_y_position" z="stk_adjust_z_position" unit="mm"/>
         <rotationref ref="old_to_new_coordinatesystem_rotation" />
       </physvol>   
       <physvol>       
-        <file name="stk_frames.gdml"/>  
+        <file name="./Stk/stk_frames.gdml"/>  
         <position name="stk_frames_pos" x="stk_adjust_x_position" y="stk_adjust_y_position" z="stk_adjust_z_position+stk_foils_z_shift" unit="mm"/>
         <rotationref ref="old_to_new_coordinatesystem_rotation" /> 
       </physvol>  
       <physvol>       
-        <file name="stk_ladders_advanced.gdml"/>              
+        <file name="./Stk/stk_ladders_advanced.gdml"/>              
         <position name="stk_ladders_pos" x="stk_adjust_x_position" y="stk_adjust_y_position" z="stk_adjust_z_position" unit="mm"/>
         <rotationref ref="old_to_new_coordinatesystem_rotation" />
       </physvol>
       <physvol>       
-        <file name="stk_corner-bolts.gdml"/>
+        <file name="./Stk/stk_corner-bolts.gdml"/>
         <position name="stk_corner_bolts_pos" x="stk_adjust_x_position" y="stk_adjust_y_position" z="stk_adjust_z_position+stk_foils_z_shift" unit="mm"/>
         <rotationref ref="old_to_new_coordinatesystem_rotation" />
       </physvol>
       <physvol>       
-        <file name="stk_foils_advanced.gdml"/>
+        <file name="./Stk/stk_foils_advanced.gdml"/>
         <position name="stk_foils_pos" x="stk_adjust_x_position" y="stk_adjust_y_position" z="stk_adjust_z_position+stk_foils_z_shift" unit="mm"/>
         <rotationref ref="old_to_new_coordinatesystem_rotation" />
       </physvol>            
       <physvol>       
-        <file name="stk_hcomb_advanced.gdml"/>
+        <file name="./Stk/stk_hcomb_advanced.gdml"/>
         <position name="stk_hcomb_pos" x="stk_adjust_x_position" y="stk_adjust_y_position" z="stk_adjust_z_position" unit="mm"/>
         <rotationref ref="old_to_new_coordinatesystem_rotation" />
       </physvol>                  
@@ -77,12 +77,12 @@
       <!-- Silicon detectors and tungsten converters -->
       
       <physvol>       
-        <file name="stk_si_advanced.gdml"/>                      
+        <file name="./Stk/stk_si_advanced.gdml"/>                      
         <position name="stk_si_pos" x="stk_adjust_x_position" y="stk_adjust_y_position" z="stk_adjust_z_position" unit="mm"/>
         <rotationref ref="old_to_new_coordinatesystem_rotation" />
       </physvol>
       <physvol>       
-        <file name="stk_tungsten_advanced.gdml"/>        
+        <file name="./Stk/stk_tungsten_advanced.gdml"/>        
         <position name="stk_tungsten_converters_pos" x="stk_adjust_x_position" y="stk_adjust_y_position" z="stk_adjust_z_position" unit="mm"/>
         <rotationref ref="old_to_new_coordinatesystem_rotation" />
       </physvol>
