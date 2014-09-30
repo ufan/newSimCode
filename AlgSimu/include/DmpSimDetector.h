@@ -12,6 +12,7 @@
 #include "G4VUserDetectorConstruction.hh"
 
 class G4GDMLParser;
+class G4LogicalVolume;
 //class DmpSimPsdSD;
 //class DmpSimStkSD;
 class DmpSimBgoSD;
@@ -36,18 +37,6 @@ public:
    *
    */
 
-public:
-  void ConstructMaterials();    // TODO: could we delete this function?
-  static void SetMagneticFieldPosition(const double &p){fMagneticFieldPosZ = p;}
-  static void SetAuxDetOffset(const double &x,const double &y,const double &z){
-    fAuxOffset[0] = x;
-    fAuxOffset[1] = y;
-    fAuxOffset[2] = z;
-  }
-
-private:
-  void AdjustAuxiliaryDetectorOfTestBeam();
-
 private:
   static boost::filesystem::path   fGdmlPath;        // if not set, will use the default gdml files
   G4GDMLParser          *fParser;
@@ -59,13 +48,21 @@ private:
   DmpSimBgoSD       *fBgoSD;
 //  DmpSimNudSD       *fNudSD;
 
-private:    //beam test simulation option
+// for beam test simulation
+public:
+  static void SetAuxDetOffset(const double &x,const double &y,const double &z){
+    fAuxOffset[0] = x;
+    fAuxOffset[1] = y;
+    fAuxOffset[2] = z;
+  }
+
+private:
+  void AdjustAuxiliaryDetectorOfTestBeam();
+
+private:
   static double     fAuxOffset[3];          // unit: mm
-// *
-// *  TODO: delete PosZ?
-// *
-  static double     fMagneticFieldPosZ;     // position of magnetic filed is fixed while BT, why should we set it at run time, just need to set filed value?
   G4LogicalVolume   *fAuxiliaryDet_LV;      // logical volume of auxiliary detector for test beam
+
 };
 
 #endif

@@ -41,8 +41,7 @@ DmpSimAlg::DmpSimAlg()
   OptMap.insert(std::make_pair("Nud/DeltaTime",2));
   OptMap.insert(std::make_pair("Seed",3));
   OptMap.insert(std::make_pair("BT/AuxOffset",4));
-  OptMap.insert(std::make_pair("BT/MagneticFieldValue",6));
-  OptMap.insert(std::make_pair("BT/MagneticFieldPosZ",7));  // TODO delete me
+  OptMap.insert(std::make_pair("BT/MagneticFieldValue",5));
   // mode check
   if(".mac" != gRootIOSvc->GetInputExtension()){
     fBatchMode = false; // then will active visualization mode
@@ -99,17 +98,12 @@ void DmpSimAlg::Set(const std::string &type,const std::string &argv){
       DmpSimDetector::SetAuxDetOffset(x,y,z);
       break;
     }
-    case 6: // Magnetic field value
+    case 5: // BT/MagneticFieldValue
     {
       double x=0.0,y=0.0,z=0.0;
       std::istringstream iss(argv);
       iss>>x>>y>>z;
       DmpSimMagneticField::SetFieldValue(x,y,z);
-      break;
-    }
-    case 7: // Magnetic field position z
-    {
-      DmpSimDetector::SetMagneticFieldPosition(boost::lexical_cast<double>(argv));
       break;
     }
   }
