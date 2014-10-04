@@ -4,7 +4,6 @@
  *    Chi WANG (chiwang@mail.ustc.edu.cn) 10/06/2014
 */
 
-#include <time.h>   // time_t
 #include <boost/lexical_cast.hpp>
 
 #include "DmpSimAlg.h"
@@ -15,7 +14,8 @@
 #include "DmpSimPrimaryGeneratorAction.h"
 #include "DmpSimTrackingAction.h"
 #include "DmpCore.h"
-#include "DmpRootIOSvc.h"
+#include "DmpDataBuffer.h"
+#include "DmpMetadata.h"
 #include "G4UImanager.hh"
 #ifdef G4UI_USE_QT
 #include "G4UIExecutive.hh"
@@ -26,30 +26,28 @@
 
 //-------------------------------------------------------------------
 DmpSimAlg::DmpSimAlg()
- :DmpVAlg("Sim/Alg/RunManager"),
+ :DmpVAlg("Sim/BootAlg"),
   fSimRunMgr(0),
   fPhyFactory(0),
   fSource(0),
   fDetector(0),
-  fTracking(0),
-  fBatchMode(true),
-  fPhyListName("QGSP_BIC"),
-  fSeed(time((time_t*)NULL))
+  fTracking(0)
 {
-  OptMap.insert(std::make_pair("Physics",0));
-  OptMap.insert(std::make_pair("Gdml",1));
-  OptMap.insert(std::make_pair("Nud/DeltaTime",2));
-  OptMap.insert(std::make_pair("Seed",3));
-  OptMap.insert(std::make_pair("BT/AuxOffset",4));
-  OptMap.insert(std::make_pair("BT/MagneticFieldValue",5));
-  // mode check
-  if(".mac" != gRootIOSvc->GetInputExtension()){
-    fBatchMode = false; // then will active visualization mode
-    if(gRootIOSvc->GetOutputStem() == ""){
-      gRootIOSvc->Set("Output/FileName","DmpSimVis.root");
-    }
+  fMetadata = new DmpMetadata();
+  if(not gDataBuffer->RegisterObject("Metadata/Sim/MCTruth",fMetadata,"DmpMetadata")){
+    throw;
   }
-  gRootIOSvc->Set("Output/Key",boost::lexical_cast<std::string>(fSeed)+"-sim");
+  fMetadata->SetOption("Mode","batch");
+  fMetadata->SetOption("Physics","QGSP_BIC");
+  fMetadata->SetOption("Gdml","FM");        // Fly Mode
+  fMetadata->SetOption("Seed",boost::lexical_cast<std::string>(fMetadata->JobTime));
+  fMetadata->SetOption("Nud/DeltaTime","100");  // 100 ns
+  fMetadata->SetOption("gps/particle","mu-");
+  fMetadata->SetOption("gps/centre","0 0 -17000 mm");
+  fMetadata->SetOption("gps/direction","0 0 1");
+  fMetadata->SetOption("gps/ene/mono","1 GeV");
+  gRootIOSvc->Set("Output/FileName","DmpSim_"+fMetadata->Option["Seed"]);
+  gRootIOSvc->Set("Output/Key","sim");
 }
 
 //-------------------------------------------------------------------
@@ -58,74 +56,29 @@ DmpSimAlg::~DmpSimAlg(){
 }
 
 //-------------------------------------------------------------------
-//#include "DmpEvtMCNudBlock.h"
 void DmpSimAlg::Set(const std::string &type,const std::string &argv){
-  if(OptMap.find(type) == OptMap.end()){
-    DmpLogError<<"[DmpSimAlg::Set] No argument type:\t"<<type<<DmpLogEndl;
-    std::cout<<"\tPossible options are:"<<DmpLogEndl;
-    for(std::map<std::string,short>::iterator anOpt= OptMap.begin();anOpt!=OptMap.end();anOpt++){
-      std::cout<<"\t\t"<<anOpt->first<<DmpLogEndl;
-    }
-    throw;
+  if("gps/centre"==type || "gps/direction" == type){
+    DmpLogWarning<<"Reseting "<<type<<": "<<fMetadata->Option[type]<<"\t new value = "<<argv<<DmpLogEndl;
   }
-  switch (OptMap[type]){
-    case 0: // Physics
-    {
-      fPhyListName = argv;
-      break;
-    }
-    case 1: // Gdml
-    {
-      DmpSimDetector::SetGdml(argv);
-      break;
-    }
-    case 2: // Nud/DeltaTime
-    {
-      //DmpEvtMCNudBlock::SetDeltaTime(boost::lexical_cast<short>(argv));
-      break;
-    }
-    case 3: // Seed
-    {
-      fSeed = boost::lexical_cast<long>(argv);
-      gRootIOSvc->Set("Output/Key",argv+"-sim");
-      break;
-    }
-    case 4: // BT/AuxOffset
-    {
-      double x=0.0,y=0.0,z=0.0;
-      std::istringstream iss(argv);
-      iss>>x>>y>>z;
-      DmpSimDetector::SetAuxDetOffset(x,y,z);
-      break;
-    }
-    case 5: // BT/MagneticFieldValue
-    {
-      double x=0.0,y=0.0,z=0.0;
-      std::istringstream iss(argv);
-      iss>>x>>y>>z;
-      DmpSimMagneticField::SetFieldValue(x,y,z);
-      break;
-    }
-  }
+  fMetadata->SetOption(type,argv);
 }
 
 //-------------------------------------------------------------------
 #include <stdlib.h>     // getenv()
 bool DmpSimAlg::Initialize(){
 // set seed
-  DmpLogCout<<"\tRandom seed: "<<fSeed<<DmpLogEndl;      // keep this information in any case
-  CLHEP::HepRandom::setTheSeed(fSeed);
+  DmpLogCout<<"\tRandom seed: "<<fMetadata->Option["Seed"]<<DmpLogEndl;      // keep this information in any case
+  CLHEP::HepRandom::setTheSeed(boost::lexical_cast<long>(fMetadata->Option["Seed"]));
 // set G4 kernel
   fSimRunMgr = new DmpSimRunManager();
-  fPhyFactory = new G4PhysListFactory();            fSimRunMgr->SetUserInitialization(fPhyFactory->GetReferencePhysList(fPhyListName));
+  fPhyFactory = new G4PhysListFactory();            fSimRunMgr->SetUserInitialization(fPhyFactory->GetReferencePhysList(fMetadata->Option["Physics"]));
   fSource = new DmpSimPrimaryGeneratorAction();     fSimRunMgr->SetUserAction(fSource);      // only Primary Generator is mandatory
   fDetector = new DmpSimDetector();                 fSimRunMgr->SetUserInitialization(fDetector);
   fTracking = new DmpSimTrackingAction();           fSimRunMgr->SetUserAction(fTracking);
   fSimRunMgr->Initialize();
+  fSource->ApplyGPSCommand(); // must after fSimRunMgr->Initialize()
 // boot simulation
-  G4UImanager *uiMgr = G4UImanager::GetUIpointer();
-  if(fBatchMode){    // batch mode
-    uiMgr->ApplyCommand("/control/execute "+gRootIOSvc->GetInputFileName());
+  if(fMetadata->Option["Mode"] == "batch"){    // batch mode
     if(fSimRunMgr->ConfirmBeamOnCondition()){   // if not vis mode, do some prepare for this run. refer to G4RunManagr::BeamOn()
       fSimRunMgr->SetNumberOfEventsToBeProcessed(gCore->GetMaxEventNumber());
       fSimRunMgr->ConstructScoringWorlds();
@@ -136,6 +89,7 @@ bool DmpSimAlg::Initialize(){
       return false;
     }
   }else{    // visualization mode
+    G4UImanager *uiMgr = G4UImanager::GetUIpointer();
 #ifdef G4UI_USE_QT
     char *dummyargv[20]={"visual"};
     G4UIExecutive *ui = new G4UIExecutive(1,dummyargv);
@@ -174,7 +128,7 @@ bool DmpSimAlg::ProcessThisEvent(){
 
 //-------------------------------------------------------------------
 bool DmpSimAlg::Finalize(){
-  if(fBatchMode){
+  if(fMetadata->Option["Mode"] == "batch"){
     fSimRunMgr->TerminateEventLoop();
     fSimRunMgr->RunTermination();
   }

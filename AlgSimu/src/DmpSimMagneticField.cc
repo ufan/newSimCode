@@ -5,15 +5,16 @@
  *    Chi WANG (chiwang@mail.ustc.edu.cn) 26/09/2014
 */
 
+#include "G4SystemOfUnits.hh"
 #include "DmpSimMagneticField.h"
 
 //-------------------------------------------------------------------
-G4double DmpSimMagneticField::fMField[3] = {0*tesla,0*tesla,0*tesla};
-
-//-------------------------------------------------------------------
-DmpSimMagneticField::DmpSimMagneticField()
-: G4MagneticField()
+DmpSimMagneticField::DmpSimMagneticField(double x,double y,double z)
+ :G4MagneticField()
 {
+  fMField[0] = x*tesla;
+  fMField[1] = y*tesla;
+  fMField[2] = z*tesla;
 }
 
 //-------------------------------------------------------------------

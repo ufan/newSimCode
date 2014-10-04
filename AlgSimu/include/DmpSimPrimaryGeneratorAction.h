@@ -1,5 +1,5 @@
 /*
- *  $Id: DmpSimPrimaryGeneratorAction.h, 2014-05-24 12:43:19 DAMPE $
+ *  $Id: DmpSimPrimaryGeneratorAction.h, 2014-10-05 00:06:18 DAMPE $
  *  Author(s):
  *    Chi WANG (chiwang@mail.ustc.edu.cn) 03/03/2014
 */
@@ -17,11 +17,16 @@ public:
   DmpSimPrimaryGeneratorAction();    
   ~DmpSimPrimaryGeneratorAction();
   
+  void ApplyGPSCommand();
   void GeneratePrimaries(G4Event*);
 
 private:
   G4GeneralParticleSource   *fGPS;
   DmpEvtMCPrimaryParticle   *fPrimaryParticle;
+
+private:
+  double        fTranslation[3];   // source fixed, translate payload
+  G4RotationMatrix  *fRotation;     // source fixed, rotate payload
 };
 
 #endif

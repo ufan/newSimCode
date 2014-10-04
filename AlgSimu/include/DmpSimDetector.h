@@ -8,11 +8,9 @@
 #ifndef DmpSimDetector_H
 #define DmpSimDetector_H
 
-#include <boost/filesystem.hpp>     // path
 #include "G4VUserDetectorConstruction.hh"
 
 class G4GDMLParser;
-class G4LogicalVolume;
 //class DmpSimPsdSD;
 //class DmpSimStkSD;
 class DmpSimBgoSD;
@@ -27,16 +25,14 @@ public:
   DmpSimDetector();
   ~DmpSimDetector();
   G4VPhysicalVolume* Construct();
-  static void SetGdml(const std::string &argv);
-  /*
-   * 4 types:
-   *    Path/Filename.gdml  // read it
-   *    sud-directory       // read $DMPSWSYS/share/Geometry/sub-directory/DAMPE.gdml
-   *
-   */
 
 private:
-  static boost::filesystem::path   fGdmlPath;        // if not set, will use the default gdml files
+  void Adjustment()const;
+  void DAMPETranslation(G4VPhysicalVolume*)const; // for BT
+  void DAMPERotation(G4VPhysicalVolume*)const;    // for BT
+  void ResetMagnetic()const;    // for BT
+
+private:
   G4GDMLParser          *fParser;
   G4VPhysicalVolume     *fPhyVolume;
 
@@ -46,20 +42,6 @@ private:
   DmpSimBgoSD       *fBgoSD;
 //  DmpSimNudSD       *fNudSD;
 
-// for beam test simulation
-public:
-  static void SetAuxDetOffset(const double &x,const double &y,const double &z){
-    fAuxOffset[0] = x;
-    fAuxOffset[1] = y;
-    fAuxOffset[2] = z;
-  }
-
-private:
-  void AdjustAuxiliaryDetectorOfTestBeam();
-
-private:
-  static double     fAuxOffset[3];          // unit: mm
-  G4LogicalVolume   *fAuxiliaryDet_LV;      // logical volume of auxiliary detector for test beam
 
 };
 

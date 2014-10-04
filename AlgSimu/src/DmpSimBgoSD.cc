@@ -19,7 +19,6 @@ DmpSimBgoSD::DmpSimBgoSD()
 {
   fEvtMCBgo = new DmpEvtMCBgo();
   if(not gDataBuffer->RegisterObject("Event/MCTruth/Bgo",fEvtMCBgo,"DmpEvtMCBgo")){
-   DmpLogError<<"xxxxx how to terminate this run"<<DmpLogEndl;
    throw;
   }
 }

@@ -38,22 +38,22 @@
       </physvol>
 
       <physvol name="Psd_Det">
-        <file name="Psd.gdml"/>
+        <file name="./Psd/Psd.gdml"/>
         <position name="PsdOffset" unit="mm" x="0" y="0" z="-314"/>
       </physvol>
 
       <physvol name="Stk_Det">
-        <file name="Stk.gdml"/>
+        <file name="./Stk/Stk.gdml"/>
         <position name="StkOffset" unit="mm" x="0" y="0" z="-115.75"/>
       </physvol>
 
       <physvol name="Bgo_Det">
-        <file name="Bgo.gdml"/>
+        <file name="./Bgo/Bgo.gdml"/>
         <position name="BgoOffset" unit="mm" x="0" y="0" z="254.75"/>
       </physvol>
 
       <physvol name="Nud_Det">
-        <file name="Nud.gdml"/>
+        <file name="./Nud/Nud.gdml"/>
         <position name="NudOffset" unit="mm" x="0" y="0" z="595.5"/>
       </physvol>
 

@@ -1,7 +1,4 @@
-/gps/source/clear 
-
-/gps/source/add 1  
-/gps/particle e- 
+/gps/particle e-
 #/gps/particle proton
 
 /gps/pos/type Plane 

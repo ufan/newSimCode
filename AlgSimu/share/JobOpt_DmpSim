@@ -21,23 +21,22 @@ DMPSW.Core.Set("EventNumber","10")     # MUST event number for simulation!!!
 
 #-------------------------------------------------------------------
 # RootIOSvc options
-#DMPSW.RootIOSvc.Set("Input/FileName","./Ex_pion.mac")   # if NOT set, will invoke visualization mode
-#DMPSW.RootIOSvc.Set("Input/FileName","./Ex_proton.mac")      # if NOT set, will invoke visualization mode
-#DMPSW.RootIOSvc.Set("Input/FileName","./Ex_electron.mac")    # if NOT set, will invoke visualization mode
-#DMPSW.RootIOSvc.Set("Output/FileName","./testxxxmpSimData_test00.root")        # if NOT set, will use the input macro name
+#DMPSW.RootIOSvc.Set("Output/FileName","./DmpSimData_test00.root")   # if NOT set, will use DmpSim_Seed-sim.root
 DMPSW.RootIOSvc.Set("Output/WriteList","Event/MCTruth/PrimaryParticle;Event/MCTruth/Bgo;Event/MCTruth/Psd;Event/MCTruth/Nud")  # split by ;
 
 #-------------------------------------------------------------------
 # Creat user's service or algorithm
 simAlg = DmpSim.DmpSimAlg()
 #-------------------------------------------------------------------
-simAlg.Set("Physics","QGSP_BERT")  # If NOT set, will use QGSP_BIC. argv = {QGSP_BERT,QGSP_BERT_HP, and so on}
-#simAlg.Set("Nud/DeltaTime","200")   # if NOT set, will use 100 as default
-#simAlg.Set("Gdml","../../Geometry/BTOctober2014/DAMPE.gdml")     # if NOT set, will use $DMPSWGEOMETRY/DAMPE.gdml
-simAlg.Set("Gdml","../../Geometry/EQM/DAMPE.gdml")     # if NOT set, will use $DMPSWGEOMETRY/DAMPE.gdml
+#simAlg.Set("Mode","Vis")  # if NOT set, will use batch mode
+#simAlg.Set("Physics","QGSP_BERT")  # If NOT set, will use QGSP_BIC
+#simAlg.Set("Gdml","../../Geometry/EQM/DAMPE.gdml")     # if NOT set, will use $DMPSWSYS/share/Geometry/FM/DAMPE.gdml
+simAlg.Set("Gdml","../../Geometry/BTOctober2014/Setup.gdml")     # if NOT set, will use $DMPSWSYS/share/Geometry/FM/DAMPE.gdml
 #simAlg.Set("Seed","1411903197")
-simAlg.Set("BT/AuxOffset","993.75 123.75 0")  #Auxiliary detector position x, y, z, AuxOffsetX & Y should be consistent with particle gun position x & y which are set in gps micro file. Default value is 0.
-simAlg.Set("BT/MagneticFieldValue","1 0 0") #Magnetic field value, default is 0
+#simAlg.Set("BT/Magnetic","1 0 0") # default is "0 0 0"
+#simAlg.Set("BT/DAMPE/Translation","100 300 0") # default is "0 0 0"
+#simAlg.Set("BT/DAMPE/Rotation","100 0 0") # default is "0 0 0"
+#simAlg.Set("gps/particle","e-")     # if NOT set, will use mu-
 
 #-------------------------------------------------------------------
 # Append user's service or algorithm into Kernel
