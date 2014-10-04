@@ -160,7 +160,7 @@ void DmpSimDetector::ResetMagnetic()const{
     std::string cmd = ((DmpSimAlg*)gCore->AlgorithmManager()->Get("Sim/BootAlg"))->GetMetadata()->Option["BT/Magnetic"];
     std::istringstream iss(cmd);
     iss>>x>>y>>z;
-    static DmpSimMagneticField magneticField(x,y,z);   // TODO: when delete it?
+    static DmpSimMagneticField magneticField(x,y,z);
     static G4FieldManager fieldMgr;
     fieldMgr.SetDetectorField(&magneticField);
     fieldMgr.CreateChordFinder(&magneticField);
