@@ -43,9 +43,8 @@ DmpSimAlg::DmpSimAlg()
   fMetadata->SetOption("Seed",boost::lexical_cast<std::string>(fMetadata->JobTime));
   fMetadata->SetOption("Nud/DeltaTime","100");  // 100 ns
   fMetadata->SetOption("gps/particle","mu-");
-  fMetadata->SetOption("gps/centre","0 0 -17000 mm");
+  fMetadata->SetOption("gps/centre","0 0 -1700");   // default unit cm
   fMetadata->SetOption("gps/direction","0 0 1");
-  fMetadata->SetOption("gps/ene/mono","1 GeV");
   gRootIOSvc->Set("Output/FileName","DmpSim_"+fMetadata->Option["Seed"]);
   gRootIOSvc->Set("Output/Key","sim");
 }
@@ -59,6 +58,9 @@ DmpSimAlg::~DmpSimAlg(){
 void DmpSimAlg::Set(const std::string &type,const std::string &argv){
   if("gps/centre"==type || "gps/direction" == type){
     DmpLogWarning<<"Reseting "<<type<<": "<<fMetadata->Option[type]<<"\t new value = "<<argv<<DmpLogEndl;
+  }
+  if("Mode" == type && "batch" != argv){
+    gRootIOSvc->Set("Output/FileName","DmpSimVis_"+fMetadata->Option["Seed"]);
   }
   fMetadata->SetOption(type,argv);
 }

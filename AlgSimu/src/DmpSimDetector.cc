@@ -71,10 +71,6 @@ G4VPhysicalVolume* DmpSimDetector::Construct(){
 
   Adjustment();
 
-// *
-// *  TODO:  set structure invisable
-// *
-
   // *
   // *  TODO: set SD of SubDet at here
   // *
@@ -152,9 +148,6 @@ void DmpSimDetector::DAMPERotation(G4VPhysicalVolume *PV)const{
   std::istringstream iss(cmd);
   iss>>x>>y>>z;
   G4RotationMatrix *par = PV->GetRotation();
-// *
-// *  TODO: 
-// *
   //PV->SetRotation(G4ThreeVector(x,y,z)); // TODO: set me, gMetadataSim->SourceDirection
 }
 
@@ -167,11 +160,11 @@ void DmpSimDetector::ResetMagnetic()const{
     std::string cmd = ((DmpSimAlg*)gCore->AlgorithmManager()->Get("Sim/BootAlg"))->GetMetadata()->Option["BT/Magnetic"];
     std::istringstream iss(cmd);
     iss>>x>>y>>z;
-    DmpSimMagneticField *magneticField = new DmpSimMagneticField(x,y,z);   // TODO: when delete it?
-    G4FieldManager *fieldMgr = new G4FieldManager();
-    fieldMgr->SetDetectorField(magneticField);
-    fieldMgr->CreateChordFinder(magneticField);
-    LV->SetFieldManager(fieldMgr,true);
+    static DmpSimMagneticField magneticField(x,y,z);   // TODO: when delete it?
+    static G4FieldManager fieldMgr;
+    fieldMgr.SetDetectorField(&magneticField);
+    fieldMgr.CreateChordFinder(&magneticField);
+    LV->SetFieldManager(&fieldMgr,true);
   }
 }
 

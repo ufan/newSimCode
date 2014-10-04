@@ -44,9 +44,6 @@ G4bool DmpSimBgoSD::ProcessHits(G4Step *aStep,G4TouchableHistory*){
 
 //-------------------------------------------------------------------
 void DmpSimBgoSD::Initialize(G4HCofThisEvent*){
-// *
-// *  TODO:  after DmpRootIOSvc filled this event?
-// *
   fEvtMCBgo->Reset();
 }
 
