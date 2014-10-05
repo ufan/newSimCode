@@ -130,25 +130,22 @@ void DmpSimDetector::DAMPETranslation(G4VPhysicalVolume *PV)const{
   std::istringstream iss(cmd);
   iss>>x>>y>>z;
   G4ThreeVector par = PV->GetTranslation();
-  std::cout<<"DEBUG: "<<__FILE__<<"("<<__LINE__<<")x = "<<par.x()<<"\ty = "<<par.y()<<"\tz= "<<par.z()<<std::endl;
   par.setX(par.x()+x);
   par.setY(par.y()+y);
   par.setZ(par.z()+z);
   PV->SetTranslation(par);
-
-  par = PV->GetTranslation();
-  std::cout<<"DEBUG: "<<__FILE__<<"("<<__LINE__<<")x = "<<par.x()<<"\ty = "<<par.y()<<"\tz= "<<par.z()<<std::endl;
 }
 
 //-------------------------------------------------------------------
 void DmpSimDetector::DAMPERotation(G4VPhysicalVolume *PV)const{
   DmpLogInfo<<"Rotating DAMPE"<<DmpLogEndl;
-  double x=0,y=0.,z=0.0;
+  double degree = 0.0;
   std::string cmd = ((DmpSimAlg*)gCore->AlgorithmManager()->Get("Sim/BootAlg"))->GetMetadata()->Option["BT/DAMPE/Rotation"];
   std::istringstream iss(cmd);
-  iss>>x>>y>>z;
-  G4RotationMatrix *par = PV->GetRotation();
-  //PV->SetRotation(G4ThreeVector(x,y,z)); // TODO: set me, gMetadataSim->SourceDirection
+  iss>>degree;
+  static G4RotationMatrix rot;
+  rot.rotateY(degree/180*3.141592653);
+  PV->SetRotation(&rot); // TODO: set me, gMetadataSim->SourceDirection
 }
 
 //-------------------------------------------------------------------

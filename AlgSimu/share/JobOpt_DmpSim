@@ -28,16 +28,18 @@ DMPSW.RootIOSvc.Set("Output/WriteList","Event/MCTruth/PrimaryParticle;Event/MCTr
 # Creat user's service or algorithm
 simAlg = DmpSim.DmpSimAlg()
 #-------------------------------------------------------------------
-#simAlg.Set("Mode","Vis")  # if NOT set, will use batch mode
+simAlg.Set("Mode","Vis")  # if NOT set, will use batch mode
 #simAlg.Set("Physics","QGSP_BERT")  # If NOT set, will use QGSP_BIC
 #simAlg.Set("Gdml","../../Geometry/EQM/DAMPE.gdml")     # if NOT set, will use $DMPSWSYS/share/Geometry/FM/DAMPE.gdml
 simAlg.Set("Gdml","../../Geometry/BTOctober2014/Setup.gdml")     # if NOT set, will use $DMPSWSYS/share/Geometry/FM/DAMPE.gdml
 #simAlg.Set("Seed","1411903197")
 #simAlg.Set("BT/Magnetic","1 0 0")   # default is "0 0 0"
-simAlg.Set("BT/DAMPE/Translation","100 300 0")  # default is "0 0 0"
-#simAlg.Set("BT/DAMPE/Rotation","100 0 0") # default is "0 0 0"
+simAlg.Set("BT/DAMPE/Translation","0 0 0")  # uint: mm. default is "0 0 0"
+simAlg.Set("BT/DAMPE/Rotation","-30") #  unit: degree. Rotation axis: y
+
 #-------------------------------------------------------------------
 # Set gps   Warning: NEVER using "gps/direction" and "gps/centre" at here
+simAlg.Set("gps/direction","0.5 0 0.8660254")
 #simAlg.Set("gps/particle","e-")
 #simAlg.Set("gps/pos/type","Plane")
 #simAlg.Set("gps/pos/shape","circle")

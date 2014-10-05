@@ -26,7 +26,7 @@ private:
 
 private:
   double        fTranslation[3];   // source fixed, translate payload
-  G4RotationMatrix  *fRotation;     // source fixed, rotate payload
+  G4RotationMatrix  fRotation;     // source fixed, rotate payload
 };
 
 #endif
