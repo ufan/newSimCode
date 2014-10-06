@@ -61,8 +61,8 @@ void DmpSimBgoSD::AddThisG4Hit(const short &id,const double &e,const G4ThreeVect
   // if not, creat a new one
   fEvtMCBgo->fGlobalBarID.push_back(id);
   fEvtMCBgo->fEnergy.push_back(e);
-  fEvtMCBgo->fE0.push_back(0);  // TODO, to two sides?
-  fEvtMCBgo->fE1.push_back(0);
+  fEvtMCBgo->fES0.push_back(0);  // TODO, to two sides?
+  fEvtMCBgo->fES1.push_back(0);
   fEvtMCBgo->fPosition.push_back(pos);
 }
 
