@@ -10,9 +10,6 @@
 #include "DmpSimPrimaryGeneratorAction.h"
 #include "DmpEvtMCPrimaryParticle.h"
 #include "DmpDataBuffer.h"
-#include "DmpCore.h"
-#include "DmpAlgorithmManager.h"
-#include "DmpSimAlg.h"
 #include "DmpMetadata.h"
 
 DmpSimPrimaryGeneratorAction::DmpSimPrimaryGeneratorAction()
@@ -20,9 +17,7 @@ DmpSimPrimaryGeneratorAction::DmpSimPrimaryGeneratorAction()
   fGPS(0)
 {
   fPrimaryParticle = new DmpEvtMCPrimaryParticle();
-  if(not gDataBuffer->RegisterObject("Event/MCTruth/PrimaryParticle",fPrimaryParticle,"DmpEvtMCPrimaryParticle")){
-    throw;
-  }
+  gDataBuffer->RegisterObject("Event/MCTruth/PrimaryParticle",fPrimaryParticle,"DmpEvtMCPrimaryParticle");
   fGPS = new G4GeneralParticleSource();
   fTranslation[0] = 0.0;
   fTranslation[1] = 0.0;
@@ -37,7 +32,7 @@ DmpSimPrimaryGeneratorAction::~DmpSimPrimaryGeneratorAction(){
 //-------------------------------------------------------------------
 void DmpSimPrimaryGeneratorAction::ApplyGPSCommand(){
   G4UImanager *uiMgr = G4UImanager::GetUIpointer();
-  DmpMetadata *simMetadata = ((DmpSimAlg*)gCore->AlgorithmManager()->Get("Sim/BootAlg"))->GetMetadata();
+  DmpMetadata *simMetadata = dynamic_cast<DmpMetadata*>(gDataBuffer->ReadObject("Metadata/MCTruth/JobOpt"));
   for(std::map<std::string,std::string>::iterator it=simMetadata->Option.begin();it!=simMetadata->Option.end();++it){
     if(it->first.find("gps/") != std::string::npos){
       std::string cmd = "/" + it->first + " " + it->second;

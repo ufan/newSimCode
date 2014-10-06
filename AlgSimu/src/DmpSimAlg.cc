@@ -34,9 +34,7 @@ DmpSimAlg::DmpSimAlg()
   fTracking(0)
 {
   fMetadata = new DmpMetadata();
-  if(not gDataBuffer->RegisterObject("Metadata/Sim/MCTruth",fMetadata,"DmpMetadata")){
-    throw;
-  }
+  gDataBuffer->RegisterObject("Metadata/MCTruth/JobOpt",fMetadata,"DmpMetadata");
   fMetadata->SetOption("Mode","batch");
   fMetadata->SetOption("Physics","QGSP_BIC");
   fMetadata->SetOption("Gdml","FM");        // Fly Mode

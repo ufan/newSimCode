@@ -16,9 +16,7 @@
 #include "G4PhysicalVolumeStore.hh"
 
 #include "DmpLog.h"
-#include "DmpCore.h"
-#include "DmpAlgorithmManager.h"
-#include "DmpSimAlg.h"
+#include "DmpDataBuffer.h"
 #include "DmpMetadata.h"
 #include "DmpSimMagneticField.h"
 
@@ -42,6 +40,7 @@ DmpSimDetector::DmpSimDetector()
 //  fStkSD = new DmpSimStkSD();
   fBgoSD = new DmpSimBgoSD();
 //  fNudSD = new DmpSimNudSD();
+  fMetadata = dynamic_cast<DmpMetadata*>(gDataBuffer->ReadObject("Metadata/MCTruth/JobOpt"));
 }
 
 //-------------------------------------------------------------------
@@ -56,10 +55,9 @@ DmpSimDetector::~DmpSimDetector(){
 //-------------------------------------------------------------------
 #include <boost/filesystem.hpp>     // path
 G4VPhysicalVolume* DmpSimDetector::Construct(){
-  DmpMetadata *metadata = ((DmpSimAlg*)gCore->AlgorithmManager()->Get("Sim/BootAlg"))->GetMetadata();
-  boost::filesystem::path   gdmlFile=metadata->Option["Gdml"];
+  boost::filesystem::path   gdmlFile=fMetadata->Option["Gdml"];
   if(gdmlFile.extension().string() != ".gdml"){    // argv = sub-directory
-    gdmlFile = (std::string)getenv("DMPSWSYS")+"/share/Geometry/"+metadata->Option["Gdml"]+"/DAMPE.gdml";
+    gdmlFile = (std::string)getenv("DMPSWSYS")+"/share/Geometry/"+gdmlFile.string()+"/DAMPE.gdml";
   }
   char *dirTmp = getcwd(NULL,NULL);
   DmpLogInfo<<"Reading GDML:\t"<<gdmlFile.string()<<DmpLogEndl;
@@ -126,7 +124,7 @@ std::cout<<"DEBUG: "<<__FILE__<<"("<<__LINE__<<")"<<std::endl;
 void DmpSimDetector::DAMPETranslation(G4VPhysicalVolume *PV)const{
   DmpLogInfo<<"Translating DAMPE"<<DmpLogEndl;
   double x=0,y=0.,z=0.0;
-  std::string cmd = ((DmpSimAlg*)gCore->AlgorithmManager()->Get("Sim/BootAlg"))->GetMetadata()->Option["BT/DAMPE/Translation"];
+  std::string cmd = fMetadata->Option["BT/DAMPE/Translation"];
   std::istringstream iss(cmd);
   iss>>x>>y>>z;
   G4ThreeVector par = PV->GetTranslation();
@@ -140,7 +138,7 @@ void DmpSimDetector::DAMPETranslation(G4VPhysicalVolume *PV)const{
 void DmpSimDetector::DAMPERotation(G4VPhysicalVolume *PV)const{
   DmpLogInfo<<"Rotating DAMPE"<<DmpLogEndl;
   double degree = 0.0;
-  std::string cmd = ((DmpSimAlg*)gCore->AlgorithmManager()->Get("Sim/BootAlg"))->GetMetadata()->Option["BT/DAMPE/Rotation"];
+  std::string cmd = fMetadata->Option["BT/DAMPE/Rotation"];
   std::istringstream iss(cmd);
   iss>>degree;
   static G4RotationMatrix rot;
@@ -154,7 +152,7 @@ void DmpSimDetector::ResetMagnetic()const{
   if(LV){
     DmpLogInfo<<"Setting magnetic filed"<<DmpLogEndl;
     double x=0,y=0.,z=0.0;
-    std::string cmd = ((DmpSimAlg*)gCore->AlgorithmManager()->Get("Sim/BootAlg"))->GetMetadata()->Option["BT/Magnetic"];
+    std::string cmd = fMetadata->Option["BT/Magnetic"];
     std::istringstream iss(cmd);
     iss>>x>>y>>z;
     static DmpSimMagneticField magneticField(x,y,z);

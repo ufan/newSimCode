@@ -18,9 +18,7 @@ DmpSimBgoSD::DmpSimBgoSD()
   fEvtMCBgo(0)
 {
   fEvtMCBgo = new DmpEvtMCBgo();
-  if(not gDataBuffer->RegisterObject("Event/MCTruth/Bgo",fEvtMCBgo,"DmpEvtMCBgo")){
-   throw;
-  }
+  gDataBuffer->RegisterObject("Event/MCTruth/Bgo",fEvtMCBgo,"DmpEvtMCBgo");
 }
 
 //-------------------------------------------------------------------
