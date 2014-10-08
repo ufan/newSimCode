@@ -1,5 +1,5 @@
 /*
- *  $Id: DmpSimAlg.h, 2014-09-25 22:49:10 DAMPE $
+ *  $Id: DmpSimAlg.h, 2014-10-03 22:19:33 DAMPE $
  *  Author(s):
  *    Chi WANG (chiwang@mail.ustc.edu.cn) 10/06/2014
 */
@@ -9,6 +9,7 @@
 
 #include "DmpVAlg.h"
 
+class DmpMetadata;
 class DmpSimRunManager;
 class DmpSimPrimaryGeneratorAction;
 class DmpSimDetector;
@@ -25,20 +26,46 @@ public:
   DmpSimAlg();
   ~DmpSimAlg();
 
-  void Set(const std::string &type,const std::string &argv);
+  void Set(const std::string &option,const std::string &value);
+  /*
+   * Options:
+   *    |--Mode
+   *    |       value:
+   *    |           "batch"     // default
+   *    |           "Vis" or "vis" or "VIS" or "visualization" or "Visualization"
+   *    +--Physics
+   *    |       value:
+   *    |           "QGSP_BIC"  // default
+   *    |           "QGSP_BERT"
+   *    |           "QGSP_BERT_HP"
+   *    |           many values...
+   *    +--Gdml
+   *    |       value:
+   *    |          sub-directory       // default: "FM" (Will read $DMPSWSYS/share/Geometry/FM/DAMPE.gdml)
+   *    |          "Path/Filename.gdml"
+   *    +--Seed             // default: current time
+   *    +--Nud
+   *    |  +--DeltaTime     // default: "100"
+   *    +--BT
+   *    |  +--Magnetic      // default: "0 0 0"
+   *    |  +--DAMPE
+   *    |  |  +--Translation    // deault: "0 0 0"
+   *    |  |  +--Rotation       // deault: "0 0 0"
+   */
   bool Initialize();
   bool ProcessThisEvent();
   bool Finalize();
+  DmpMetadata* GetMetadata(){return fMetadata;}
 
 private:
+  DmpMetadata           *fMetadata;
   DmpSimRunManager      *fSimRunMgr;    // run manager of simulation
   G4PhysListFactory     *fPhyFactory;
   DmpSimPrimaryGeneratorAction  *fSource;   // particle source
   DmpSimDetector        *fDetector;     // DAMPE detector
   DmpSimTrackingAction  *fTracking;     // tracking action
-  bool                  fBatchMode;     // input is a macro file, *.mac
-  std::string           fPhyListName;   // default is QGSP_BIC
-  long                  fSeed;          // simulation seed
+
 };
 
 #endif
+

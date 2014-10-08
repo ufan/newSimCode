@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no" ?>
+<gdml xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="../../../Schema/gdml.xsd">
+
+  <define>
+    <position name="Pb_glass_v0" unit="mm" x="-375" y="-35" z="-2475"/>
+    <position name="Pb_glass_v1" unit="mm" x="-225" y="-35" z="-2475"/>
+    <position name="Pb_glass_v2" unit="mm" x="-375" y="-485" z="-2475"/>
+    <position name="Pb_glass_v3" unit="mm" x="-225" y="-485" z="-2475"/>
+    <position name="Pb_glass_v4" unit="mm" x="-375" y="-35" z="-2325"/>
+    <position name="Pb_glass_v5" unit="mm" x="-375" y="-485" z="-2325"/>
+    <position name="Pb_glass_v6" unit="mm" x="-225" y="-35" z="-2325"/>
+    <position name="Pb_glass_v7" unit="mm" x="-225" y="-485" z="-2325"/>
+  </define>
+
+
+  <solids>
+    <tessellated aunit="deg" lunit="mm" name="Pb_glass0xd31a40">
+      <triangular vertex1="Pb_glass_v0" vertex2="Pb_glass_v1" vertex3="Pb_glass_v2"/>
+      <triangular vertex1="Pb_glass_v2" vertex2="Pb_glass_v1" vertex3="Pb_glass_v3"/>
+      <triangular vertex1="Pb_glass_v4" vertex2="Pb_glass_v0" vertex3="Pb_glass_v5"/>
+      <triangular vertex1="Pb_glass_v5" vertex2="Pb_glass_v0" vertex3="Pb_glass_v2"/>
+      <triangular vertex1="Pb_glass_v6" vertex2="Pb_glass_v4" vertex3="Pb_glass_v7"/>
+      <triangular vertex1="Pb_glass_v7" vertex2="Pb_glass_v4" vertex3="Pb_glass_v5"/>
+      <triangular vertex1="Pb_glass_v1" vertex2="Pb_glass_v6" vertex3="Pb_glass_v3"/>
+      <triangular vertex1="Pb_glass_v3" vertex2="Pb_glass_v6" vertex3="Pb_glass_v7"/>
+      <triangular vertex1="Pb_glass_v7" vertex2="Pb_glass_v5" vertex3="Pb_glass_v3"/>
+      <triangular vertex1="Pb_glass_v3" vertex2="Pb_glass_v5" vertex3="Pb_glass_v2"/>
+      <triangular vertex1="Pb_glass_v1" vertex2="Pb_glass_v0" vertex3="Pb_glass_v6"/>
+      <triangular vertex1="Pb_glass_v6" vertex2="Pb_glass_v0" vertex3="Pb_glass_v4"/>
+    </tessellated>
+  </solids>
+  
+  <materials>
+    
+    <element name="Si" formula="Si" Z="14"> 
+       <atom value="28.09"/>   
+    </element>
+    
+    <element name="O" formula="O" Z="8">
+       <atom value="15.999"/> 
+    </element>
+    
+    <element name="Pb" formula="Pb" Z="82">
+       <atom value="207.19"/> 
+    </element>
+    
+    <material name="SiO2" state="solid">
+      <D unit="g/cm3" value="2.200"/>   
+      <composite n="1" ref="Si"/>
+      <composite n="2" ref="O"/>
+    </material>
+    
+    <material name="LeadGlass" state="solid">      
+      <D unit="g/cm3" value="3.85"/>
+      <fraction n="0.5316" ref="Pb"/>
+      <fraction n="0.4684" ref="SiO2"/>
+    </material>
+  </materials>
+
+  
+  <structure>
+    <volume name="Pb_glass">
+      <materialref ref="LeadGlass"/>
+      <solidref ref="Pb_glass0xd31a40"/>
+    </volume>
+  </structure>
+
+  <setup name="Default" version="1.0">
+    <world ref="Pb_glass"/>
+  </setup>
+
+</gdml>

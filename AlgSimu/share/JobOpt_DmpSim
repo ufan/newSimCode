@@ -1,6 +1,6 @@
 #! /usr/bin/python
 '''
- *  $Id: JobOpt_DmpSim, 2014-09-25 00:10:46 DAMPE $
+ *  $Id: JobOpt_DmpSim, 2014-10-06 14:57:54 DAMPE $
  *  Author(s):
  *    Chi WANG (chiwang@mail.ustc.edu.cn) 07/03/2014
  *-----------------------------------------------------
@@ -21,28 +21,33 @@ DMPSW.Core.Set("EventNumber","10")     # MUST event number for simulation!!!
 
 #-------------------------------------------------------------------
 # RootIOSvc options
-#DMPSW.RootIOSvc.Set("Input/FileName","./Ex_pion.mac")   # if NOT set, will invoke visualization mode
-#DMPSW.RootIOSvc.Set("Input/FileName","./Ex_proton.mac")      # if NOT set, will invoke visualization mode
-#DMPSW.RootIOSvc.Set("Input/FileName","./Ex_electron.mac")    # if NOT set, will invoke visualization mode
-#DMPSW.RootIOSvc.Set("Output/FileName","./testxxxmpSimData_test00.root")        # if NOT set, will use the input macro name
-DMPSW.RootIOSvc.Set("Output/WriteList","Event/MCTruth/PrimaryParticle;Event/MCTruth/Bgo;Event/MCTruth/Psd;Event/MCTruth/Nud")  # split by ;
+DMPSW.RootIOSvc.Set("Output/WriteList","Event/MCTruth;Metadata/MCTruth")  # split by ;
 
 #-------------------------------------------------------------------
 # Creat user's service or algorithm
 simAlg = DmpSim.DmpSimAlg()
+#DMPSW.RootIOSvc.Set("Output/FileName","./DmpSim_run_00.root")   # if NOT set, will use DmpSim_Seed-sim.root
 #-------------------------------------------------------------------
-simAlg.Set("BT/AuxOffsetX","13.75")  #Auxiliary detector position X & Y, AuxOffsetX & Y should be consistent with particle gun position x & y which are set in gps micro file. Default value is 0.
-simAlg.Set("BT/AuxOffsetY","13.75")
-simAlg.Set("BT/MagneticFieldValue","1 0 0") #Magnetic field value, default is 0
-#simAlg.Set("BT/MagneticFieldPosZ","0")  #Magnetic field position z, default is 0
-
-simAlg.Set("Physics","QGSP_BERT")  # If NOT set, will use QGSP_BIC. argv = {QGSP_BERT,QGSP_BERT_HP, and so on}
-#simAlg.Set("Nud/DeltaTime","200")   # if NOT set, will use 100 as default
-#simAlg.Set("Gdml",DMPSW.SysPath+"/share/Geometry/EQM")     # must set the path
-#simAlg.Set("Gdml",DMPSW.SysPath+"/share/Geometry/BeamTestOctober2014")     # must set the path
-simAlg.Set("Gdml","Geometry/BTOctober2014/DAMPE_BT_OCTOBER2014.gdml")     # must set the path
+simAlg.Set("Mode","Vis")  # if NOT set, will use batch mode
+#simAlg.Set("Physics","QGSP_BERT")  # If NOT set, will use QGSP_BIC
+#simAlg.Set("Gdml","../../Geometry/EQM/DAMPE.gdml")     # if NOT set, will use $DMPSWSYS/share/Geometry/FM/DAMPE.gdml
+simAlg.Set("Gdml","../../Geometry/BTOctober2014/DAMPE.gdml")     # if NOT set, will use $DMPSWSYS/share/Geometry/FM/DAMPE.gdml
 #simAlg.Set("Seed","1411903197")
-#simAlg.Set("Gdml","../../Geometry/EQM")     # must set the path
+#simAlg.Set("BT/Magnetic","1 0 0")   # default is "0 0 0"
+simAlg.Set("BT/DAMPE/Rotation","30") #  unit: degree. Rotation axis: y
+simAlg.Set("BT/DAMPE/Translation","300 400 0")  # uint: mm. default is "0 0 0"
+
+#-------------------------------------------------------------------
+# Set gps   Warning: NEVER use "gps/direction" and "gps/centre" in job option
+#simAlg.Set("gps/particle","e-")   # default is mu-, 1MeV
+#simAlg.Set("gps/pos/type","Plane")
+#simAlg.Set("gps/pos/shape","circle")
+#simAlg.Set("gps/pos/radius","0.5 cm")
+#simAlg.Set("gps/ene/type","Mono")
+simAlg.Set("gps/energy","2.4 GeV")
+#simAlg.Set("gps/ene/mono","2. GeV")
+#simAlg.Set("gps/ene/min","50. MeV")
+#simAlg.Set("gps/ene/max","50. MeV")
 
 #-------------------------------------------------------------------
 # Append user's service or algorithm into Kernel

@@ -9,7 +9,7 @@
 
 #include "G4VSensitiveDetector.hh"
 
-class DmpEvtMCBgo;
+class DmpEvtBgoHits;
 
 class DmpSimBgoSD : public G4VSensitiveDetector{
 /*
@@ -25,7 +25,10 @@ public:
   void EndOfEvent(G4HCofThisEvent*);
 
 private:
-  DmpEvtMCBgo      *fEvtMCBgo;
+  void AddThisG4Hit(const short &barID,const double &energy,const G4ThreeVector &position);
+
+private:
+  DmpEvtBgoHits     *fEvtMCBgo;
 
 };
 

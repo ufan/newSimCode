@@ -1,7 +1,8 @@
 /* 
- *  $Id: DmpSimDetector.h, 2014-05-08 11:44:48 DAMPE $
+ *  $Id: DmpSimDetector.h, 2014-09-30 00:15:26 DAMPE $
  *  Author(s):
  *    Chi WANG (chiwang@mail.ustc.edu.cn) 26/02/2014
+ *    Yifeng Wei (weiyf@mail.ustc.edu.cn) 28/09/2014
 */
 
 #ifndef DmpSimDetector_H
@@ -14,6 +15,7 @@ class G4GDMLParser;
 //class DmpSimStkSD;
 class DmpSimBgoSD;
 //class DmpSimNudSD;
+class DmpMetadata;
 
 class DmpSimDetector : public G4VUserDetectorConstruction{
 /*
@@ -24,16 +26,14 @@ public:
   DmpSimDetector();
   ~DmpSimDetector();
   G4VPhysicalVolume* Construct();
-  static void SetGdml(const std::string &argv) {fGdmlPath = argv;}
-
-public:
-  void ConstructMaterials();    // TODO: where called me??
-  static void SetMagneticFieldPosition(const double &p){fSimBT2014_On = true; fMagneticFieldPosZ = p;}
-  static void SetAuxDetOffsetX(const double &x){fSimBT2014_On =true;fAuxOffsetX = x;}
-  static void SetAuxDetOffsetY(const double &y){fSimBT2014_On =true;fAuxOffsetY = y;}
 
 private:
-  static std::string    fGdmlPath;          // must set it in JobOpt file
+  void Adjustment()const;
+  void ResetMagnetic(const double &x,const double &y,const double &z)const;    // for BT
+  void AdjustmentRotation(const double &rad)const;    // for BT
+  void AdjustmentTranslation(const G4ThreeVector &v)const; // for BT
+
+private:
   G4GDMLParser          *fParser;
   G4VPhysicalVolume     *fPhyVolume;
 
@@ -43,12 +43,9 @@ private:
   DmpSimBgoSD       *fBgoSD;
 //  DmpSimNudSD       *fNudSD;
 
-private:    //beam test simulation option
-  static bool       fSimBT2014_On;
-  static double     fAuxOffsetX;
-  static double     fAuxOffsetY;
-  static double     fMagneticFieldPosZ; 
-  G4LogicalVolume   *fMagneticLogical;
+private:
+  DmpMetadata       *fMetadata;
+
 };
 
 #endif
