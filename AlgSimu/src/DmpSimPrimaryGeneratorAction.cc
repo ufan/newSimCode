@@ -47,27 +47,28 @@ DmpSimPrimaryGeneratorAction::~DmpSimPrimaryGeneratorAction(){
 
 //-------------------------------------------------------------------
 void DmpSimPrimaryGeneratorAction::ApplyGPSCommand(){
-  for(std::map<std::string,std::string>::iterator it=fMetadata->Option.begin();it!=fMetadata->Option.end();++it){
-std::cout<<"DEBUG: "<<__FILE__<<"("<<__LINE__<<")"<<it->first<<std::endl;
-    if(it->first.find("BT/DAMPE") != std::string::npos){
-      if(it->first.find("Rotation") != std::string::npos){
+  G4UImanager *uiMgr = G4UImanager::GetUIpointer();
+  short nCmd = fMetadata->CmdList.size();
+  for(short i =0; i<nCmd;++i){
+std::cout<<"DEBUG: "<<__FILE__<<"("<<__LINE__<<")"<<std::endl;
+    if(fMetadata->CmdList[i].find("BT/DAMPE") != std::string::npos){
+      if(fMetadata->CmdList[i].find("Rotation") != std::string::npos){
         double rad = 0;
-        std::istringstream iss(it->second);
+        std::istringstream iss(fMetadata->Option[fMetadata->CmdList[i]]);
         iss>>rad;
         rad = rad / 180 * 3.141592653;
         AdjustmentRotation(rad);
-      }else if(it->first.find("Translation") != std::string::npos){
+      }else if(fMetadata->CmdList[i].find("Translation") != std::string::npos){
         double tmp[3]={0,0,0};
-        std::istringstream iss(it->second);
+        std::istringstream iss(fMetadata->Option[fMetadata->CmdList[i]]);
         iss>>tmp[0]>>tmp[1]>>tmp[2];
         AdjustmentTranslation(G4ThreeVector(tmp[0],tmp[1],tmp[2]));
       }
     }
   }
-  G4UImanager *uiMgr = G4UImanager::GetUIpointer();
-  for(std::map<std::string,std::string>::iterator it=fMetadata->Option.begin();it!=fMetadata->Option.end();++it){
-    if(it->first.find("gps/") != std::string::npos){
-      std::string cmd = "/" + it->first + " " + it->second;
+  for(short i =0; i<nCmd;++i){// must after adjustment
+    if(fMetadata->CmdList[i].find("gps/") != std::string::npos){
+      std::string cmd = "/" + fMetadata->CmdList[i] + " " + fMetadata->Option[fMetadata->CmdList[i]];
       uiMgr->ApplyCommand(cmd);
     }
   }

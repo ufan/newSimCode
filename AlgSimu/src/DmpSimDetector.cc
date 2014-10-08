@@ -143,24 +143,25 @@ void DmpSimDetector::ResetMagnetic(const double &x,const double &y,const double 
 
 //-------------------------------------------------------------------
 void DmpSimDetector::Adjustment()const{
-  for(std::map<std::string,std::string>::iterator it=fMetadata->Option.begin();it!=fMetadata->Option.end();++it){
-std::cout<<"DEBUG: "<<__FILE__<<"("<<__LINE__<<")"<<it->first<<std::endl;
-    if(it->first.find("BT/DAMPE") != std::string::npos){
-      if(it->first.find("Rotation") != std::string::npos){
+  short nCmd = fMetadata->CmdList.size();
+  for(short i =0; i<nCmd;++i){
+  std::cout<<"DEBUG: "<<__FILE__<<"("<<__LINE__<<")"<<std::endl;
+    if(fMetadata->CmdList[i].find("BT/DAMPE") != std::string::npos){
+      if(fMetadata->CmdList[i].find("Rotation") != std::string::npos){
         double rad = 0;
-        std::istringstream iss(it->second);
+        std::istringstream iss(fMetadata->Option[fMetadata->CmdList[i]]);
         iss>>rad;
         rad = rad / 180 * 3.141592653;
         AdjustmentRotation(-rad);
-      }else if(it->first.find("Translation") != std::string::npos){
+      }else if(fMetadata->CmdList[i].find("Translation") != std::string::npos){
         double x=0,y=0.,z=0.0;
-        std::istringstream iss(it->second);
+        std::istringstream iss(fMetadata->Option[fMetadata->CmdList[i]]);
         iss>>x>>y>>z;
         AdjustmentTranslation(G4ThreeVector(x,y,z));
       }
-    }else if(it->first.find("BT/Magnetic") != std::string::npos){
+    }else if(fMetadata->CmdList[i].find("BT/Magnetic") != std::string::npos){
       double x=0,y=0.,z=0.0;
-      std::istringstream iss(it->second);
+      std::istringstream iss(fMetadata->Option[fMetadata->CmdList[i]]);
       iss>>x>>y>>z;
       ResetMagnetic(x,y,z);
     }
