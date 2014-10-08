@@ -41,8 +41,8 @@ DmpSimAlg::DmpSimAlg()
   fMetadata->SetOption("Seed",boost::lexical_cast<std::string>(fMetadata->JobTime));
   fMetadata->SetOption("Nud/DeltaTime","100");  // 100 ns
   fMetadata->SetOption("gps/particle","mu-");
-  fMetadata->SetOption("gps/centre","0 0 -1700");   // default unit cm
   fMetadata->SetOption("gps/direction","0 0 1");
+  fMetadata->SetOption("gps/centre","0 0 -1700 cm");
   gRootIOSvc->Set("Output/FileName","DmpSim_"+fMetadata->Option["Seed"]);
   gRootIOSvc->Set("Output/Key","sim");
 }

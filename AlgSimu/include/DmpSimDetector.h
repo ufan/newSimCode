@@ -29,9 +29,9 @@ public:
 
 private:
   void Adjustment()const;
-  void DAMPETranslation(G4VPhysicalVolume*)const; // for BT
-  void DAMPERotation(G4VPhysicalVolume*)const;    // for BT
-  void ResetMagnetic()const;    // for BT
+  void ResetMagnetic(const double &x,const double &y,const double &z)const;    // for BT
+  void AdjustmentRotation(const double &rad)const;    // for BT
+  void AdjustmentTranslation(const G4ThreeVector &v)const; // for BT
 
 private:
   G4GDMLParser          *fParser;

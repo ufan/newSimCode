@@ -11,6 +11,7 @@
 
 class G4GeneralParticleSource;
 class DmpEvtMCPrimaryParticle;
+class DmpMetadata;
 
 class DmpSimPrimaryGeneratorAction : public G4VUserPrimaryGeneratorAction{
 public:
@@ -20,13 +21,19 @@ public:
   void ApplyGPSCommand();
   void GeneratePrimaries(G4Event*);
 
+public:
+  void AdjustmentRotation(const double &rad);
+  void AdjustmentTranslation(const G4ThreeVector &v);
+
 private:
   G4GeneralParticleSource   *fGPS;
   DmpEvtMCPrimaryParticle   *fPrimaryParticle;
 
 private:
-  double        fTranslation[3];   // source fixed, translate payload
-  G4RotationMatrix  fRotation;     // source fixed, rotate payload
+  G4ThreeVector fDirection;     // direction of particle source
+  G4ThreeVector fCentre;        // centre of particle source, unit mm
+  DmpMetadata   *fMetadata;     // 
+
 };
 
 #endif

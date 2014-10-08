@@ -104,57 +104,35 @@ G4VPhysicalVolume* DmpSimDetector::Construct(){
 }
 
 //-------------------------------------------------------------------
-void DmpSimDetector::Adjustment()const{
-  G4LogicalVolume *auxiliary_LV = G4LogicalVolumeStore::GetInstance()->GetVolume("AuxDet",false);
-  if(auxiliary_LV){
-std::cout<<"DEBUG: "<<__FILE__<<"("<<__LINE__<<")"<<std::endl;
-    auxiliary_LV->SetVisAttributes(G4VisAttributes::Invisible);
-    ResetMagnetic();
-  }
-  G4VPhysicalVolume *payload_PV = G4PhysicalVolumeStore::GetInstance()->GetVolume("DAMPE_PV",false);
-  if(payload_PV){
-    payload_PV->GetLogicalVolume()->SetVisAttributes(G4VisAttributes::Invisible);
-    DAMPETranslation(payload_PV);
-    DAMPERotation(payload_PV);
+void DmpSimDetector::AdjustmentRotation(const double &rad)const{
+  G4VPhysicalVolume *PV = G4PhysicalVolumeStore::GetInstance()->GetVolume("AuxDet_PV",false);
+  std::cout<<"DEBUG: "<<__FILE__<<"("<<__LINE__<<")"<<std::endl;
+  if(PV){
+  std::cout<<"DEBUG: "<<__FILE__<<"("<<__LINE__<<")"<<std::endl;
+    PV->GetLogicalVolume()->SetVisAttributes(G4VisAttributes::Invisible);
+    static G4RotationMatrix rot;
+    rot.rotateY(rad);
+    PV->SetRotation(&rot);
   }
 }
 
-
 //-------------------------------------------------------------------
-void DmpSimDetector::DAMPETranslation(G4VPhysicalVolume *PV)const{
-  DmpLogInfo<<"Translating DAMPE"<<DmpLogEndl;
-  double x=0,y=0.,z=0.0;
-  std::string cmd = fMetadata->Option["BT/DAMPE/Translation"];
-  std::istringstream iss(cmd);
-  iss>>x>>y>>z;
-  G4ThreeVector par = PV->GetTranslation();
-  par.setX(par.x()+x);
-  par.setY(par.y()+y);
-  par.setZ(par.z()+z);
-  PV->SetTranslation(par);
+void DmpSimDetector::AdjustmentTranslation(const G4ThreeVector &v)const{
+  G4VPhysicalVolume *PV = G4PhysicalVolumeStore::GetInstance()->GetVolume("AuxDet_PV",false);
+  std::cout<<"DEBUG: "<<__FILE__<<"("<<__LINE__<<")"<<std::endl;
+  if(PV){
+  std::cout<<"DEBUG: "<<__FILE__<<"("<<__LINE__<<")"<<std::endl;
+    PV->GetLogicalVolume()->SetVisAttributes(G4VisAttributes::Invisible);
+    G4ThreeVector par = PV->GetTranslation();
+    par -= v;
+    PV->SetTranslation(par);
+  }
 }
 
 //-------------------------------------------------------------------
-void DmpSimDetector::DAMPERotation(G4VPhysicalVolume *PV)const{
-  DmpLogInfo<<"Rotating DAMPE"<<DmpLogEndl;
-  double degree = 0.0;
-  std::string cmd = fMetadata->Option["BT/DAMPE/Rotation"];
-  std::istringstream iss(cmd);
-  iss>>degree;
-  static G4RotationMatrix rot;
-  rot.rotateY(degree/180*3.141592653);
-  PV->SetRotation(&rot); // TODO: set me, gMetadataSim->SourceDirection
-}
-
-//-------------------------------------------------------------------
-void DmpSimDetector::ResetMagnetic()const{
-  G4LogicalVolume *LV = G4LogicalVolumeStore::GetInstance()->GetVolume("B_field");
+void DmpSimDetector::ResetMagnetic(const double &x,const double &y,const double &z)const{
+  G4LogicalVolume *LV = G4LogicalVolumeStore::GetInstance()->GetVolume("B_field",false);
   if(LV){
-    DmpLogInfo<<"Setting magnetic filed"<<DmpLogEndl;
-    double x=0,y=0.,z=0.0;
-    std::string cmd = fMetadata->Option["BT/Magnetic"];
-    std::istringstream iss(cmd);
-    iss>>x>>y>>z;
     static DmpSimMagneticField magneticField(x,y,z);
     static G4FieldManager fieldMgr;
     fieldMgr.SetDetectorField(&magneticField);
@@ -162,4 +140,31 @@ void DmpSimDetector::ResetMagnetic()const{
     LV->SetFieldManager(&fieldMgr,true);
   }
 }
+
+//-------------------------------------------------------------------
+void DmpSimDetector::Adjustment()const{
+  for(std::map<std::string,std::string>::iterator it=fMetadata->Option.begin();it!=fMetadata->Option.end();++it){
+std::cout<<"DEBUG: "<<__FILE__<<"("<<__LINE__<<")"<<it->first<<std::endl;
+    if(it->first.find("BT/DAMPE") != std::string::npos){
+      if(it->first.find("Rotation") != std::string::npos){
+        double rad = 0;
+        std::istringstream iss(it->second);
+        iss>>rad;
+        rad = rad / 180 * 3.141592653;
+        AdjustmentRotation(-rad);
+      }else if(it->first.find("Translation") != std::string::npos){
+        double x=0,y=0.,z=0.0;
+        std::istringstream iss(it->second);
+        iss>>x>>y>>z;
+        AdjustmentTranslation(G4ThreeVector(x,y,z));
+      }
+    }else if(it->first.find("BT/Magnetic") != std::string::npos){
+      double x=0,y=0.,z=0.0;
+      std::istringstream iss(it->second);
+      iss>>x>>y>>z;
+      ResetMagnetic(x,y,z);
+    }
+  }
+}
+
 

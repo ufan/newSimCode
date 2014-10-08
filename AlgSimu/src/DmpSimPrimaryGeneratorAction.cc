@@ -14,14 +14,30 @@
 
 DmpSimPrimaryGeneratorAction::DmpSimPrimaryGeneratorAction()
  :fPrimaryParticle(0),
-  fGPS(0)
+  fGPS(0),
+  fMetadata(0)
 {
+  fMetadata = dynamic_cast<DmpMetadata*>(gDataBuffer->ReadObject("Metadata/MCTruth/JobOpt"));
+  double tmp[3]={0,0,0};
+  std::istringstream iss_dir(fMetadata->Option["gps/direction"]);
+  iss_dir>>tmp[0]>>tmp[1]>>tmp[2];
+  fDirection.setX(tmp[0]);
+  fDirection.setY(tmp[1]);
+  fDirection.setZ(tmp[2]);
+  std::istringstream iss_cen(fMetadata->Option["gps/centre"]);
+  std::string unit="cm";
+  iss_cen>>tmp[0]>>tmp[1]>>tmp[2]>>unit;
+  fCentre.setX(tmp[0]);
+  fCentre.setY(tmp[1]);
+  fCentre.setZ(tmp[2]);
+  if("cm" ==unit){
+    fCentre *=10;
+  }else if("m" == unit){
+    fCentre *=100;
+  }
   fPrimaryParticle = new DmpEvtMCPrimaryParticle();
   gDataBuffer->RegisterObject("Event/MCTruth/PrimaryParticle",fPrimaryParticle,"DmpEvtMCPrimaryParticle");
   fGPS = new G4GeneralParticleSource();
-  fTranslation[0] = 0.0;
-  fTranslation[1] = 0.0;
-  fTranslation[2] = 0.0;
 }
 
 //-------------------------------------------------------------------
@@ -31,22 +47,30 @@ DmpSimPrimaryGeneratorAction::~DmpSimPrimaryGeneratorAction(){
 
 //-------------------------------------------------------------------
 void DmpSimPrimaryGeneratorAction::ApplyGPSCommand(){
+  for(std::map<std::string,std::string>::iterator it=fMetadata->Option.begin();it!=fMetadata->Option.end();++it){
+std::cout<<"DEBUG: "<<__FILE__<<"("<<__LINE__<<")"<<it->first<<std::endl;
+    if(it->first.find("BT/DAMPE") != std::string::npos){
+      if(it->first.find("Rotation") != std::string::npos){
+        double rad = 0;
+        std::istringstream iss(it->second);
+        iss>>rad;
+        rad = rad / 180 * 3.141592653;
+        AdjustmentRotation(rad);
+      }else if(it->first.find("Translation") != std::string::npos){
+        double tmp[3]={0,0,0};
+        std::istringstream iss(it->second);
+        iss>>tmp[0]>>tmp[1]>>tmp[2];
+        AdjustmentTranslation(G4ThreeVector(tmp[0],tmp[1],tmp[2]));
+      }
+    }
+  }
   G4UImanager *uiMgr = G4UImanager::GetUIpointer();
-  DmpMetadata *simMetadata = dynamic_cast<DmpMetadata*>(gDataBuffer->ReadObject("Metadata/MCTruth/JobOpt"));
-  for(std::map<std::string,std::string>::iterator it=simMetadata->Option.begin();it!=simMetadata->Option.end();++it){
+  for(std::map<std::string,std::string>::iterator it=fMetadata->Option.begin();it!=fMetadata->Option.end();++it){
     if(it->first.find("gps/") != std::string::npos){
       std::string cmd = "/" + it->first + " " + it->second;
       uiMgr->ApplyCommand(cmd);
     }
   }
-  //-------------------------------------------------------------------
-  std::istringstream iss(simMetadata->Option["BT/DAMPE/Translation"]);
-  iss>>fTranslation[0]>>fTranslation[1]>>fTranslation[2];
-//-------------------------------------------------------------------
-  double degree = 0.0;
-  std::istringstream iss_1(simMetadata->Option["BT/DAMPE/Rotation"]);
-  iss_1>>degree;
-  fRotation.rotateY(degree/180*3.141592653);
 }
 
 //-------------------------------------------------------------------
@@ -55,12 +79,13 @@ void DmpSimPrimaryGeneratorAction::GeneratePrimaries(G4Event *anEvent){
   // Set information of current event
   fPrimaryParticle->SetEventID(anEvent->GetEventID());
   fPrimaryParticle->SetTime(fGPS->GetParticleTime());
-  fPrimaryParticle->SetPosition(fGPS->GetParticlePosition().x()-fTranslation[0],fGPS->GetParticlePosition().y()-fTranslation[1],fGPS->GetParticlePosition().z()-fTranslation[3]);
+  fPrimaryParticle->SetPosition(fGPS->GetParticlePosition().x(),fGPS->GetParticlePosition().y(),fGPS->GetParticlePosition().z());
+  std::cout<<"DEBUG: "<<__FILE__<<"("<<__LINE__<<")"<<fGPS->GetParticlePosition().x()<<std::endl;
+  std::cout<<"DEBUG: "<<__FILE__<<"("<<__LINE__<<")"<<fGPS->GetParticlePosition().y()<<std::endl;
+  std::cout<<"DEBUG: "<<__FILE__<<"("<<__LINE__<<")"<<fGPS->GetParticlePosition().z()<<std::endl;
   G4ThreeVector direction(fGPS->GetParticleMomentumDirection());
-  //std::cout<<"DEBUG: "<<__FILE__<<"("<<__LINE__<<")"<<direction.x()<<"\t"<<direction.y()<<"\t"<<direction.z()<<std::endl;
-  direction *= fRotation;
+  std::cout<<"DEBUG: "<<__FILE__<<"("<<__LINE__<<")"<<direction.x()<<"\t"<<direction.y()<<"\t"<<direction.z()<<std::endl;
   fPrimaryParticle->SetDirection(direction.x(),direction.y(),direction.z());
-  //std::cout<<"DEBUG: "<<__FILE__<<"("<<__LINE__<<")"<<direction.x()<<"\t"<<direction.y()<<"\t"<<direction.z()<<std::endl;
   fPrimaryParticle->SetKineticEnergy(fGPS->GetParticleEnergy());
   G4ParticleDefinition *primaryParticle = fGPS->GetParticleDefinition();
   fPrimaryParticle->SetPDGCode(primaryParticle->GetPDGEncoding());
@@ -69,4 +94,29 @@ void DmpSimPrimaryGeneratorAction::GeneratePrimaries(G4Event *anEvent){
   fPrimaryParticle->SetComponent(primaryParticle->GetLeptonNumber(),primaryParticle->GetBaryonNumber());
   DmpLogDebug<<" Mass = "<<primaryParticle->GetPDGMass() << ", Kinetic=" << fGPS->GetParticleEnergy() << ", Charge=" << primaryParticle->GetPDGCharge() << std::endl;
 }
+
+//-------------------------------------------------------------------
+void DmpSimPrimaryGeneratorAction::AdjustmentRotation(const double &rad){
+  fDirection.rotateY(rad);
+  std::ostringstream oss;
+  oss<<fDirection.x()<<" "<<fDirection.y()<<" "<<fDirection.z();
+  std::cout<<"DEBUG: "<<__FILE__<<"("<<__LINE__<<")"<<oss.str()<<std::endl;
+  fMetadata->SetOption("gps/direction",oss.str());
+
+  fCentre.rotateY(rad);
+  std::ostringstream oss_1;
+  oss_1<<fCentre.x()<<" "<<fCentre.y()<<" "<<fCentre.z()<<" mm";
+  std::cout<<"DEBUG: "<<__FILE__<<"("<<__LINE__<<")"<<oss_1.str()<<std::endl;
+  fMetadata->SetOption("gps/centre",oss_1.str());
+}
+
+//-------------------------------------------------------------------
+void DmpSimPrimaryGeneratorAction::AdjustmentTranslation(const G4ThreeVector &v){
+  fCentre -= v;
+  std::ostringstream oss;
+  oss<<fCentre.x()<<" "<<fCentre.y()<<" "<<fCentre.z()<<" mm";
+  std::cout<<"DEBUG: "<<__FILE__<<"("<<__LINE__<<")"<<oss.str()<<std::endl;
+  fMetadata->SetOption("gps/centre",oss.str());
+}
+
 
