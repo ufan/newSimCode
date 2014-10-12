@@ -1,6 +1,6 @@
 #! /usr/bin/python
 '''
- *  $Id: JobOpt_DmpSim, 2014-10-06 14:57:54 DAMPE $
+ *  $Id: JobOpt_DmpSim, 2014-10-12 02:08:54 DAMPE $
  *  Author(s):
  *    Chi WANG (chiwang@mail.ustc.edu.cn) 07/03/2014
  *-----------------------------------------------------
@@ -32,10 +32,10 @@ simAlg.Set("Mode","Vis")  # if NOT set, will use batch mode
 #simAlg.Set("Physics","QGSP_BERT")  # If NOT set, will use QGSP_BIC
 #simAlg.Set("Gdml","../../Geometry/EQM/DAMPE.gdml")     # if NOT set, will use $DMPSWSYS/share/Geometry/FM/DAMPE.gdml
 simAlg.Set("Gdml","../../Geometry/BTOctober2014/DAMPE.gdml")     # if NOT set, will use $DMPSWSYS/share/Geometry/FM/DAMPE.gdml
-#simAlg.Set("Seed","1411903197")
+#simAlg.Set("Seed","1413071061")
 #simAlg.Set("BT/Magnetic","1 0 0")   # default is "0 0 0"
-simAlg.Set("BT/DAMPE/Translation","300 400 0")  # uint: mm. default is "0 0 0"
-simAlg.Set("BT/DAMPE/Rotation","30") #  unit: degree. Rotation axis: y
+#simAlg.Set("BT/DAMPE/Translation","300 400 0")  # uint: mm. default is "0 0 0"
+#simAlg.Set("BT/DAMPE/Rotation","30") #  unit: degree. Rotation axis: y
 
 #-------------------------------------------------------------------
 # Set gps   Warning: NEVER use "gps/direction" and "gps/centre" in job option
@@ -44,7 +44,7 @@ simAlg.Set("BT/DAMPE/Rotation","30") #  unit: degree. Rotation axis: y
 #simAlg.Set("gps/pos/shape","circle")
 #simAlg.Set("gps/pos/radius","0.5 cm")
 #simAlg.Set("gps/ene/type","Mono")
-simAlg.Set("gps/energy","2.4 GeV")
+simAlg.Set("gps/energy","5.4 GeV")
 #simAlg.Set("gps/ene/mono","2. GeV")
 #simAlg.Set("gps/ene/min","50. MeV")
 #simAlg.Set("gps/ene/max","50. MeV")

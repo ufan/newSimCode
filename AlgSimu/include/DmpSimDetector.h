@@ -30,8 +30,6 @@ public:
 private:
   void Adjustment()const;
   void ResetMagnetic(const double &x,const double &y,const double &z)const;    // for BT
-  void AdjustmentRotation(const double &rad)const;    // for BT
-  void AdjustmentTranslation(const G4ThreeVector &v)const; // for BT
 
 private:
   G4GDMLParser          *fParser;

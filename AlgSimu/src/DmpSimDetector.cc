@@ -55,7 +55,7 @@ DmpSimDetector::~DmpSimDetector(){
 //-------------------------------------------------------------------
 #include <boost/filesystem.hpp>     // path
 G4VPhysicalVolume* DmpSimDetector::Construct(){
-  boost::filesystem::path   gdmlFile=fMetadata->Option["Gdml"];
+  boost::filesystem::path   gdmlFile=fMetadata->GetValue("Gdml");
   if(gdmlFile.extension().string() != ".gdml"){    // argv = sub-directory
     gdmlFile = (std::string)getenv("DMPSWSYS")+"/share/Geometry/"+gdmlFile.string()+"/DAMPE.gdml";
   }
@@ -104,32 +104,6 @@ G4VPhysicalVolume* DmpSimDetector::Construct(){
 }
 
 //-------------------------------------------------------------------
-void DmpSimDetector::AdjustmentRotation(const double &rad)const{
-  G4VPhysicalVolume *PV = G4PhysicalVolumeStore::GetInstance()->GetVolume("AuxDet_PV",false);
-  std::cout<<"DEBUG: "<<__FILE__<<"("<<__LINE__<<")"<<std::endl;
-  if(PV){
-  std::cout<<"DEBUG: "<<__FILE__<<"("<<__LINE__<<")"<<std::endl;
-    PV->GetLogicalVolume()->SetVisAttributes(G4VisAttributes::Invisible);
-    static G4RotationMatrix rot;
-    rot.rotateY(rad);
-    PV->SetRotation(&rot);
-  }
-}
-
-//-------------------------------------------------------------------
-void DmpSimDetector::AdjustmentTranslation(const G4ThreeVector &v)const{
-  G4VPhysicalVolume *PV = G4PhysicalVolumeStore::GetInstance()->GetVolume("AuxDet_PV",false);
-  std::cout<<"DEBUG: "<<__FILE__<<"("<<__LINE__<<")"<<std::endl;
-  if(PV){
-  std::cout<<"DEBUG: "<<__FILE__<<"("<<__LINE__<<")"<<std::endl;
-    PV->GetLogicalVolume()->SetVisAttributes(G4VisAttributes::Invisible);
-    G4ThreeVector par = PV->GetTranslation();
-    par -= v;
-    PV->SetTranslation(par);
-  }
-}
-
-//-------------------------------------------------------------------
 void DmpSimDetector::ResetMagnetic(const double &x,const double &y,const double &z)const{
   G4LogicalVolume *LV = G4LogicalVolumeStore::GetInstance()->GetVolume("B_field",false);
   if(LV){
@@ -143,25 +117,32 @@ void DmpSimDetector::ResetMagnetic(const double &x,const double &y,const double 
 
 //-------------------------------------------------------------------
 void DmpSimDetector::Adjustment()const{
-  short nCmd = fMetadata->CmdList.size();
+  short nCmd = fMetadata->OptionSize();
+  G4VPhysicalVolume *PV = PV = G4PhysicalVolumeStore::GetInstance()->GetVolume("AuxDet_PV",false);
+  if(PV){
+    PV->GetLogicalVolume()->SetVisAttributes(G4VisAttributes::Invisible);
+  }
   for(short i =0; i<nCmd;++i){
-  std::cout<<"DEBUG: "<<__FILE__<<"("<<__LINE__<<")"<<std::endl;
-    if(fMetadata->CmdList[i].find("BT/DAMPE") != std::string::npos){
-      if(fMetadata->CmdList[i].find("Rotation") != std::string::npos){
-        double rad = 0;
-        std::istringstream iss(fMetadata->Option[fMetadata->CmdList[i]]);
-        iss>>rad;
-        rad = rad / 180 * 3.141592653;
-        AdjustmentRotation(-rad);
-      }else if(fMetadata->CmdList[i].find("Translation") != std::string::npos){
-        double x=0,y=0.,z=0.0;
-        std::istringstream iss(fMetadata->Option[fMetadata->CmdList[i]]);
-        iss>>x>>y>>z;
-        AdjustmentTranslation(G4ThreeVector(x,y,z));
-      }
-    }else if(fMetadata->CmdList[i].find("BT/Magnetic") != std::string::npos){
+    std::string command = fMetadata->GetCommand(i);
+    if(command == "BT/DAMPE/Rotation"){
+      double rad = 0;
+      std::istringstream iss(fMetadata->GetValue(command));
+      iss>>rad;
+      rad = rad / 180 * 3.141592653;
+      static G4RotationMatrix rot;
+      rot.rotateY(-rad);
+      PV->SetRotation(&rot);
+    }else if(command == "BT/DAMPE/Translation"){
       double x=0,y=0.,z=0.0;
-      std::istringstream iss(fMetadata->Option[fMetadata->CmdList[i]]);
+      std::istringstream iss(fMetadata->GetValue(command));
+      iss>>x>>y>>z;
+      G4ThreeVector move(x,y,z);
+      G4ThreeVector par = PV->GetTranslation();
+      par -= move;
+      PV->SetTranslation(par);
+    }else if(command == "BT/Magnetic"){
+      double x=0,y=0.,z=0.0;
+      std::istringstream iss(fMetadata->GetValue(command));
       iss>>x>>y>>z;
       ResetMagnetic(x,y,z);
     }

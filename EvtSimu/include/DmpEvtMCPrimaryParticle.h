@@ -1,5 +1,5 @@
 /*
- *  $Id: DmpEvtMCPrimaryParticle.h, 2014-05-13 15:34:37 DAMPE $
+ *  $Id: DmpEvtMCPrimaryParticle.h, 2014-10-12 00:53:42 DAMPE $
  *  Author(s):
  *    Chi WANG (chiwang@mail.ustc.edu.cn) 25/02/2014
 */
@@ -7,7 +7,7 @@
 #ifndef DmpEvtMCPrimaryParticle_H
 #define DmpEvtMCPrimaryParticle_H
 
-#include "TObject.h"
+#include "TVector3.h"
 
 class DmpEvtMCPrimaryParticle : public TObject{
 /*
@@ -17,12 +17,12 @@ class DmpEvtMCPrimaryParticle : public TObject{
  *
  */
 public:
-  DmpEvtMCPrimaryParticle():fEventID(0),fTime(0),fPosX(0),fPosY(0),fPosZ(0),fDirectionX(0),fDirectionY(0),fDirectionZ(0),fKineticE(0),fPDGCode(0),fMass(0),fCharge(0),fLeptonNo(0),fBaryonNo(0){}
+  DmpEvtMCPrimaryParticle():fEventID(0),fTime(0),fKineticE(0),fPDGCode(0),fMass(0),fCharge(0),fLeptonNo(0),fBaryonNo(0){}
   ~DmpEvtMCPrimaryParticle(){}
   void SetEventID(const long &i) {fEventID = i;}
   void SetTime(const double &t) {fTime = t;}
-  void SetPosition(const double &x, const double &y, const double &z) {fPosX = x; fPosY = y; fPosZ = z;}
-  void SetDirection(const double &x, const double &y, const double &z) {fDirectionX = x; fDirectionY = y; fDirectionZ = z;}
+  void SetPosition(const double &x,const double &y,const double &z) {fPosition.SetXYZ(x,y,z);}
+  void SetDirection(const double &x,const double &y,const double &z) {fDirection.SetXYZ(x,y,z);}
   void SetKineticEnergy(const double &e) {fKineticE = e;}
   void SetPDGCode(const int &c) {fPDGCode = c;}
   void SetMass(const double &m) {fMass = m;}
@@ -31,12 +31,8 @@ public:
 
   const long& EventID() const {return fEventID;}
   const double& Time() const {return fTime;}
-  const double& PositionX() const {return fPosX;}
-  const double& PositionY() const {return fPosY;}
-  const double& PositionZ() const {return fPosZ;}
-  const double& DirectionX() const {return fDirectionX;}
-  const double& DirectionY() const {return fDirectionY;}
-  const double& DirectionZ() const {return fDirectionZ;}
+  const TVector3& Position() const {return fPosition;}
+  const TVector3& Direction() const {return fDirection;}
   const double& KineticEnergy() const {return fKineticE;}
   const int& PDGcode() const {return fPDGCode;}
   const double& Mass() const {return fMass;}
@@ -47,12 +43,8 @@ public:
 private:
   long      fEventID;       // event ID
   double    fTime;          //! nanosecond, always = 0
-  double    fPosX;          // X position. mm
-  double    fPosY;          // Y position. mm
-  double    fPosZ;          // Z position. mm
-  double    fDirectionX;    // momentum direction X
-  double    fDirectionY;    // momentum direction Y
-  double    fDirectionZ;    // momentum direction Z
+  TVector3  fPosition;      // source position. mm
+  TVector3  fDirection;     // momentum direction
   double    fKineticE;      // kinetic energy. MeV
   int       fPDGCode;       // PDG code
   double    fMass;          // mass. MeV
