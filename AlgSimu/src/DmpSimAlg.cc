@@ -99,8 +99,7 @@ bool DmpSimAlg::Initialize(){
 // *
 // *  TODO: publish... check prefix
 // *
-    //G4String prefix = (G4String)getenv("DMPSWSYS")+"/share/Simulation/";
-    G4String prefix = "./";
+    G4String prefix = (G4String)getenv("DMPSWWORK")+"/share/Simulation/";
     uiMgr->ApplyCommand("/control/execute "+prefix+"DmpSimVis.mac");
 #endif
     if (ui->IsGUI()){
