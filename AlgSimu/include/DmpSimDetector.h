@@ -15,6 +15,7 @@ class G4GDMLParser;
 //class DmpSimStkSD;
 class DmpSimBgoSD;
 //class DmpSimNudSD;
+class DmpSimPbGlassSD;
 class DmpMetadata;
 
 class DmpSimDetector : public G4VUserDetectorConstruction{
@@ -40,6 +41,7 @@ private:
 //  DmpSimStkSD       *fStkSD;
   DmpSimBgoSD       *fBgoSD;
 //  DmpSimNudSD       *fNudSD;
+  DmpSimPbGlassSD   *fPbGlassSD;
 
 private:
   DmpMetadata       *fMetadata;

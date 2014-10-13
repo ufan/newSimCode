@@ -37,7 +37,7 @@
  
     <!--*******************************    Beam test auxiliary  ******************************-->
     <physvol>
-      <file name="./Others/BeamPipe/AuxiliaryDet.gdml"/> 
+      <file name="./Others/BeamPipe/PS_AncillaryDet.gdml"/>
       <position name="beam_test_aux_pos" unit="mm" x="300" y="0" z="0"/>
     </physvol>
    

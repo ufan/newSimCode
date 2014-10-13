@@ -25,6 +25,7 @@
 //#include "DmpSimStkSD.h"
 #include "DmpSimBgoSD.h"
 //#include "DmpSimNudSD.h"
+#include "DmpSimPbGlassSD.h"
 
 //-------------------------------------------------------------------
 DmpSimDetector::DmpSimDetector()
@@ -32,14 +33,16 @@ DmpSimDetector::DmpSimDetector()
   fPhyVolume(0),
 //  fPsdSD(0),
 //  fStkSD(0),
-  fBgoSD(0)
+  fBgoSD(0),
 //  fNudSD(0)
+  fPbGlassSD(0)
 {
   fParser = new G4GDMLParser();
 //  fPsdSD = new DmpSimPsdSD();
 //  fStkSD = new DmpSimStkSD();
   fBgoSD = new DmpSimBgoSD();
 //  fNudSD = new DmpSimNudSD();
+  fPbGlassSD = new DmpSimPbGlassSD();
   fMetadata = dynamic_cast<DmpMetadata*>(gDataBuffer->ReadObject("Metadata/MCTruth/JobOpt"));
 }
 
@@ -50,6 +53,9 @@ DmpSimDetector::~DmpSimDetector(){
 //  delete fStkSD;
   delete fBgoSD;
 //  delete fNudSD;
+  if(fPbGlassSD){
+    delete fPbGlassSD;
+  }
 }
 
 //-------------------------------------------------------------------
@@ -98,6 +104,11 @@ G4VPhysicalVolume* DmpSimDetector::Construct(){
     //fParser->GetVolume("Nud_Block1")->SetSensitiveDetector(fNudSD);
     //fParser->GetVolume("Nud_Block2")->SetSensitiveDetector(fNudSD);
     //fParser->GetVolume("Nud_Block3")->SetSensitiveDetector(fNudSD);
+  }
+  if(G4LogicalVolumeStore::GetInstance()->GetVolume("PbGlass_Det",false)){
+    DmpLogInfo<<"Setting Sensitive Detector of Pb class"<<DmpLogEndl;
+    mgrSD->AddNewDetector(fPbGlassSD);
+    fParser->GetVolume("PbGlass_Det")->SetSensitiveDetector(fPbGlassSD);
   }
 
   return fPhyVolume;

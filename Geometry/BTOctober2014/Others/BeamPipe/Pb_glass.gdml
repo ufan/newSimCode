@@ -59,14 +59,14 @@
 
   
   <structure>
-    <volume name="Pb_glass">
+    <volume name="PbGlass_Det">
       <materialref ref="LeadGlass"/>
       <solidref ref="Pb_glass0xd31a40"/>
     </volume>
   </structure>
 
   <setup name="Default" version="1.0">
-    <world ref="Pb_glass"/>
+    <world ref="PbGlass_Det"/>
   </setup>
 
 </gdml>
