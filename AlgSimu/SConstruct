@@ -31,9 +31,23 @@ env.Append(LIBS=['xerces-c'])
 env.Append(LIBS=['boost_system','boost_python','boost_filesystem'])
 
 #-------------------------------------------------------------------
+prefix=os.environ['DMPSWWORK']
+# install geometry
+def ProcessThisDir(fromPath,toPath):
+    for tmp in os.listdir(fromPath):
+        if "." in tmp[0] or "scons" in tmp or "test" in tmp:   continue
+        if os.path.isdir(fromPath+tmp):  ProcessThisDir(fromPath+tmp,toPath+tmp)
+        else: Default(Command(toPath+'/'+tmp,fromPath+'/'+tmp,Copy("$TARGET","$SOURCE")))
+
+ProcessThisDir("../Geometry/BTOctober2014",prefix+'/share/Geometry/BTOct2014')
+# install Vis.mac
+Default(Command(prefix+'/share/Simulation/DmpSimGUI.mac','./share/DmpSimGUI.mac',Copy("$TARGET","$SOURCE")))
+Default(Command(prefix+'/share/Simulation/DmpSimVis.mac','./share/DmpSimVis.mac',Copy("$TARGET","$SOURCE")))
+
+#-------------------------------------------------------------------
 # main build
 goal=env.SharedLibrary(target,Glob('./src/*.cc'))
-Default(env.InstallAs(os.environ['DMPSWWORK']+'/lib/lib'+target+".so",goal))
+Default(env.InstallAs(prefix+'/lib/lib'+target+".so",goal))
 if env['PLATFORM'] == 'darwin':    #MacOS
-	Default(env.InstallAs(os.environ['DMPSWWORK']+'/lib/lib'+target+".dylib",goal))
+	Default(env.InstallAs(prefix+'/lib/lib'+target+".dylib",goal))
 

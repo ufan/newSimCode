@@ -15,6 +15,8 @@ class G4GDMLParser;
 //class DmpSimStkSD;
 class DmpSimBgoSD;
 //class DmpSimNudSD;
+class DmpSimPbGlassSD;
+class DmpSimSSD_SD;
 class DmpMetadata;
 
 class DmpSimDetector : public G4VUserDetectorConstruction{
@@ -30,8 +32,6 @@ public:
 private:
   void Adjustment()const;
   void ResetMagnetic(const double &x,const double &y,const double &z)const;    // for BT
-  void AdjustmentRotation(const double &rad)const;    // for BT
-  void AdjustmentTranslation(const G4ThreeVector &v)const; // for BT
 
 private:
   G4GDMLParser          *fParser;
@@ -42,6 +42,8 @@ private:
 //  DmpSimStkSD       *fStkSD;
   DmpSimBgoSD       *fBgoSD;
 //  DmpSimNudSD       *fNudSD;
+  DmpSimPbGlassSD   *fPbGlassSD;
+  DmpSimSSD_SD      *fSSD_SD;
 
 private:
   DmpMetadata       *fMetadata;

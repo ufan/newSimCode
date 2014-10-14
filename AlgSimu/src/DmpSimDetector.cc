@@ -25,6 +25,8 @@
 //#include "DmpSimStkSD.h"
 #include "DmpSimBgoSD.h"
 //#include "DmpSimNudSD.h"
+#include "DmpSimPbGlassSD.h"
+#include "DmpSimSSD_SD.h"
 
 //-------------------------------------------------------------------
 DmpSimDetector::DmpSimDetector()
@@ -32,14 +34,17 @@ DmpSimDetector::DmpSimDetector()
   fPhyVolume(0),
 //  fPsdSD(0),
 //  fStkSD(0),
-  fBgoSD(0)
+  fBgoSD(0),
 //  fNudSD(0)
+  fPbGlassSD(0)
 {
   fParser = new G4GDMLParser();
 //  fPsdSD = new DmpSimPsdSD();
 //  fStkSD = new DmpSimStkSD();
   fBgoSD = new DmpSimBgoSD();
 //  fNudSD = new DmpSimNudSD();
+  fPbGlassSD = new DmpSimPbGlassSD();
+  fSSD_SD = new DmpSimSSD_SD();
   fMetadata = dynamic_cast<DmpMetadata*>(gDataBuffer->ReadObject("Metadata/MCTruth/JobOpt"));
 }
 
@@ -50,12 +55,18 @@ DmpSimDetector::~DmpSimDetector(){
 //  delete fStkSD;
   delete fBgoSD;
 //  delete fNudSD;
+  if(fPbGlassSD){
+    delete fPbGlassSD;
+  }
+  if(fSSD_SD){
+    delete fSSD_SD;
+  }
 }
 
 //-------------------------------------------------------------------
 #include <boost/filesystem.hpp>     // path
 G4VPhysicalVolume* DmpSimDetector::Construct(){
-  boost::filesystem::path   gdmlFile=fMetadata->Option["Gdml"];
+  boost::filesystem::path   gdmlFile=fMetadata->GetValue("Gdml");
   if(gdmlFile.extension().string() != ".gdml"){    // argv = sub-directory
     gdmlFile = (std::string)getenv("DMPSWSYS")+"/share/Geometry/"+gdmlFile.string()+"/DAMPE.gdml";
   }
@@ -99,34 +110,18 @@ G4VPhysicalVolume* DmpSimDetector::Construct(){
     //fParser->GetVolume("Nud_Block2")->SetSensitiveDetector(fNudSD);
     //fParser->GetVolume("Nud_Block3")->SetSensitiveDetector(fNudSD);
   }
+  if(G4LogicalVolumeStore::GetInstance()->GetVolume("PbGlass_Det",false)){
+    DmpLogInfo<<"Setting Sensitive Detector of Pb class"<<DmpLogEndl;
+    mgrSD->AddNewDetector(fPbGlassSD);
+    fParser->GetVolume("PbGlass_Det")->SetSensitiveDetector(fPbGlassSD);
+  }
+  if(G4LogicalVolumeStore::GetInstance()->GetVolume("S3_Det",false)){
+    DmpLogInfo<<"Setting Sensitive Detector of SSD"<<DmpLogEndl;
+    mgrSD->AddNewDetector(fSSD_SD);
+    fParser->GetVolume("S3_Det")->SetSensitiveDetector(fSSD_SD);
+  }
 
   return fPhyVolume;
-}
-
-//-------------------------------------------------------------------
-void DmpSimDetector::AdjustmentRotation(const double &rad)const{
-  G4VPhysicalVolume *PV = G4PhysicalVolumeStore::GetInstance()->GetVolume("AuxDet_PV",false);
-  std::cout<<"DEBUG: "<<__FILE__<<"("<<__LINE__<<")"<<std::endl;
-  if(PV){
-  std::cout<<"DEBUG: "<<__FILE__<<"("<<__LINE__<<")"<<std::endl;
-    PV->GetLogicalVolume()->SetVisAttributes(G4VisAttributes::Invisible);
-    static G4RotationMatrix rot;
-    rot.rotateY(rad);
-    PV->SetRotation(&rot);
-  }
-}
-
-//-------------------------------------------------------------------
-void DmpSimDetector::AdjustmentTranslation(const G4ThreeVector &v)const{
-  G4VPhysicalVolume *PV = G4PhysicalVolumeStore::GetInstance()->GetVolume("AuxDet_PV",false);
-  std::cout<<"DEBUG: "<<__FILE__<<"("<<__LINE__<<")"<<std::endl;
-  if(PV){
-  std::cout<<"DEBUG: "<<__FILE__<<"("<<__LINE__<<")"<<std::endl;
-    PV->GetLogicalVolume()->SetVisAttributes(G4VisAttributes::Invisible);
-    G4ThreeVector par = PV->GetTranslation();
-    par -= v;
-    PV->SetTranslation(par);
-  }
 }
 
 //-------------------------------------------------------------------
@@ -143,24 +138,32 @@ void DmpSimDetector::ResetMagnetic(const double &x,const double &y,const double 
 
 //-------------------------------------------------------------------
 void DmpSimDetector::Adjustment()const{
-  for(std::map<std::string,std::string>::iterator it=fMetadata->Option.begin();it!=fMetadata->Option.end();++it){
-std::cout<<"DEBUG: "<<__FILE__<<"("<<__LINE__<<")"<<it->first<<std::endl;
-    if(it->first.find("BT/DAMPE") != std::string::npos){
-      if(it->first.find("Rotation") != std::string::npos){
-        double rad = 0;
-        std::istringstream iss(it->second);
-        iss>>rad;
-        rad = rad / 180 * 3.141592653;
-        AdjustmentRotation(-rad);
-      }else if(it->first.find("Translation") != std::string::npos){
-        double x=0,y=0.,z=0.0;
-        std::istringstream iss(it->second);
-        iss>>x>>y>>z;
-        AdjustmentTranslation(G4ThreeVector(x,y,z));
-      }
-    }else if(it->first.find("BT/Magnetic") != std::string::npos){
+  short nCmd = fMetadata->OptionSize();
+  G4VPhysicalVolume *PV = PV = G4PhysicalVolumeStore::GetInstance()->GetVolume("AuxDet_PV",false);
+  if(PV){
+    PV->GetLogicalVolume()->SetVisAttributes(G4VisAttributes::Invisible);
+  }
+  for(short i =0; i<nCmd;++i){
+    std::string command = fMetadata->GetCommand(i);
+    if(command == "BT/DAMPE/Rotation"){
+      double rad = 0;
+      std::istringstream iss(fMetadata->GetValue(command));
+      iss>>rad;
+      rad = rad / 180 * 3.141592653;
+      static G4RotationMatrix rot;
+      rot.rotateY(-rad);
+      PV->SetRotation(&rot);
+    }else if(command == "BT/DAMPE/Translation"){
       double x=0,y=0.,z=0.0;
-      std::istringstream iss(it->second);
+      std::istringstream iss(fMetadata->GetValue(command));
+      iss>>x>>y>>z;
+      G4ThreeVector move(x,y,z);
+      G4ThreeVector par = PV->GetTranslation();
+      par -= move;
+      PV->SetTranslation(par);
+    }else if(command == "BT/Magnetic"){
+      double x=0,y=0.,z=0.0;
+      std::istringstream iss(fMetadata->GetValue(command));
       iss>>x>>y>>z;
       ResetMagnetic(x,y,z);
     }

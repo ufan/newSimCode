@@ -62,14 +62,14 @@
 
   
   <structure>
-    <volume name="S3">
+    <volume name="S3_Det">
       <materialref ref="PLasticScintillatorMaterialBeamTest"/>
       <solidref ref="S30x20f7a40"/>
     </volume>
   </structure>
 
   <setup name="Default" version="1.0">
-    <world ref="S3"/>
+    <world ref="S3_Det"/>
   </setup>
 
 </gdml>

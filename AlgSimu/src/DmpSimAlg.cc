@@ -38,12 +38,12 @@ DmpSimAlg::DmpSimAlg()
   fMetadata->SetOption("Mode","batch");
   fMetadata->SetOption("Physics","QGSP_BIC");
   fMetadata->SetOption("Gdml","FM");        // Fly Mode
-  fMetadata->SetOption("Seed",boost::lexical_cast<std::string>(fMetadata->JobTime));
+  fMetadata->SetOption("Seed",boost::lexical_cast<std::string>(fMetadata->JobTime()));
   fMetadata->SetOption("Nud/DeltaTime","100");  // 100 ns
   fMetadata->SetOption("gps/particle","mu-");
   fMetadata->SetOption("gps/direction","0 0 1");
   fMetadata->SetOption("gps/centre","0 0 -1700 cm");
-  gRootIOSvc->Set("Output/FileName","DmpSim_"+fMetadata->Option["Seed"]);
+  gRootIOSvc->Set("Output/FileName","DmpSim_"+fMetadata->GetValue("Seed"));
   gRootIOSvc->Set("Output/Key","sim");
 }
 
@@ -55,10 +55,10 @@ DmpSimAlg::~DmpSimAlg(){
 //-------------------------------------------------------------------
 void DmpSimAlg::Set(const std::string &type,const std::string &argv){
   if("gps/centre"==type || "gps/direction" == type){
-    DmpLogWarning<<"Reseting "<<type<<": "<<fMetadata->Option[type]<<"\t new value = "<<argv<<DmpLogEndl;
+    DmpLogWarning<<"Reseting "<<type<<": "<<fMetadata->GetValue(type)<<"\t new value = "<<argv<<DmpLogEndl;
   }
   if("Mode" == type && "batch" != argv){
-    gRootIOSvc->Set("Output/FileName","DmpSimVis_"+fMetadata->Option["Seed"]);
+    gRootIOSvc->Set("Output/FileName","DmpSimVis_"+fMetadata->GetValue("Seed"));
   }
   fMetadata->SetOption(type,argv);
 }
@@ -67,18 +67,18 @@ void DmpSimAlg::Set(const std::string &type,const std::string &argv){
 #include <stdlib.h>     // getenv()
 bool DmpSimAlg::Initialize(){
 // set seed
-  DmpLogCout<<"\tRandom seed: "<<fMetadata->Option["Seed"]<<DmpLogEndl;      // keep this information in any case
-  CLHEP::HepRandom::setTheSeed(boost::lexical_cast<long>(fMetadata->Option["Seed"]));
+  DmpLogCout<<"\tRandom seed: "<<fMetadata->GetValue("Seed")<<DmpLogEndl;      // keep this information in any case
+  CLHEP::HepRandom::setTheSeed(boost::lexical_cast<long>(fMetadata->GetValue("Seed")));
 // set G4 kernel
   fSimRunMgr = new DmpSimRunManager();
-  fPhyFactory = new G4PhysListFactory();            fSimRunMgr->SetUserInitialization(fPhyFactory->GetReferencePhysList(fMetadata->Option["Physics"]));
+  fPhyFactory = new G4PhysListFactory();            fSimRunMgr->SetUserInitialization(fPhyFactory->GetReferencePhysList(fMetadata->GetValue("Physics")));
   fSource = new DmpSimPrimaryGeneratorAction();     fSimRunMgr->SetUserAction(fSource);      // only Primary Generator is mandatory
   fDetector = new DmpSimDetector();                 fSimRunMgr->SetUserInitialization(fDetector);
   fTracking = new DmpSimTrackingAction();           fSimRunMgr->SetUserAction(fTracking);
   fSimRunMgr->Initialize();
   fSource->ApplyGPSCommand(); // must after fSimRunMgr->Initialize()
 // boot simulation
-  if(fMetadata->Option["Mode"] == "batch"){    // batch mode
+  if(fMetadata->GetValue("Mode") == "batch"){    // batch mode
     if(fSimRunMgr->ConfirmBeamOnCondition()){   // if not vis mode, do some prepare for this run. refer to G4RunManagr::BeamOn()
       fSimRunMgr->SetNumberOfEventsToBeProcessed(gCore->GetMaxEventNumber());
       fSimRunMgr->ConstructScoringWorlds();
@@ -99,8 +99,7 @@ bool DmpSimAlg::Initialize(){
 // *
 // *  TODO: publish... check prefix
 // *
-    //G4String prefix = (G4String)getenv("DMPSWSYS")+"/share/Simulation/";
-    G4String prefix = "./";
+    G4String prefix = (G4String)getenv("DMPSWWORK")+"/share/Simulation/";
     uiMgr->ApplyCommand("/control/execute "+prefix+"DmpSimVis.mac");
 #endif
     if (ui->IsGUI()){
@@ -128,7 +127,7 @@ bool DmpSimAlg::ProcessThisEvent(){
 
 //-------------------------------------------------------------------
 bool DmpSimAlg::Finalize(){
-  if(fMetadata->Option["Mode"] == "batch"){
+  if(fMetadata->GetValue("Mode") == "batch"){
     fSimRunMgr->TerminateEventLoop();
     fSimRunMgr->RunTermination();
   }
