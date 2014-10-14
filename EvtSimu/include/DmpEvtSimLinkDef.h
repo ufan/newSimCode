@@ -6,6 +6,7 @@
 
 #pragma link C++ class DmpEvtMCPrimaryParticle+;
 #pragma link C++ class DmpEvtMCPbGlass+;
+#pragma link C++ class DmpEvtMCSSD+;
 
 #endif
 

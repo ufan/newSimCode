@@ -1,7 +1,7 @@
 /*
- *  $Id: DmpSimPbGlassSD.h, 2014-05-22 17:04:23 DAMPE $
+ *  $Id: DmpSimPbGlassSD.h, 2014-10-14 02:27:28 DAMPE $
  *  Author(s):
- *    Chi WANG (chiwang@mail.ustc.edu.cn) 03/03/2014
+ *    Chi WANG (chiwang@mail.ustc.edu.cn) 14/10/2014
 */
 
 #ifndef DmpSimPbGlassSD_H

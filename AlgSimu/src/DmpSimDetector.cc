@@ -26,6 +26,7 @@
 #include "DmpSimBgoSD.h"
 //#include "DmpSimNudSD.h"
 #include "DmpSimPbGlassSD.h"
+#include "DmpSimSSD_SD.h"
 
 //-------------------------------------------------------------------
 DmpSimDetector::DmpSimDetector()
@@ -43,6 +44,7 @@ DmpSimDetector::DmpSimDetector()
   fBgoSD = new DmpSimBgoSD();
 //  fNudSD = new DmpSimNudSD();
   fPbGlassSD = new DmpSimPbGlassSD();
+  fSSD_SD = new DmpSimSSD_SD();
   fMetadata = dynamic_cast<DmpMetadata*>(gDataBuffer->ReadObject("Metadata/MCTruth/JobOpt"));
 }
 
@@ -55,6 +57,9 @@ DmpSimDetector::~DmpSimDetector(){
 //  delete fNudSD;
   if(fPbGlassSD){
     delete fPbGlassSD;
+  }
+  if(fSSD_SD){
+    delete fSSD_SD;
   }
 }
 
@@ -109,6 +114,11 @@ G4VPhysicalVolume* DmpSimDetector::Construct(){
     DmpLogInfo<<"Setting Sensitive Detector of Pb class"<<DmpLogEndl;
     mgrSD->AddNewDetector(fPbGlassSD);
     fParser->GetVolume("PbGlass_Det")->SetSensitiveDetector(fPbGlassSD);
+  }
+  if(G4LogicalVolumeStore::GetInstance()->GetVolume("S3_Det",false)){
+    DmpLogInfo<<"Setting Sensitive Detector of SSD"<<DmpLogEndl;
+    mgrSD->AddNewDetector(fSSD_SD);
+    fParser->GetVolume("S3_Det")->SetSensitiveDetector(fSSD_SD);
   }
 
   return fPhyVolume;
