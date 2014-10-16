@@ -15,8 +15,6 @@ class G4GDMLParser;
 //class DmpSimStkSD;
 class DmpSimBgoSD;
 //class DmpSimNudSD;
-class DmpSimPbGlassSD;
-class DmpSimSSD_SD;
 class DmpMetadata;
 
 class DmpSimDetector : public G4VUserDetectorConstruction{
@@ -30,6 +28,7 @@ public:
   G4VPhysicalVolume* Construct();
 
 private:
+  void SetAncillarySD();
   void Adjustment()const;
   void ResetMagnetic(const double &x,const double &y,const double &z)const;    // for BT
 
@@ -42,8 +41,6 @@ private:
 //  DmpSimStkSD       *fStkSD;
   DmpSimBgoSD       *fBgoSD;
 //  DmpSimNudSD       *fNudSD;
-  DmpSimPbGlassSD   *fPbGlassSD;
-  DmpSimSSD_SD      *fSSD_SD;
 
 private:
   DmpMetadata       *fMetadata;
