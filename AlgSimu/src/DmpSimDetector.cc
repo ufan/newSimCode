@@ -18,15 +18,12 @@
 #include "DmpLog.h"
 #include "DmpDataBuffer.h"
 #include "DmpMetadata.h"
-#include "DmpSimMagneticField.h"
 
 #include "DmpSimDetector.h"
 //#include "DmpSimPsdSD.h"
 //#include "DmpSimStkSD.h"
 #include "DmpSimBgoSD.h"
 //#include "DmpSimNudSD.h"
-#include "DmpSimPbGlassSD.h"
-#include "DmpSimSSD_SD.h"
 
 //-------------------------------------------------------------------
 DmpSimDetector::DmpSimDetector()
@@ -34,17 +31,14 @@ DmpSimDetector::DmpSimDetector()
   fPhyVolume(0),
 //  fPsdSD(0),
 //  fStkSD(0),
-  fBgoSD(0),
+  fBgoSD(0)
 //  fNudSD(0)
-  fPbGlassSD(0)
 {
   fParser = new G4GDMLParser();
 //  fPsdSD = new DmpSimPsdSD();
 //  fStkSD = new DmpSimStkSD();
   fBgoSD = new DmpSimBgoSD();
 //  fNudSD = new DmpSimNudSD();
-  fPbGlassSD = new DmpSimPbGlassSD();
-  fSSD_SD = new DmpSimSSD_SD();
   fMetadata = dynamic_cast<DmpMetadata*>(gDataBuffer->ReadObject("Metadata/MCTruth/JobOpt"));
 }
 
@@ -55,12 +49,6 @@ DmpSimDetector::~DmpSimDetector(){
 //  delete fStkSD;
   delete fBgoSD;
 //  delete fNudSD;
-  if(fPbGlassSD){
-    delete fPbGlassSD;
-  }
-  if(fSSD_SD){
-    delete fSSD_SD;
-  }
 }
 
 //-------------------------------------------------------------------
@@ -110,36 +98,14 @@ G4VPhysicalVolume* DmpSimDetector::Construct(){
     //fParser->GetVolume("Nud_Block2")->SetSensitiveDetector(fNudSD);
     //fParser->GetVolume("Nud_Block3")->SetSensitiveDetector(fNudSD);
   }
-  if(G4LogicalVolumeStore::GetInstance()->GetVolume("PbGlass_Det",false)){
-    DmpLogInfo<<"Setting Sensitive Detector of Pb class"<<DmpLogEndl;
-    mgrSD->AddNewDetector(fPbGlassSD);
-    fParser->GetVolume("PbGlass_Det")->SetSensitiveDetector(fPbGlassSD);
-  }
-  if(G4LogicalVolumeStore::GetInstance()->GetVolume("S3_Det",false)){
-    DmpLogInfo<<"Setting Sensitive Detector of SSD"<<DmpLogEndl;
-    mgrSD->AddNewDetector(fSSD_SD);
-    fParser->GetVolume("S3_Det")->SetSensitiveDetector(fSSD_SD);
-  }
-
+  SetAncillarySD();
   return fPhyVolume;
-}
-
-//-------------------------------------------------------------------
-void DmpSimDetector::ResetMagnetic(const double &x,const double &y,const double &z)const{
-  G4LogicalVolume *LV = G4LogicalVolumeStore::GetInstance()->GetVolume("B_field",false);
-  if(LV){
-    static DmpSimMagneticField magneticField(x,y,z);
-    static G4FieldManager fieldMgr;
-    fieldMgr.SetDetectorField(&magneticField);
-    fieldMgr.CreateChordFinder(&magneticField);
-    LV->SetFieldManager(&fieldMgr,true);
-  }
 }
 
 //-------------------------------------------------------------------
 void DmpSimDetector::Adjustment()const{
   short nCmd = fMetadata->OptionSize();
-  G4VPhysicalVolume *PV = PV = G4PhysicalVolumeStore::GetInstance()->GetVolume("AuxDet_PV",false);
+  G4VPhysicalVolume *PV = PV = G4PhysicalVolumeStore::GetInstance()->GetVolume("Ancillary_Det_PV",false);
   if(PV){
     PV->GetLogicalVolume()->SetVisAttributes(G4VisAttributes::Invisible);
   }
@@ -166,8 +132,53 @@ void DmpSimDetector::Adjustment()const{
       std::istringstream iss(fMetadata->GetValue(command));
       iss>>x>>y>>z;
       ResetMagnetic(x,y,z);
+    }else if(command == "BT/PbGlass/Delete"){
+      G4PhysicalVolumeStore::GetInstance()->DeRegister(G4PhysicalVolumeStore::GetInstance()->GetVolume("Pb_glass_PV",false));
     }
+  }
+
+}
+
+//-------------------------------------------------------------------
+#include "DmpSimMagneticField.h"
+void DmpSimDetector::ResetMagnetic(const double &x,const double &y,const double &z)const{
+  G4LogicalVolume *LV = G4LogicalVolumeStore::GetInstance()->GetVolume("B_field",false);
+  if(LV){
+    static DmpSimMagneticField magneticField(x,y,z);
+    static G4FieldManager fieldMgr;
+    fieldMgr.SetDetectorField(&magneticField);
+    fieldMgr.CreateChordFinder(&magneticField);
+    LV->SetFieldManager(&fieldMgr,true);
   }
 }
 
+//-------------------------------------------------------------------
+#include "DmpSimSSD_SD.h"
+void DmpSimDetector::SetAncillarySD(){
+  G4SDManager *mgrSD = G4SDManager::GetSDMpointer();
+  if(G4LogicalVolumeStore::GetInstance()->GetVolume("AMS_LDR_1",false)){
+    DmpLogInfo<<"Setting Sensitive Detector of SSD_1"<<DmpLogEndl;
+    static DmpSimSSD_SD AMS_LDR_1_SD("1");
+    mgrSD->AddNewDetector(&AMS_LDR_1_SD);
+    fParser->GetVolume("AMS_LDR_1")->SetSensitiveDetector(&AMS_LDR_1_SD);
+  }
+  if(G4LogicalVolumeStore::GetInstance()->GetVolume("AMS_LDR_2",false)){
+    DmpLogInfo<<"Setting Sensitive Detector of SSD_2"<<DmpLogEndl;
+    static DmpSimSSD_SD AMS_LDR_2_SD("2");
+    mgrSD->AddNewDetector(&AMS_LDR_2_SD);
+    fParser->GetVolume("AMS_LDR_2")->SetSensitiveDetector(&AMS_LDR_2_SD);
+  }
+  if(G4LogicalVolumeStore::GetInstance()->GetVolume("AMS_LDR_3",false)){
+    DmpLogInfo<<"Setting Sensitive Detector of SSD_3"<<DmpLogEndl;
+    static DmpSimSSD_SD AMS_LDR_3_SD("3");
+    mgrSD->AddNewDetector(&AMS_LDR_3_SD);
+    fParser->GetVolume("AMS_LDR_3")->SetSensitiveDetector(&AMS_LDR_3_SD);
+  }
+  if(G4LogicalVolumeStore::GetInstance()->GetVolume("AMS_LDR_4",false)){
+    DmpLogInfo<<"Setting Sensitive Detector of SSD_4"<<DmpLogEndl;
+    static DmpSimSSD_SD AMS_LDR_4_SD("4");
+    mgrSD->AddNewDetector(&AMS_LDR_4_SD);
+    fParser->GetVolume("AMS_LDR_4")->SetSensitiveDetector(&AMS_LDR_4_SD);
+  }
+}
 

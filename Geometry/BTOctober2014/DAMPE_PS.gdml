@@ -37,7 +37,7 @@
  
     <!--*******************************    Beam test auxiliary  ******************************-->
     <physvol>
-      <file name="./Others/BeamPipe/PS_AncillaryDet.gdml"/>
+      <file name="./Others/PSSetup/AncillaryPS.gdml"/>
       <position name="beam_test_aux_pos" unit="mm" x="300" y="0" z="0"/>
     </physvol>
    
@@ -46,10 +46,11 @@
     <!--  <file name="./DAMPE.gdml"/>-->
     <!--  <position name="sat_adjust_position1" x="0" y="0" z="0" unit="mm"/>-->
     <!--</physvol>-->
-    <physvol>     <!-- structure -->
-      <file name="./Others/dampe_kx-b1.gdml"/> 
-      <position name="sat_adjust_position1" x="300" y="0" z="0" unit="mm"/>
-    </physvol>
+
+    <!--<physvol>     [> structure <]-->
+    <!--  <file name="./Others/dampe_kx-b1.gdml"/> -->
+    <!--  <position name="sat_adjust_position1" x="300" y="0" z="0" unit="mm"/>-->
+    <!--</physvol>-->
 
     <physvol name="Psd_Det">
       <file name="./Psd/Psd.gdml"/>

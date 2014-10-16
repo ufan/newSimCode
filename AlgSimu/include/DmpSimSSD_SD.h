@@ -17,7 +17,7 @@ class DmpSimSSD_SD : public G4VSensitiveDetector{
  *
  */
 public:
-  DmpSimSSD_SD();
+  DmpSimSSD_SD(const std::string &ID);  // 4 SSD, ID = 1,2,3,4
   ~DmpSimSSD_SD();
   G4bool ProcessHits(G4Step*,G4TouchableHistory*);
   
