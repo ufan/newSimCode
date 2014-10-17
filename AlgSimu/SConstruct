@@ -39,7 +39,7 @@ def ProcessThisDir(fromPath,toPath):
         if os.path.isdir(fromPath+tmp):  ProcessThisDir(fromPath+tmp,toPath+tmp)
         else: Default(Command(toPath+'/'+tmp,fromPath+'/'+tmp,Copy("$TARGET","$SOURCE")))
 
-ProcessThisDir("../Geometry/BTOctober2014",prefix+'/share/Geometry/BTOct2014')
+ProcessThisDir("../Geometry/BTOctober2014",prefix+'/share/Geometry/BTOctober2014')
 # install Vis.mac
 Default(Command(prefix+'/share/Simulation/DmpSimGUI.mac','./share/DmpSimGUI.mac',Copy("$TARGET","$SOURCE")))
 Default(Command(prefix+'/share/Simulation/DmpSimVis.mac','./share/DmpSimVis.mac',Copy("$TARGET","$SOURCE")))

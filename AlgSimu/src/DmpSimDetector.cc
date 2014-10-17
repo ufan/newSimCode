@@ -133,7 +133,9 @@ void DmpSimDetector::Adjustment()const{
       iss>>x>>y>>z;
       ResetMagnetic(x,y,z);
     }else if(command == "BT/PbGlass/Delete"){
-      G4PhysicalVolumeStore::GetInstance()->DeRegister(G4PhysicalVolumeStore::GetInstance()->GetVolume("Pb_glass_PV",false));
+      if(G4PhysicalVolumeStore::GetInstance()->GetVolume("Pb_glass_PV",false)){
+        G4PhysicalVolumeStore::GetInstance()->DeRegister(G4PhysicalVolumeStore::GetInstance()->GetVolume("Pb_glass_PV",false));
+      }
     }
   }
 
