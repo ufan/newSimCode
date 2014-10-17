@@ -14,8 +14,7 @@
      
      <constant name="stk_adjust_x_position" value="300"/>          
      <constant name="stk_adjust_y_position" value="0"/>
-     <constant name="stk_adjust_z_position" value="-32.5"/>
-     <constant name="stk_foils_z_shift" value="-0.690"/>            
+     <constant name="stk_adjust_z_position" value="-35.302"/>          
      <rotation name="old_to_new_coordinatesystem_rotation" unit="deg" x="180" y="0" z="0" />
  
       
@@ -43,6 +42,8 @@
       <constant name="SiliconGuardRing"     value="1.036"/>      <!-- mm  (guard ring thickness)  -->
       <constant name="NbOfTKRStrips"        value="768"/>
       <constant name="NbOfTKRROStrips"      value="384"/>
+      <constant name="STKnVA"               value="6"/>
+      <constant name="STKnChannelsVA"       value="64"/>
 
       <!-- ladder geometry -->
       <constant name="NbOfTKRTiles"         value="4"/>          <!-- number of tiles per ladder --> 
@@ -62,8 +63,10 @@
       <!-- -->
       <constant name="NbOfTKRLayers"             value="6"/>
       <constant name="NbOfTKRBlocks"             value="4"/>
+      <constant name="STKnLadddersBlock"         value="4"/>
       <constant name="STKnTRB"                   value="8"/>
-      <constant name="NConverterLayers"          value="4"/>
+      <constant name="NConverterLayers"          value="3"/>
+      <constant name="STKnLaddersTRB"            value="24"/>
            
       <!-- others --> 
       <constant name="STKnladdersXdirection"     value="8"/>
