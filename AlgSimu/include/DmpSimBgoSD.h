@@ -8,6 +8,8 @@
 #define DmpSimBgoSD_H
 
 #include "G4VSensitiveDetector.hh"
+#include "TRandom.h"
+#include "TVector3.h"
 
 class DmpEvtBgoHits;
 
@@ -26,10 +28,24 @@ public:
 
 private:
   void AddThisG4Hit(const short &barID,const double &energy,const G4ThreeVector &position);
+  //Get MIPs parameters
+  void GetMipPar();
+  //Get Attenuation coefficients 
+  void GetAttPar();
+  //step Energy to ADC
+  void Eny2ADC(const short &id, const double &e, const double &x,const double &y);
+  //Sampling
+  void Sampling();
 
 private:
   DmpEvtBgoHits     *fEvtMCBgo;
-
+  DmpEvtBgoHits     *fDigitBgo;
+  double MipPar[616][4];
+  double AttPar[308][2];
+//  double AttHit[2];//ADC counts
+  double TotalE[616];
+  TRandom *RanGaus[616];
+  TVector3 Position;
 };
 
 #endif

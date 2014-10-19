@@ -14,7 +14,7 @@ import libDmpSimAlg as  DmpSim     # Load your lib.
 
 #-------------------------------------------------------------------
 # Global setting
-DMPSW.Core.Set("EventNumber","10")     # MUST event number for simulation!!!
+DMPSW.Core.Set("EventNumber","100")     # MUST event number for simulation!!!
 #DMPSW.Core.Set("StartTime","20130101-0000")     # if NOT set, start from launch time
 #DMPSW.Core.Set("StopTime","20160101-0000")      # if NOT set, end at 2113.01.01
 #DMPSW.Core.Set("LogLevel","Debug")      # Value = {Error | Warning | Info | Debug}. If NOT set, will use Info.
@@ -33,9 +33,9 @@ simAlg.Set("Mode","Vis")  # if NOT set, will use batch mode
 #simAlg.Set("Gdml","../../Geometry/EQM/DAMPE.gdml")     # if NOT set, will use $DMPSWSYS/share/Geometry/FM/DAMPE.gdml
 simAlg.Set("Gdml",DMPSW.WorkPath+"/share/Geometry/BTOctober2014/DAMPE_SPS.gdml")     # if NOT set, will use $DMPSWSYS/share/Geometry/FM/DAMPE.gdml
 #simAlg.Set("Seed","1413071061")
-simAlg.Set("BT/Magnetic","1.1 0 0")   # default is "0 0 0"
-simAlg.Set("BT/DAMPE/Rotation","30") #  unit: degree. Rotation axis: y
-simAlg.Set("BT/DAMPE/Translation","300 400 0")  # uint: mm. default is "0 0 0"
+#simAlg.Set("BT/Magnetic","1.1 0 0")   # default is "0 0 0"
+#simAlg.Set("BT/DAMPE/Rotation","30") #  unit: degree. Rotation axis: y
+simAlg.Set("BT/DAMPE/Translation","-13.75 -13.75 0")  # uint: mm. default is "0 0 0"
 simAlg.Set("BT/PbGlass/Delete","yes")
 
 #-------------------------------------------------------------------

@@ -42,7 +42,7 @@ DmpSimAlg::DmpSimAlg()
   fMetadata->SetOption("Nud/DeltaTime","100");  // 100 ns
   fMetadata->SetOption("gps/particle","mu-");
   fMetadata->SetOption("gps/direction","0 0 1");
-  fMetadata->SetOption("gps/centre","0 0 -1700 cm");
+  fMetadata->SetOption("gps/centre","0 0 -2700 cm");//1700 is not enough for SPS
   gRootIOSvc->Set("Output/FileName","DmpSim_"+fMetadata->GetValue("Seed"));
   gRootIOSvc->Set("Output/Key","sim");
 }
