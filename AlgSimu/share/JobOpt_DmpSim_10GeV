@@ -41,12 +41,12 @@ simAlg.Set("BT/PbGlass/Delete","yes")
 #-------------------------------------------------------------------
 # Set gps   Warning: NEVER use "gps/direction" and "gps/centre" in job option
 #simAlg.Set("gps/centre","0 0 20000 mm")
-simAlg.Set("gps/particle","proton")   # default is mu-, 1MeV
+simAlg.Set("gps/particle","e-")   # default is mu-, 1MeV
 #simAlg.Set("gps/pos/type","Plane")
 #simAlg.Set("gps/pos/shape","circle")
 #simAlg.Set("gps/pos/radius","0.5 cm")
 #simAlg.Set("gps/ene/type","Mono")
-simAlg.Set("gps/energy","300 GeV")
+simAlg.Set("gps/energy","10 GeV")
 #simAlg.Set("gps/ene/mono","2. GeV")
 #simAlg.Set("gps/ene/min","50. MeV")
 #simAlg.Set("gps/ene/max","50. MeV")
@@ -55,6 +55,7 @@ simAlg.Set("gps/energy","300 GeV")
 # Append user's service or algorithm into Kernel
 DMPSW.AlgMgr.Append(simAlg)
 
+DMPSW.RootIOSvc.Set("Output/FileName","./DmpSim_run_10GeV_e-.root")   # if NOT set, will use DmpSim_Seed-sim.root
 #-------------------------------------------------------------------
 # Run job
 DMPSW.Core.Initialize()

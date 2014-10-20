@@ -55,6 +55,7 @@ simAlg.Set("gps/energy","300 GeV")
 # Append user's service or algorithm into Kernel
 DMPSW.AlgMgr.Append(simAlg)
 
+DMPSW.RootIOSvc.Set("Output/FileName","./DmpSim_run_300GeV_P+.root")   # if NOT set, will use DmpSim_Seed-sim.root
 #-------------------------------------------------------------------
 # Run job
 DMPSW.Core.Initialize()

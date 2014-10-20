@@ -224,12 +224,14 @@ void DmpSimBgoSD::Sampling(){
 //	  std::cout<<TotalE[iGpmt[0]]<<std::endl;
 //	  std::cout<<iGpmt[1]<<std::endl;
 //	  std::cout<<TotalE[iGpmt[1]]<<std::endl;
-//        double MipCov[2];
+        double MipCov[2];
 //        MipCov[0]=MipPar[iGpmt[0]][1]*TMath::Exp(AttPar[iGbar][0]*30/2)/22.5;   //non-att normalized ADC counts/MeV;
 //        MipCov[1]=MipPar[iGpmt[1]][1]*TMath::Exp(AttPar[iGbar][0]*30/2)/22.5;   //non-att normalized ADC counts/MeV;
 //        double Mean[2]={TotalE[iGpmt[0]]*MipCov[0],TotalE[iGpmt[1]]*MipCov[1]};
 //        double Sigma[2]={MipPar[iGpmt[0]][3]*TMath::Sqrt(Mean[0]/MipPar[iGpmt[0]][1]),MipPar[iGpmt[1]][3]*TMath::Sqrt(Mean[1]/MipPar[iGpmt[1]][1])};
-        double Mean[2]={TotalE[iGpmt[0]],TotalE[iGpmt[1]]};
+        MipCov[0]=TMath::Exp(AttPar[iGbar][0]*30/2);   //non-att normalized ADC counts/MeV;
+        MipCov[1]=TMath::Exp(AttPar[iGbar][0]*30/2);   //non-att normalized ADC counts/MeV;
+        double Mean[2]={TotalE[iGpmt[0]]*MipCov[0],TotalE[iGpmt[1]]*MipCov[1]};
         double Sigma[2]={22.5*MipPar[iGpmt[0]][3]/MipPar[iGpmt[0]][1]*TMath::Sqrt(Mean[0]/22.5),22.5*MipPar[iGpmt[1]][3]/MipPar[iGpmt[1]][1]*TMath::Sqrt(Mean[1]/22.5)};
 	  
         //  TRandom *s0=new TRandom();
