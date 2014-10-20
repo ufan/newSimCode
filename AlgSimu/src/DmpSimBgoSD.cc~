@@ -79,9 +79,8 @@ DmpSimBgoSD::DmpSimBgoSD()
   GetAttPar();
   for (int i=0;i<616;i++){
     RanGaus[i] = new TRandom3();
-    RanGaus[i]->SetSeed(i+1);
-
-    
+    int seed=(int)RanGaus[i]->GetSeed();
+    std::cout<<"Random "<<i<<": "<<seed<<std::endl;
   }
   fEvtMCBgo = new DmpEvtBgoHits();
   gDataBuffer->RegisterObject("Event/MCTruth/Bgo",fEvtMCBgo,"DmpEvtBgoHits");

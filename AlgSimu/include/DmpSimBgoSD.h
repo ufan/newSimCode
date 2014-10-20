@@ -8,7 +8,7 @@
 #define DmpSimBgoSD_H
 
 #include "G4VSensitiveDetector.hh"
-#include "TRandom.h"
+#include "TRandom3.h"
 #include "TVector3.h"
 
 class DmpEvtBgoHits;
@@ -44,7 +44,7 @@ private:
   double AttPar[308][2];
 //  double AttHit[2];//ADC counts
   double TotalE[616];
-  TRandom *RanGaus[616];
+  TRandom3 *RanGaus[616];
   TVector3 Position;
 };
 

@@ -28,7 +28,7 @@ DMPSW.RootIOSvc.Set("Output/WriteList","Event/MCTruth;Metadata/MCTruth")  # spli
 simAlg = DmpSim.DmpSimAlg()
 #DMPSW.RootIOSvc.Set("Output/FileName","./DmpSim_run_00.root")   # if NOT set, will use DmpSim_Seed-sim.root
 #-------------------------------------------------------------------
-#simAlg.Set("Mode","Vis")  # if NOT set, will use batch mode
+simAlg.Set("Mode","Vis")  # if NOT set, will use batch mode
 #simAlg.Set("Physics","QGSP_BERT")  # If NOT set, will use QGSP_BIC
 #simAlg.Set("Gdml","../../Geometry/EQM/DAMPE.gdml")     # if NOT set, will use $DMPSWSYS/share/Geometry/FM/DAMPE.gdml
 simAlg.Set("Gdml",DMPSW.WorkPath+"/share/Geometry/BTOctober2014/DAMPE_SPS.gdml")     # if NOT set, will use $DMPSWSYS/share/Geometry/FM/DAMPE.gdml
@@ -41,12 +41,12 @@ simAlg.Set("BT/PbGlass/Delete","yes")
 #-------------------------------------------------------------------
 # Set gps   Warning: NEVER use "gps/direction" and "gps/centre" in job option
 #simAlg.Set("gps/centre","0 0 20000 mm")
-simAlg.Set("gps/particle","e-")   # default is mu-, 1MeV
+simAlg.Set("gps/particle","mu-")   # default is mu-, 1MeV
 #simAlg.Set("gps/pos/type","Plane")
 #simAlg.Set("gps/pos/shape","circle")
 #simAlg.Set("gps/pos/radius","0.5 cm")
 #simAlg.Set("gps/ene/type","Mono")
-simAlg.Set("gps/energy","100 GeV")
+simAlg.Set("gps/energy","3 GeV")
 #simAlg.Set("gps/ene/mono","2. GeV")
 #simAlg.Set("gps/ene/min","50. MeV")
 #simAlg.Set("gps/ene/max","50. MeV")
@@ -55,7 +55,6 @@ simAlg.Set("gps/energy","100 GeV")
 # Append user's service or algorithm into Kernel
 DMPSW.AlgMgr.Append(simAlg)
 
-DMPSW.RootIOSvc.Set("Output/FileName","./DmpSim_run_100GeV_e-.root")   # if NOT set, will use DmpSim_Seed-sim.root
 #-------------------------------------------------------------------
 # Run job
 DMPSW.Core.Initialize()
