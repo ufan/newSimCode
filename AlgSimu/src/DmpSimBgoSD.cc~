@@ -241,7 +241,7 @@ void DmpSimBgoSD::Sampling(){
           fDigitBgo->fES0.push_back(ES0);
           fDigitBgo->fES1.push_back(ES1);
           fDigitBgo->fEnergy.push_back(TMath::Sqrt(ES0*ES1));
-	  double pos=(AttPar[iGbar][0]*TMath::Log(TotalE[iGpmt[0]]/TotalE[iGpmt[1]])+AttPar[iGbar][1])*10-300;//unit: mm
+	  double pos=(AttPar[iGbar][0]*TMath::Log(ES0/ES1)+AttPar[iGbar][1])*10-300;//unit: mm
 	  if(layer%2==0){
 	    Position.SetX(pos);	  
 	    double yy=DmpBgoBase::Parameter()->BarCenter(gid_bar).y();

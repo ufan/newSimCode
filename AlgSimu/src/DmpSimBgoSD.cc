@@ -234,10 +234,10 @@ void DmpSimBgoSD::Sampling(){
 	  
         //  TRandom *s0=new TRandom();
         //  TRandom *s1=new TRandom();
-	    fDigitBgo->fGlobalBarID.push_back(gid_bar);
 	    double ES0=RanGaus[iGpmt[0]]->Gaus(Mean[0],Sigma[0]);
 	    double ES1=RanGaus[iGpmt[1]]->Gaus(Mean[1],Sigma[1]);
         if(ES0>0&&ES1>0){
+	  fDigitBgo->fGlobalBarID.push_back(gid_bar);
           fDigitBgo->fES0.push_back(ES0);
           fDigitBgo->fES1.push_back(ES1);
           fDigitBgo->fEnergy.push_back(TMath::Sqrt(ES0*ES1));
