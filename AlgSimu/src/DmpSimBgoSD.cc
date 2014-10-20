@@ -77,7 +77,12 @@ DmpSimBgoSD::DmpSimBgoSD()
 {
   GetMipPar();
   GetAttPar();
-  for (int i=0;i<616;i++){RanGaus[i] = new TRandom();}
+  for (int i=0;i<616;i++){
+    RanGaus[i] = new TRandom3();
+    RanGaus[i]->SetSeed(i+1);
+
+    
+  }
   fEvtMCBgo = new DmpEvtBgoHits();
   gDataBuffer->RegisterObject("Event/MCTruth/Bgo",fEvtMCBgo,"DmpEvtBgoHits");
   fDigitBgo = new DmpEvtBgoHits();
