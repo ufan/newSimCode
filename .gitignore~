@@ -15,7 +15,6 @@
 *.la
 *.a
 *.lib
-*.cc~
 
 # Executables
 *.exe
