@@ -79,7 +79,8 @@ DmpSimBgoSD::DmpSimBgoSD()
   GetAttPar();
   for (int i=0;i<616;i++){
     RanGaus[i] = new TRandom3();
-    RanGaus[i]->SetSeed(i+1);
+    UInt_t seed=time(0)+i;
+    RanGaus[i]->SetSeed(seed);
 
     
   }
