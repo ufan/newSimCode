@@ -8,7 +8,6 @@
 #include "G4TouchableHistory.hh"
 
 #include "DmpSimSSD_SD.h"
-#include "DmpEvtMCSSD.h"
 #include "DmpDataBuffer.h"
 
 //-------------------------------------------------------------------
@@ -27,11 +26,16 @@ DmpSimSSD_SD::~DmpSimSSD_SD(){
 //-------------------------------------------------------------------
 #include <boost/lexical_cast.hpp>
 G4bool DmpSimSSD_SD::ProcessHits(G4Step *aStep,G4TouchableHistory*){
+  G4Track *aTrack = aStep->GetTrack();
+  fEvtMCSSD->fTrackID.push_back(aTrack->GetTrackID());
+  fEvtMCSSD->fParentID.push_back(aTrack->GetParentID());
+  fEvtMCSSD->fPDGCode.push_back(aTrack->GetDynamicParticle()->GetPDGcode());
+
   G4ThreeVector pos = aStep->GetPreStepPoint()->GetPosition();
   fEvtMCSSD->fPosition.push_back(TVector3(pos.x()/mm,pos.y()/mm,pos.z()/mm));
   G4ThreeVector dir = aStep->GetPreStepPoint()->GetMomentumDirection();
   fEvtMCSSD->fDirection.push_back(TVector3(dir.x(),dir.y(),dir.z()));
-  fEvtMCSSD->fKineticEnergy.push_back(aStep->GetPreStepPoint()->GetKineticEnergy()/MeV);
+  fEvtMCSSD->fEnergy.push_back(aStep->GetTotalEnergyDeposit()/MeV);
   return true;
 }
 

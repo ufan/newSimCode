@@ -5,7 +5,8 @@
 #pragma link off all functions;
 
 #pragma link C++ class DmpEvtMCPrimaryParticle+;
-#pragma link C++ class DmpEvtMCSSD+;
+#pragma link C++ class DmpEvtMCTrack+;
+#pragma link C++ typedef DmpEvtMCSSD;
 
 #endif
 

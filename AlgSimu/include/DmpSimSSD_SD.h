@@ -9,7 +9,7 @@
 
 #include "G4VSensitiveDetector.hh"
 
-class DmpEvtMCSSD;
+#include "DmpEvtMCSSD.h"
 
 class DmpSimSSD_SD : public G4VSensitiveDetector{
 /*
