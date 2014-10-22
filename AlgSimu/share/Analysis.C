@@ -3,7 +3,7 @@
  *  Author(s):
  *    Chi WANG (chiwang@mail.ustc.edu.cn) 22/10/2014
  *
- *    Useage:
+ *    Usage:
  *        $root -l Analysis.C
  *  root[0]LoadInputFile("aInputFile")
  *  root[1]VertexOfPhoton()
@@ -19,8 +19,6 @@ void Analysis(){
 }
 
 void LoadInputFile(std::string file){
-  gSystem->Load("$DMPSWSYS/lib/libDmpEvent.so");
-  gSystem->Load("$DMPSWWORK/lib/libDmpEvtSim.so");
   f = new TFile(file.c_str());
   f->cd("Event");   eventTree = MCTruth;
   f->cd("Metadata");    metaTree = MCTruth;
