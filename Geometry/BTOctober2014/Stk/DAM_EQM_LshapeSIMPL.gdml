@@ -17153,7 +17153,7 @@
       
   <structure>
     <volume name="DAM_EQM_LshapeSIMPL">
-    <materialref ref="CarbonFibre"/>
+    <materialref ref="CarbonFiber"/>
     <solidref ref="DAM_EQM_LshapeSIMPL0xb17d20"/>
   </volume>
   </structure>
