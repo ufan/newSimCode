@@ -14,6 +14,10 @@
 #include "G4VisAttributes.hh"
 #include "G4LogicalVolumeStore.hh"
 #include "G4PhysicalVolumeStore.hh"
+#include "G4VPhysicalVolume.hh"
+#include "G4PVPlacement.hh"
+#include "G4VSolid.hh"
+#include "G4Box.hh"
 
 #include "DmpLog.h"
 #include "DmpDataBuffer.h"
@@ -148,7 +152,7 @@ void DmpSimDetector::AddPhotonGenerator()const{
   std::string command;
   // get logical volume of ancillary detector
   // get size of PhotonGenerator
-  double size_x=10,size_y=10,size_z=0.5;    // unit cm.
+  double size_x=50,size_y=50,size_z=0.5;    // unit mm.
   command = "BT/PhotonGenerator/Size";
   if(fMetadata->HasCommand(command)){
     std::istringstream iss(fMetadata->GetValue(command));
@@ -156,7 +160,7 @@ void DmpSimDetector::AddPhotonGenerator()const{
   }
   
   // get material of PhotonGenerator
-  G4NistManager *materialMgr = G4NistManager::GetPointer();
+  G4NistManager *materialMgr = G4NistManager::Instance();
   G4Material *mat = materialMgr->FindOrBuildMaterial("G4_Pb");
   command = "BT/PhotonGenerator/Material";
   if(fMetadata->HasCommand(command)){
@@ -164,7 +168,9 @@ void DmpSimDetector::AddPhotonGenerator()const{
   }
 
   // set position of photon generator
-  double pos_x=10,pos_y=10,pos_z=-1700;    // unit cm.
+  //G4VPhysicalVolume *fSSD0Phy = fParser->GetVolume("Ancillary_Det")->GetDaughter(14); //14th daughter volume is SSD0(AMS_LDR_1_PV)
+  //std::cout << "SSD0:" << fSSD0Phy->GetObjectTranslation().z() << std::endl;  //TODO: Get SSD0 z position
+  double pos_x=300,pos_y=0,pos_z=-7500;    // unit cm.
   command = "BT/PhotonGenerator/Move_z";
   if(fMetadata->HasCommand(command)){
     double z=0.0;
@@ -173,6 +179,21 @@ void DmpSimDetector::AddPhotonGenerator()const{
     pos_z = pos_z-z;
     //PV->SetTranslation(par);
   }
+    /*
+      int daughterNo = fParser->GetVolume("Ancillary_Det")->GetNoDaughters();
+      G4cout << "total daughter no = " << daughterNo << G4endl;
+      for (int i=0;i<daughterNo;i++){
+        G4cout << "The " << i << " th daughter is " << fParser->GetVolume("Ancillary_Det")->GetDaughter(i)->GetName() << G4endl; 
+      }
+    */
+  G4VPhysicalVolume *fAncillaryDetPhy = fParser->GetVolume("World")->GetDaughter(0);
+ 
+  //add PhotonGenerator volume
+  
+  G4VSolid *fPhotonGeneratorSolid = new G4Box("PhotonGeneratorBox",size_x*mm,size_y*mm,size_z*mm);
+  G4LogicalVolume *fPhotonGeneratorLog = new G4LogicalVolume(fPhotonGeneratorSolid,mat,"PhotonGeneratorLog");
+  G4VPhysicalVolume *fPhotonGeneratorPhy = new G4PVPlacement(0,G4ThreeVector(pos_x,pos_y,pos_z),"PhotonGenerator",fPhotonGeneratorLog,fAncillaryDetPhy,false,0);
+  
 }
 
 //-------------------------------------------------------------------
