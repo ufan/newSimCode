@@ -1,5 +1,5 @@
 /* 
- *  $Id: DmpSimDetector.h, 2014-09-30 00:15:26 DAMPE $
+ *  $Id: DmpSimDetector.h, 2014-10-26 00:16:45 DAMPE $
  *  Author(s):
  *    Chi WANG (chiwang@mail.ustc.edu.cn) 26/02/2014
  *    Yifeng Wei (weiyf@mail.ustc.edu.cn) 28/09/2014
@@ -30,6 +30,7 @@ public:
 private:
   void SetAncillarySD();
   void Adjustment()const;
+  void AddPhotonGenerator()const;
   void ResetMagnetic(const double &x,const double &y,const double &z)const;    // for BT
 
 private:
