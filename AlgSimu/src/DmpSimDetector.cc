@@ -67,6 +67,7 @@ G4VPhysicalVolume* DmpSimDetector::Construct(){
   chdir(dirTmp);
 
   Adjustment();
+  AddPhotonGenerator();
 
   // *
   // *  TODO: set SD of SubDet at here
@@ -139,6 +140,39 @@ void DmpSimDetector::Adjustment()const{
     }
   }
 
+}
+
+//-------------------------------------------------------------------
+#include "G4NistManager.hh"
+void DmpSimDetector::AddPhotonGenerator()const{
+  std::string command;
+  // get logical volume of ancillary detector
+  // get size of PhotonGenerator
+  double size_x=10,size_y=10,size_z=0.5;    // unit cm.
+  command = "BT/PhotonGenerator/Size";
+  if(fMetadata->HasCommand(command)){
+    std::istringstream iss(fMetadata->GetValue(command));
+    iss>>size_x>>size_y>>size_z;
+  }
+  
+  // get material of PhotonGenerator
+  G4NistManager *materialMgr = G4NistManager::GetPointer();
+  G4Material *mat = materialMgr->FindOrBuildMaterial("G4_Pb");
+  command = "BT/PhotonGenerator/Material";
+  if(fMetadata->HasCommand(command)){
+    mat = materialMgr->FindOrBuildMaterial(fMetadata->GetValue(command).c_str());
+  }
+
+  // set position of photon generator
+  double pos_x=10,pos_y=10,pos_z=-1700;    // unit cm.
+  command = "BT/PhotonGenerator/Move_z";
+  if(fMetadata->HasCommand(command)){
+    double z=0.0;
+    std::istringstream iss(fMetadata->GetValue(command));
+    iss>>z;
+    pos_z = pos_z-z;
+    //PV->SetTranslation(par);
+  }
 }
 
 //-------------------------------------------------------------------
