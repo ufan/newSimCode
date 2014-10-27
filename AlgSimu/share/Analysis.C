@@ -1,27 +1,25 @@
 /*
- *  $Id: Analysis.C, 2014-10-26 11:03:38 DAMPE $
+ *  $Id: Analysis.C, 2014-10-27 18:25:33 DAMPE $
  *  Author(s):
  *    Chi WANG (chiwang@mail.ustc.edu.cn) 22/10/2014
  *
  *    Usage:
  *        $root -l Analysis.C
- *  root[0]LoadInputFile("aInputFile")
+ *  root[0]LoadInput("aInputFile")
  *  root[1]VertexOfPhoton()
 */
 
-TFile *f = 0;
-TTree *eventTree = 0;
-TTree *metaTree = 0;
+TChain *eventTree = 0;
+TChain *metaTree = 0;
 
 void Analysis(){
   gSystem->Load("$DMPSWSYS/lib/libDmpEvent.so");
   gSystem->Load("$DMPSWWORK/lib/libDmpEvtSim.so");
 }
 
-void LoadInputFile(std::string file){
-  f = new TFile(file.c_str());
-  f->cd("Event");   eventTree = MCTruth;
-  f->cd("Metadata");    metaTree = MCTruth;
+void LoadInput(std::string files,std::string branchName){
+  eventTree = new TChain(branchName.c_str());
+  eventTree->AddFile(files.c_str());
 }
 
 void VertexOfPhoton(){
