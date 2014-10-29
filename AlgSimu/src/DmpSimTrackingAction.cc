@@ -6,10 +6,10 @@
 
 #include "G4TrackingManager.hh"
 #include "G4Track.hh"
-#include "DmpEvtMCTrack.h"
 
 #include "DmpSimTrackingAction.h"
 #include "DmpDataBuffer.h"
+#include "DmpLog.h"
 
 //-------------------------------------------------------------------
 DmpSimTrackingAction::DmpSimTrackingAction():fTrackInfor(0){
@@ -25,14 +25,17 @@ void DmpSimTrackingAction::PreUserTrackingAction(const G4Track* aTrack){
     fpTrackingManager->SetStoreTrajectory(true);
   }
 
+  
   int trackID = aTrack->GetTrackID();
   int nTrack = fTrackInfor->fTrackID.size();
+  //std::cout << "Track ID size =" << nTrack << std::endl;
   for(size_t i=0;i<nTrack;++i){
     if(trackID == fTrackInfor->fTrackID[i]){
       return;
     }
   }
 
+  
   fTrackInfor->fTrackID.push_back(trackID);
   fTrackInfor->fParentID.push_back(aTrack->GetParentID());
   fTrackInfor->fPDGCode.push_back(aTrack->GetDynamicParticle()->GetPDGcode());
@@ -41,6 +44,13 @@ void DmpSimTrackingAction::PreUserTrackingAction(const G4Track* aTrack){
   G4ThreeVector dir = aTrack->GetVertexMomentumDirection();
   fTrackInfor->fDirection.push_back(TVector3(dir.x(),dir.y(),dir.z()));
   fTrackInfor->fEnergy.push_back(aTrack->GetVertexKineticEnergy()/MeV);
+
+  //debug
+  /*
+  if ((aTrack->GetDynamicParticle()->GetPDGcode()==22)&&(aTrack->GetParentID()==1)&&(aTrack->GetVolume()->GetName()=="PhotonGenerator")){
+    std::cout << "Track ID:" << trackID << ",Paraent ID:" << aTrack->GetParentID() << ",volume:" << aTrack->GetVolume()->GetName() << ",PZ=" << aTrack->GetVertexPosition().z() << ",VKin=" << aTrack->GetVertexKineticEnergy()/MeV << "MeV" << std::endl;
+  }
+  */
         /*
   if(aTrack->GetParentID()==0) {        // Create trajectory only for primaries
     fpTrackingManager->SetStoreTrajectory(true);        // then will affect what??

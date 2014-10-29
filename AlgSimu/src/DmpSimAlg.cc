@@ -13,6 +13,7 @@
 #include "DmpSimMagneticField.h"
 #include "DmpSimPrimaryGeneratorAction.h"
 #include "DmpSimTrackingAction.h"
+#include "DmpSimEventAction.hh"
 #include "DmpCore.h"
 #include "DmpDataBuffer.h"
 #include "DmpMetadata.h"
@@ -75,6 +76,7 @@ bool DmpSimAlg::Initialize(){
   fSource = new DmpSimPrimaryGeneratorAction();     fSimRunMgr->SetUserAction(fSource);      // only Primary Generator is mandatory
   fDetector = new DmpSimDetector();                 fSimRunMgr->SetUserInitialization(fDetector);
   fTracking = new DmpSimTrackingAction();           fSimRunMgr->SetUserAction(fTracking);
+  fEvent    = new DmpSimuEventAction(fTracking);    fSimRunMgr->SetUserAction(fEvent);
   fSimRunMgr->Initialize();
   fSource->ApplyGPSCommand(); // must after fSimRunMgr->Initialize()
 // boot simulation

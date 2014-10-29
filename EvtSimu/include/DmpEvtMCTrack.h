@@ -8,6 +8,7 @@
 #define DmpEvtMCTrack_H
 
 #include "TVector3.h"
+#include <vector>
 
 class DmpEvtMCTrack : public TObject{
 /*

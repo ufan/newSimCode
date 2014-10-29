@@ -157,7 +157,7 @@ void DmpSimDetector::AddPhotonGenerator()const{
   }
   std::string command;
   // get size of PhotonGenerator
-  double size_x=200,size_y=200,size_z=0.5;    // unit mm.
+  double size_x=50,size_y=50,size_z=0.5;    // unit mm.
   command = "BT/PhotonGenerator/Thickness";
   if(fMetadata->HasCommand(command)){
     std::istringstream iss(fMetadata->GetValue(command));

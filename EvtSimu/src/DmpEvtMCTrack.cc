@@ -5,6 +5,7 @@
 */
 
 #include "DmpEvtMCTrack.h"
+#include <iostream>
 
 ClassImp(DmpEvtMCTrack)
 
@@ -40,6 +41,7 @@ void DmpEvtMCTrack::LoadFrom(DmpEvtMCTrack *r){
 
 //-------------------------------------------------------------------
 void DmpEvtMCTrack::Reset(){
+  //std::cout << "Reset MC Track event class~" << std::endl;
   fTrackID.clear();
   fParentID.clear();
   fPDGCode.clear();

@@ -8,8 +8,9 @@
 #define  DmpSimTrackingAction_H
 
 #include "G4UserTrackingAction.hh"
+#include "DmpEvtMCTrack.h"
 
-class DmpEvtMCTrack;
+//class DmpEvtMCTrack;
 
 class  DmpSimTrackingAction : public G4UserTrackingAction {
 public:
@@ -17,6 +18,7 @@ public:
   ~DmpSimTrackingAction(){};
 
   void PreUserTrackingAction(const G4Track*);
+  DmpEvtMCTrack* GetTrackEvtClass(){return fTrackInfor;}
 
 private:
   DmpEvtMCTrack     *fTrackInfor;   // information of all tracks

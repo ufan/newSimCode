@@ -14,6 +14,7 @@ class DmpSimRunManager;
 class DmpSimPrimaryGeneratorAction;
 class DmpSimDetector;
 class DmpSimTrackingAction;
+class DmpSimuEventAction;
 class G4PhysListFactory;
 
 class DmpSimAlg : public DmpVAlg{
@@ -64,6 +65,7 @@ private:
   DmpSimPrimaryGeneratorAction  *fSource;   // particle source
   DmpSimDetector        *fDetector;     // DAMPE detector
   DmpSimTrackingAction  *fTracking;     // tracking action
+  DmpSimuEventAction    *fEvent;        // event action
 
 };
 
