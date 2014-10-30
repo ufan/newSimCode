@@ -170,7 +170,7 @@ void DmpSimDetector::AddPhotonGenerator()const{
   }
   // get material of PhotonGenerator
   G4NistManager *materialMgr = G4NistManager::Instance();
-  G4Material *mat = materialMgr->FindOrBuildMaterial("G4_Pb");
+  G4Material *mat = materialMgr->FindOrBuildMaterial("G4_Galactic");
   command = "BT/PhotonGenerator/Material";
   if(fMetadata->HasCommand(command)){
     mat = materialMgr->FindOrBuildMaterial(fMetadata->GetValue(command).c_str());
