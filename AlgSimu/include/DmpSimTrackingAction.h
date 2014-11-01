@@ -17,6 +17,7 @@ public:
   ~DmpSimTrackingAction(){};
 
   void PreUserTrackingAction(const G4Track*);
+  void ResetTrackingData()const;
 
 private:
   DmpEvtMCTrack     *fTrackInfor;   // information of all tracks

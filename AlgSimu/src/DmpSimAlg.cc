@@ -119,6 +119,7 @@ bool DmpSimAlg::Initialize(){
 
 //-------------------------------------------------------------------
 bool DmpSimAlg::ProcessThisEvent(){
+  fTracking->ResetTrackingData();
   if(fSimRunMgr->SimOneEvent(gCore->GetCurrentEventID())){
     return true;
   }

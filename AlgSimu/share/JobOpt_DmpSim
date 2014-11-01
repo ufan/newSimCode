@@ -14,7 +14,7 @@ import libDmpSimAlg as  DmpSim     # Load your lib.
 
 #-------------------------------------------------------------------
 # Global setting
-DMPSW.Core.Set("EventNumber","1000")     # MUST event number for simulation!!!
+DMPSW.Core.Set("EventNumber","100")     # MUST event number for simulation!!!
 #DMPSW.Core.Set("StartTime","20130101-0000")     # if NOT set, start from launch time
 #DMPSW.Core.Set("StopTime","20160101-0000")      # if NOT set, end at 2113.01.01
 #DMPSW.Core.Set("LogLevel","Debug")      # Value = {Error | Warning | Info | Debug}. If NOT set, will use Info.
@@ -60,7 +60,7 @@ simAlg.Set("gps/energy","2 GeV")
 # Append user's service or algorithm into Kernel
 DMPSW.AlgMgr.Append(simAlg)
 
-DMPSW.RootIOSvc.Set("Output/FileName","./testDmpSim8_12GeV_10000_e-.root")   # if NOT set, will use DmpSim_Seed-sim.root
+DMPSW.RootIOSvc.Set("Output/FileName","./testDmpSim0_2GeV_100_e-.root")   # if NOT set, will use DmpSim_Seed-sim.root
 #-------------------------------------------------------------------
 # Run job
 DMPSW.Core.Initialize()

@@ -1,5 +1,5 @@
 /*
- *  $Id: Analysis.C, 2014-10-27 18:25:33 DAMPE $
+ *  $Id: Analysis.C, 2014-10-27 22:42:23 DAMPE $
  *  Author(s):
  *    Chi WANG (chiwang@mail.ustc.edu.cn) 22/10/2014
  *
@@ -17,8 +17,8 @@ void Analysis(){
   gSystem->Load("$DMPSWWORK/lib/libDmpEvtSim.so");
 }
 
-void LoadInput(std::string files,std::string branchName){
-  eventTree = new TChain(branchName.c_str());
+void LoadInput(std::string files,std::string treeName){
+  eventTree = new TChain(treeName.c_str());
   eventTree->AddFile(files.c_str());
 }
 
