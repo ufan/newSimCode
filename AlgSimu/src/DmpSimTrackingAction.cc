@@ -62,3 +62,7 @@ void DmpSimTrackingAction::PreUserTrackingAction(const G4Track* aTrack){
   */
 }
 
+void DmpSimTrackingAction::ResetTrackingData()const{
+  fTrackInfor->Reset();
+}
+

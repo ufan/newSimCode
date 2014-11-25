@@ -35,8 +35,6 @@ DmpSimuEventAction::~DmpSimuEventAction()
 
 void DmpSimuEventAction::BeginOfEventAction(const G4Event* evt)
 {
-  std::cout << "Begin of Event" << std::endl;
-  fTrackingAction->GetTrackEvtClass()->Reset();
 }
 
 void DmpSimuEventAction::EndOfEventAction(const G4Event* evt)

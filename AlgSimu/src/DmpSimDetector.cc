@@ -66,7 +66,7 @@ G4VPhysicalVolume* DmpSimDetector::Construct(){
   fPhyVolume->GetLogicalVolume()->SetVisAttributes(G4VisAttributes::Invisible);
   chdir(dirTmp);
 
-  AddPhotonGenerator(); // must before adjustment
+  //AddPhotonGenerator(); // must before adjustment
 
   Adjustment();
 

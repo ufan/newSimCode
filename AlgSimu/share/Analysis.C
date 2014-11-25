@@ -1,5 +1,9 @@
 /*
+<<<<<<< HEAD
  *  $Id: Analysis.C, 2014-10-22 15:10:35 DAMPE $
+=======
+ *  $Id: Analysis.C, 2014-10-27 22:42:23 DAMPE $
+>>>>>>> 0153ee5099094011a84601f0a78e4875b6d8280d
  *  Author(s):
  *    Chi WANG (chiwang@mail.ustc.edu.cn) 22/10/2014
  *
@@ -18,10 +22,9 @@ void Analysis(){
   gSystem->Load("$DMPSWWORK/lib/libDmpEvtSim.so");
 }
 
-void LoadInputFile(std::string file){
-  f = new TFile(file.c_str());
-  f->cd("Event");   eventTree = MCTruth;
-  f->cd("Metadata");    metaTree = MCTruth;
+void LoadInput(std::string files,std::string treeName){
+  eventTree = new TChain(treeName.c_str());
+  eventTree->AddFile(files.c_str());
 }
 
 void VertexOfPhoton(){
